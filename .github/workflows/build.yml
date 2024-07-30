@@ -4,10 +4,14 @@
 # against bad commits.
 
 name: build
-on: [pull_request, push]
+on:
+  push:
+
+
 
 jobs:
   build:
+    if: contains(github.event.head_commit.message, 'build')
     strategy:
       matrix:
         # Use these Java versions
