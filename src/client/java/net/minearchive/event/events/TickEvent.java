@@ -1,4 +1,14 @@
 package net.minearchive.event.events;
 
-public class TickEvent {
+import net.minearchive.event.Event;
+
+public class TickEvent extends Event {
+
+   public record TickStartEvent() {
+
+   }
+
+   public record TickEndEvent() {
+
+   }
 }
