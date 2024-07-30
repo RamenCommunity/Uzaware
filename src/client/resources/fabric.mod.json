@@ -20,7 +20,7 @@
 		]
 	},
 	"mixins": [
-		"modid.client.mixins.json"
+		"uzaware.client.mixins.json"
 	],
 	"depends": {
 		"fabricloader": ">=0.15.11",
