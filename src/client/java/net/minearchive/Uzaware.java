@@ -26,5 +26,6 @@ public class Uzaware implements ClientModInitializer {
 	public void onInitializeClient() {
 		LOGGER.info("Uzaware Initialized!");
 		LOGGER.info(serif[new Random().nextInt(4)]);
+		LOGGER.info("Uzaware Initialized!");
 	}
 }
