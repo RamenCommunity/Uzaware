@@ -1,7 +1,7 @@
 {
 	"schemaVersion": 1,
-	"id": "modid",
-	"version": "${version}",
+	"id": "uzaware",
+	"version": "1.0.0",
 	"name": "Example mod",
 	"description": "This is an example description! Tell everyone what your mod is about!",
 	"authors": [
@@ -15,24 +15,16 @@
 	"icon": "assets/modid/icon.png",
 	"environment": "*",
 	"entrypoints": {
-		"main": [
-			"com.example.ExampleMod"
-		],
 		"client": [
-			"com.example.ExampleModClient"
+			"net.minearchive.Uzaware"
 		]
 	},
 	"mixins": [
-		"modid.mixins.json",
-		{
-			"config": "modid.client.mixins.json",
-			"environment": "client"
-		}
+		"modid.client.mixins.json"
 	],
 	"depends": {
-		"fabricloader": ">=0.15.10",
-		"minecraft": "~1.20.6",
-		"java": ">=21",
+		"fabricloader": ">=0.15.11",
+		"minecraft": "~1.20.1",
 		"fabric-api": "*"
 	},
 	"suggests": {
