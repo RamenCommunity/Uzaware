@@ -1,0 +1,78 @@
+package net.minearchive.manager;
+
+import org.apache.commons.compress.utils.IOUtils;
+import org.apache.logging.log4j.LogManager;
+import org.lwjgl.nanovg.NVGColor;
+import org.lwjgl.nanovg.NanoVG;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.ByteBuffer;
+
+public class Font {
+    private ByteBuffer buffer;
+    public final String assetsPath;
+    public final String name;
+    private long nvg;
+
+    public Font(String assetsPath, String name) {
+        this.assetsPath = assetsPath;
+        this.name = name;
+        try {
+            InputStream stream = this.getClass().getResourceAsStream(assetsPath);
+            this.buffer = ByteBuffer.wrap(IOUtils.toByteArray(stream));
+        } catch (IOException e) {
+            LogManager.getLogger("FontLoader").error("failed find resource \"{}\"", assetsPath, e);
+        }
+    }
+
+    public void draw(String text, float x, float y, float size, int color) {
+        this.draw(text, x, y, size, color, NanoVG.NVG_ALIGN_LEFT | NanoVG.NVG_ALIGN_TOP);
+    }
+
+    public void draw(String text, float x, float y, float size, int color, int align) {
+        byte r = (byte) (color >> 0x10 & 0xFF);
+        byte g = (byte) (color >> 0x8 & 0xFF);
+        byte b = (byte) (color & 0xFF);
+        byte a = (byte) (color >> 0x18 & 0xFF);
+
+        NanoVG.nvgBeginPath(nvg);
+        NanoVG.nvgFontSize(nvg, size);
+        NanoVG.nvgTextAlign(nvg, align);
+        NanoVG.nvgFontFace(nvg, name);
+        NVGColor nvgColor = NVGColor.calloc();
+        NanoVG.nvgRGBA(r, g, b, a, nvgColor);
+        NanoVG.nvgFillColor(nvg, nvgColor);
+        NanoVG.nvgText(nvg, x, y, text);
+        NanoVG.nvgRGBAf(0, 0, 0, 0, nvgColor);
+        NanoVG.nvgFillColor(nvg, nvgColor);
+        NanoVG.nvgFill(nvg);
+        NanoVG.nvgClosePath(nvg);
+        nvgColor.free();
+    }
+
+    public float width(String text, float scale) {
+        float[] bounds = new float[4];
+        NanoVG.nvgFontSize(nvg, scale);
+        NanoVG.nvgFontFace(nvg, name);
+        return NanoVG.nvgTextBounds(nvg, 0, 0, text, bounds);
+    }
+
+    public float height(float scale) {
+        float[] ascender = new float[1];
+        float[] descender = new float[1];
+        float[] line = new float[1];
+
+        NanoVG.nvgFontFace(nvg, name);
+        NanoVG.nvgFontSize(nvg, scale);
+        NanoVG.nvgTextMetrics(nvg, ascender, descender, line);
+
+        return line[0];
+    }
+
+    protected void loadFont(long nvg) {
+        this.nvg = nvg;
+        NanoVG.nvgCreateFontMem(nvg, name, buffer, 0);
+        LogManager.getLogger("FontLoader").info("Loaded {}", name);
+    }
+}

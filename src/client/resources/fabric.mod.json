@@ -19,6 +19,7 @@
 			"net.minearchive.Uzaware"
 		]
 	},
+	"accessWidener": "uzaware.accesswidener",
 	"mixins": [
 		"uzaware.client.mixins.json"
 	],

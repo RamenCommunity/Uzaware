@@ -1,6 +1,8 @@
 package net.minearchive.module;
 
-public class Module {
+import net.minearchive.AccessMC;
+
+public class Module implements AccessMC {
     public final String name        = getAnnotation().name();
     public final String description = getAnnotation().description();
     public final int keybind        = getAnnotation().keybind();
