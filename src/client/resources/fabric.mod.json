@@ -2,17 +2,21 @@
 	"schemaVersion": 1,
 	"id": "uzaware",
 	"version": "1.0.0",
-	"name": "Example mod",
-	"description": "This is an example description! Tell everyone what your mod is about!",
+	"name": "Uzaware",
+	"description": "A Minecraft Hacked Client. Thank you Uzawa Reisa",
 	"authors": [
-		"Me!"
+		"MineArchive",
+		"enokitoraisu",
+		"kuromoti",
+		"ouden_",
+		"MKTmel"
 	],
 	"contact": {
-		"homepage": "https://fabricmc.net/",
-		"sources": "https://github.com/FabricMC/fabric-example-mod"
+		"homepage": "https://minearchive.net/",
+		"sources": "https://github.com/RamenCommunity/Uzaware"
 	},
 	"license": "CC0-1.0",
-	"icon": "assets/uzaware/icon.png",
+	"icon": "assets/uzaware/uzaware.png",
 	"environment": "*",
 	"entrypoints": {
 		"client": [
