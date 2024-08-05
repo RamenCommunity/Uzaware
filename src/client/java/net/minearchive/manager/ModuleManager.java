@@ -1,16 +1,17 @@
 package net.minearchive.manager;
 
 import net.minearchive.module.Module;
+import net.minearchive.module.modules.client.ClickGuiModule;
 
 import java.util.*;
 
 public class ModuleManager {
     public static ModuleManager INSTANCE;
-
-    private final List<Module> modules = new ArrayList<>();
+    public final List<Module> modules = new ArrayList<>();
 
     public ModuleManager() {
         INSTANCE = this;
+        register(ClickGuiModule.class);
     }
 
     public Optional<Module> getInstance(Class<? extends Module> clazz) {

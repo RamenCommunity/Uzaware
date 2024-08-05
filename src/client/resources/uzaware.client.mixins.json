@@ -1,11 +1,12 @@
 {
-	"required": true,
-	"package": "net.minearchive.mixin",
-	"compatibilityLevel": "JAVA_17",
-	"client": [
-		"client.MixinWindow"
-	],
-	"injectors": {
-		"defaultRequire": 1
+  "required": true,
+  "package": "net.minearchive.mixin",
+  "compatibilityLevel": "JAVA_17",
+  "client": [
+    "client.MixinKeyboard",
+    "client.MixinWindow"
+  ],
+  "injectors": {
+    "defaultRequire": 1
 	}
 }

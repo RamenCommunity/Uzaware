@@ -15,14 +15,14 @@ public class Module implements AccessMC {
         enabled = !enabled;
     }
 
-    public void enable() {
+    public final void enable() {
         if (!enabled) {
             enabled = true;
             onEnable();
         }
     }
 
-    public void disable() {
+    public final void disable() {
         if (enabled) {
             enabled = false;
             onDisable();

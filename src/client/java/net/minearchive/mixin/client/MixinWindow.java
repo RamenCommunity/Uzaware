@@ -17,8 +17,7 @@ import static net.minearchive.Uzaware.version;
 
 @Mixin(Window.class)
 public class MixinWindow {
-
-    @Redirect(method = "setTitle", at = @At(value = "INVOKE", target = "Lorg/lwjgl/glfw/GLFW;glfwSetWindowTitle(JLjava/lang/CharSequence;)V"))
+    @Redirect(method = "setTitle", at = @At(value = "INVOKE", target = "Lorg/lwjgl/glfw/GLFW;glfwSetWindowTitle(JLjava/lang/CharSequence;)V", remap = false))
     public void OnSetTitle(long window, CharSequence title) {
         if (title instanceof String && ((String) title).contains("Minecraft")) {
             GLFW.glfwSetWindowTitle(window, modName + "  |  v" + version);
