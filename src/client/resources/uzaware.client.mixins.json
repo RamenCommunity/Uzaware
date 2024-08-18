@@ -4,6 +4,7 @@
   "compatibilityLevel": "JAVA_17",
   "client": [
     "client.MixinKeyboard",
+    "client.MixinLightmapTextureManager",
     "client.MixinWindow"
   ],
   "injectors": {

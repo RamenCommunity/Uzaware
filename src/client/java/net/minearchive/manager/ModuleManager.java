@@ -2,6 +2,7 @@ package net.minearchive.manager;
 
 import net.minearchive.module.Module;
 import net.minearchive.module.modules.client.ClickGuiModule;
+import net.minearchive.module.modules.render.FullBrightModule;
 
 import java.util.*;
 
@@ -12,6 +13,7 @@ public class ModuleManager {
     public ModuleManager() {
         INSTANCE = this;
         register(ClickGuiModule.class);
+        register(FullBrightModule.class);
     }
 
     public Optional<Module> getInstance(Class<? extends Module> clazz) {
