@@ -2,6 +2,7 @@ package net.minearchive.screen;
 
 import net.minearchive.Uzaware;
 import net.minearchive.module.Category;
+import net.minearchive.module.modules.client.ClickGuiModule;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.text.Text;
@@ -83,5 +84,10 @@ public class ClickGuiScreen extends Screen {
     public boolean charTyped(char chr, int modifiers) {
         if (elements.stream().noneMatch(e -> e.charTyped(chr, modifiers))) return super.charTyped(chr, modifiers);
         return false;
+    }
+
+    @Override
+    public void close() {
+        ClickGuiModule.INSTANCE.disable();
     }
 }
