@@ -5,14 +5,14 @@ import net.minearchive.AccessMC;
 public class Module implements AccessMC {
     public final String name        = getAnnotation().name();
     public final String description = getAnnotation().description();
-    public final int keybind        = getAnnotation().keybind();
+    public int keybind              = getAnnotation().keybind();
     public final Category category  = getAnnotation().category();
     public boolean enabled          = false;
 
     public void toggle() {
-        if (enabled) onDisable();
-        else onEnable();
         enabled = !enabled;
+        if (enabled) onEnable();
+        else onDisable();
     }
 
     public final void enable() {

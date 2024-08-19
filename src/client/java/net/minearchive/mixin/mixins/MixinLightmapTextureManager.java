@@ -1,4 +1,4 @@
-package net.minearchive.mixin.client;
+package net.minearchive.mixin.mixins;
 
 import net.minearchive.module.modules.render.FullBrightModule;
 import net.minecraft.client.option.SimpleOption;

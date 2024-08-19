@@ -12,7 +12,7 @@ public enum Category {
         this.display = display;
     }
 
-    public String getDisplay() {
+    public String display() {
         return display;
     }
 }

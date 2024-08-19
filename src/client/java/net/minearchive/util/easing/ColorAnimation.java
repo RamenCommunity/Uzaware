@@ -1,9 +1,10 @@
 package net.minearchive.util.easing;
 
+import org.joml.Math;
+
 import java.awt.*;
 
 public class ColorAnimation {
-
     private final Animation red;
     private final Animation green;
     private final Animation blue;
@@ -38,10 +39,10 @@ public class ColorAnimation {
 
     public Color getColor() {
         return new Color(
-                Math.max(Math.min((int) red.getValue(), 255), 0),
-                Math.max(Math.min((int) green.getValue(), 255), 0),
-                Math.max(Math.min((int) blue.getValue(), 255), 0),
-                Math.max(Math.min((int) alpha.getValue(), 255), 0)
+                Math.clamp(0, 255, red.getValue()),
+                Math.clamp(0, 255, green.getValue()),
+                Math.clamp(0, 255, blue.getValue()),
+                Math.clamp(0, 255, alpha.getValue())
         );
     }
 

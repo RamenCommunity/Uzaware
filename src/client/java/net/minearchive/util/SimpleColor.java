@@ -149,7 +149,7 @@ public class SimpleColor {
      * @param alpha The alpha component of the color to set (0 to 255).
      */
     public void alpha(int alpha) {
-        this.value = this.value & 0xFFFFFF00 | alpha;
+        this.value = this.value & 0x00FFFFFF | alpha;
     }
 
     /**
@@ -158,7 +158,7 @@ public class SimpleColor {
      * @param red The red component of the color to set (0 to 255).
      */
     public void red(int red) {
-        this.value = this.value & 0x00FFFFFF | red << 16;
+        this.value = this.value & 0xFF00FFFF | red << 16;
     }
 
     /**
@@ -167,7 +167,7 @@ public class SimpleColor {
      * @param green The green component of the color to set (0 to 255).
      */
     public void green(int green) {
-        this.value = this.value & 0xFF00FFFF | green << 8;
+        this.value = this.value & 0xFFFF00FF | green << 8;
     }
 
     /**
@@ -176,7 +176,7 @@ public class SimpleColor {
      * @param blue The blue component of the color to set (0 to 255).
      */
     public void blue(int blue) {
-        this.value = this.value & 0xFFFF00FF | blue;
+        this.value = this.value & 0xFFFFFF00 | blue;
     }
 
     /**
