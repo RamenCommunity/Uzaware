@@ -18,10 +18,7 @@ public class ModuleManager {
         register(ClickGuiModule.class);
         register(FullBrightModule.class);
 
-        List<Module> copy = new ArrayList<>(modules);
-        copy = copy.stream().sorted(Comparator.comparing(module -> module.name)).toList();
-        modules.clear();
-        modules.addAll(copy);
+        modules.sort(Comparator.comparing(m -> m.name));
     }
 
     public Optional<Module> getInstance(Class<? extends Module> clazz) {
