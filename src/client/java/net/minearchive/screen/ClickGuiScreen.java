@@ -16,9 +16,11 @@ public class ClickGuiScreen extends Screen {
     private final List<PanelElement> elements = new ArrayList<>();
     private final int PANEL_MARGIN = 20;
     private final int PANEL_WIDTH = 250;
+    private final ClickGuiModule clickGuiModule;
 
-    public ClickGuiScreen() {
+    public ClickGuiScreen(ClickGuiModule clickGuiModule) {
         super(Text.of("Uzaware"));
+        this.clickGuiModule = clickGuiModule;
 
         if (elements.isEmpty()) {
             AtomicInteger integer = new AtomicInteger(0);
@@ -88,6 +90,6 @@ public class ClickGuiScreen extends Screen {
 
     @Override
     public void close() {
-        ClickGuiModule.INSTANCE.disable();
+        clickGuiModule.disable();
     }
 }

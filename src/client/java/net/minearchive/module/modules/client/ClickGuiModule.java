@@ -8,19 +8,14 @@ import org.lwjgl.glfw.GLFW;
 
 @ModuleInfo(name = "ClickGui", category = Category.CLIENT, keybind = GLFW.GLFW_KEY_RIGHT_SHIFT)
 public class ClickGuiModule extends Module {
-    public static ClickGuiModule INSTANCE;
-
-    public ClickGuiModule() {
-        INSTANCE = this;
-    }
-
     @Override
     public void onEnable() {
-        client.setScreen(new ClickGuiScreen());
+        client.setScreen(new ClickGuiScreen(this));
     }
 
     @Override
     public void onDisable() {
-        if (client.currentScreen instanceof ClickGuiScreen) client.setScreen(null);
+        if (client.currentScreen instanceof ClickGuiScreen)
+            client.setScreen(null);
     }
 }
