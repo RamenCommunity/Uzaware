@@ -2,6 +2,8 @@ package net.minearchive.module;
 
 import net.minearchive.AccessMC;
 
+import static net.minearchive.Uzaware.EVENT_BUS;
+
 public class Module implements AccessMC {
     public final String name        = getAnnotation().name();
     public final String description = getAnnotation().description();
@@ -11,8 +13,13 @@ public class Module implements AccessMC {
 
     public void toggle() {
         enabled = !enabled;
-        if (enabled) onEnable();
-        else onDisable();
+        if (enabled) {
+            onEnable();
+            EVENT_BUS.register(this);
+        } else {
+            onDisable();
+            EVENT_BUS.unregister(this);
+        }
     }
 
     public final void enable() {

@@ -4,6 +4,7 @@ import net.minearchive.manager.Font;
 import org.lwjgl.nanovg.NVGColor;
 import org.lwjgl.nanovg.NVGPaint;
 import org.lwjgl.nanovg.NanoVG;
+import org.lwjgl.system.NativeResource;
 import org.lwjgl.system.Struct;
 
 public class NanoVGUtils {
