@@ -1,10 +1,12 @@
 package net.minearchive.screen;
 
+import com.mojang.blaze3d.systems.RenderSystem;
 import net.minearchive.Uzaware;
 import net.minearchive.module.Category;
 import net.minearchive.module.modules.client.ClickGuiModule;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.client.gui.screen.ingame.InventoryScreen;
 import net.minecraft.text.Text;
 
 import java.util.ArrayList;
@@ -21,7 +23,6 @@ public class ClickGuiScreen extends Screen {
     public ClickGuiScreen(ClickGuiModule clickGuiModule) {
         super(Text.of("Uzaware"));
         this.clickGuiModule = clickGuiModule;
-
         if (elements.isEmpty()) {
             AtomicInteger integer = new AtomicInteger(0);
             Arrays.stream(Category.values()).forEach(c -> elements.add(new PanelElement(c, PANEL_MARGIN + integer.getAndAdd(PANEL_WIDTH + PANEL_MARGIN), PANEL_MARGIN, PANEL_WIDTH)));
@@ -91,5 +92,10 @@ public class ClickGuiScreen extends Screen {
     @Override
     public void close() {
         clickGuiModule.disable();
+    }
+
+    @Override
+    public boolean shouldPause() {
+        return false;
     }
 }
