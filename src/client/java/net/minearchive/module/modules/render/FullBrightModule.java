@@ -5,12 +5,11 @@ import net.minearchive.module.Module;
 import net.minearchive.module.ModuleInfo;
 
 
-@ModuleInfo(name = "FullBright", category = Category.RENDER)
+@ModuleInfo(name = "FullBright", category = Category.RENDER, enable = true)
 public class FullBrightModule extends Module {
     public static FullBrightModule INSTANCE;
 
     public FullBrightModule() {
         INSTANCE = this;
-        this.enabled = true;
     }
 }

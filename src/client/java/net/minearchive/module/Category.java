@@ -2,9 +2,11 @@ package net.minearchive.module;
 
 public enum Category {
     COMBAT("Combat"),
+    MISC("Misc"),
+    MOVEMENT("Movement"),
     RENDER("Render"),
     CLIENT("Client"),
-    MISC("Misc");
+    HUD("Hud");
 
     private final String display;
 

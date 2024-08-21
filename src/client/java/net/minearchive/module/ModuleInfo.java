@@ -10,5 +10,6 @@ public @interface ModuleInfo {
     String name();
     String description()    default "";
     int keybind()           default GLFW.GLFW_KEY_UNKNOWN;
+    boolean enable()        default false;
     Category category();
 }
