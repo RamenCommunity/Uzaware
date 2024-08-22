@@ -9,7 +9,7 @@ public class Module implements AccessMC {
     public final String description = getAnnotation().description();
     public int keybind              = getAnnotation().keybind();
     public final Category category  = getAnnotation().category();
-    public boolean enabled          = false;
+    public boolean enabled          = getAnnotation().enable();
 
     public void toggle() {
         enabled = !enabled;
