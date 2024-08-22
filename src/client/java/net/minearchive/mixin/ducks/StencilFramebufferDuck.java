@@ -1,6 +1,6 @@
 package net.minearchive.mixin.ducks;
 
-public interface StencilFramebufferDucks {
+public interface StencilFramebufferDuck {
     boolean uzaware$stencilEnabled();
     void uzaware$enableStencil();
 }

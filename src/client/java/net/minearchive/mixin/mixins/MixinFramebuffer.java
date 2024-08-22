@@ -1,7 +1,7 @@
 package net.minearchive.mixin.mixins;
 
 import com.mojang.blaze3d.platform.GlStateManager;
-import net.minearchive.mixin.ducks.StencilFramebufferDucks;
+import net.minearchive.mixin.ducks.StencilFramebufferDuck;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gl.Framebuffer;
 import org.lwjgl.opengl.GL30;
@@ -14,7 +14,7 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 import java.nio.IntBuffer;
 
 @Mixin(Framebuffer.class)
-public abstract class MixinFramebuffer implements StencilFramebufferDucks {
+public abstract class MixinFramebuffer implements StencilFramebufferDuck {
     @Shadow public abstract void resize(int width, int height, boolean getError);
 
     @Shadow public int viewportWidth;

@@ -1,7 +1,7 @@
 package net.minearchive.manager;
 
 import net.minearchive.AccessMC;
-import net.minearchive.mixin.ducks.StencilFramebufferDucks;
+import net.minearchive.mixin.ducks.StencilFramebufferDuck;
 import net.minearchive.util.GLState;
 import net.minearchive.util.NanoVGUtils;
 import org.lwjgl.nanovg.NVGPaint;
@@ -23,7 +23,7 @@ public class NanoVGManager implements AccessMC {
     public void create() {
         context = NanoVGGL3.nvgCreate(NanoVGGL3.NVG_ANTIALIAS | NanoVGGL3.NVG_STENCIL_STROKES);
         NanoVGUtils.create(context);
-        StencilFramebufferDucks stencil = (StencilFramebufferDucks) client.getFramebuffer();
+        StencilFramebufferDuck stencil = (StencilFramebufferDuck) client.getFramebuffer();
         if (!stencil.uzaware$stencilEnabled())
             stencil.uzaware$enableStencil();
     }
