@@ -9,6 +9,8 @@ import net.minecraft.client.gui.DrawContext;
 import org.lwjgl.nanovg.NanoVG;
 
 public class ModuleElement extends AbstractElement<Module> {
+    /* unused */ private boolean opened;
+
     public ModuleElement(Module module, float x, float y, float width, float height) {
         super(module, x, y, width, height);
     }
@@ -42,9 +44,12 @@ public class ModuleElement extends AbstractElement<Module> {
 
     @Override
     public boolean mouseClicked(double mouseX, double mouseY, int button) {
-        System.out.println("click " + t + " " + button);
         if (MouseUtils.hover(mouseX, mouseY, x + 20, y + offset, width - 40, height)) {
-            t.toggle();
+            switch (button) {
+                case 0 -> t.toggle();
+                case 1 -> opened = !opened;
+            }
+
             return true;
         }
         return false;
