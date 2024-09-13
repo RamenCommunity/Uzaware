@@ -29,8 +29,9 @@ public class PanelElement implements IElement {
 
     @Override
     public void render(DrawContext context, double mouseX, double mouseY, float delta, float offset) {
-        NanoVGUtils.shadow(x, y, width, client.getWindow().getHeight() - 40, 5, SimpleColor.of(0x40000000));
-        NanoVGUtils.rounded(x, y, width, client.getWindow().getHeight() - 40, 5, SimpleColor.of(0x99FFFFFF), NanoVGUtils.Pattern.FILL);
+        float height = elements.size() * 50 + 80;
+        NanoVGUtils.shadow(x, y, width, height, 5, SimpleColor.of(0x40000000));
+        NanoVGUtils.rounded(x, y, width, height, 5, SimpleColor.of(0x99FFFFFF), NanoVGUtils.Pattern.FILL);
         NanoVGUtils.ntr.draw(c.display(), x + width / 2F, y + 30, 30, 0xFFFFFFFF, NanoVG.NVG_ALIGN_CENTER | NanoVG.NVG_ALIGN_MIDDLE);
         NanoVGUtils.lineCap(NanoVG.NVG_ROUND);
         NanoVGUtils.stroke(4F);

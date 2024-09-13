@@ -7,6 +7,7 @@ import net.minearchive.event.events.TickEndEvent;
 import net.minearchive.event.events.TickStartEvent;
 import net.minearchive.manager.ModuleManager;
 import net.minearchive.manager.NanoVGManager;
+import net.minearchive.manager.TextureManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -20,6 +21,7 @@ public class Uzaware implements ClientModInitializer {
     public static final Logger LOGGER 			= LoggerFactory.getLogger(modName);
 	public static ModuleManager moduleManager 	= new ModuleManager();
 	public static NanoVGManager nanoVGManager 	= new NanoVGManager();
+	public static TextureManager textureManager = new TextureManager();
 	public static final EventBus EVENT_BUS 		= new EventBus();
 	private final String[] serif 				= new String[] {
 			"呼ばれて飛び出て！参りました！ みんなのスーパースター、宇沢レイサ、登場です！",

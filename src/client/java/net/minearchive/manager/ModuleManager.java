@@ -2,6 +2,7 @@ package net.minearchive.manager;
 
 import net.minearchive.module.Module;
 import net.minearchive.module.modules.client.ClickGuiModule;
+import net.minearchive.module.modules.hud.WaterMark;
 import net.minearchive.module.modules.render.FullBrightModule;
 
 import java.util.ArrayList;
@@ -28,7 +29,7 @@ public class ModuleManager {
         register(ClickGuiModule.class);
 
         //Hud
-//        register(TargetHudModule.class);
+        register(WaterMark.class);
 
         modules.sort(Comparator.comparing(m -> m.name));
     }

@@ -7,7 +7,7 @@ import java.awt.*;
  * The color value is represented as an integer with the format: 0xAARRGGBB.
  * Each component (alpha, red, green, blue) ranges from 0 to 255.
  */
-public class SimpleColor {
+public class SimpleColor extends Color {
     /**
      * The integer value representing the color.
      */
@@ -19,6 +19,7 @@ public class SimpleColor {
      * @param value The integer value representing the color in the format 0xAARRGGBB.
      */
     public SimpleColor(int value) {
+        super(value);
         this.value = value;
     }
 
@@ -32,6 +33,7 @@ public class SimpleColor {
      * @param alpha The alpha component of the color (0 to 255).
      */
     public SimpleColor(int red, int green, int blue, int alpha) {
+        super(red, green, blue, alpha);
         value = (alpha & 0xFF) << 24 | (red & 0xFF) << 16 | (green & 0xFF) << 8 | blue & 0xFF;
     }
 
@@ -55,6 +57,7 @@ public class SimpleColor {
      * @param color The {@link Color} object to create the SimpleColor from.
      */
     public SimpleColor(Color color) {
+        super(color.getRed(), color.getGreen(), color.getBlue(), color.getAlpha());
         int red = color.getRed();
         int green = color.getGreen();
         int blue = color.getBlue();
