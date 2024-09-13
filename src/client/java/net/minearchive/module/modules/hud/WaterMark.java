@@ -18,13 +18,7 @@ import java.util.Calendar;
 @ModuleInfo(name = "WaterMark", category = Category.HUD)
 public class WaterMark extends HudModule {
 
-    AnimateValue.SingleValue[] values = new AnimateValue.SingleValue[10];
-
-    public WaterMark() {
-        for (int i = 0; i < values.length; i++) {
-            values[i] = new AnimateValue.SingleValue(EnumEasing.SINE);
-        }
-    }
+    AnimateValue animateValue = new AnimateValue(EnumEasing.SINE, 14);
 
     @Override
     public void onRender(Render2DStartEvent event) {;
@@ -33,24 +27,9 @@ public class WaterMark extends HudModule {
         NanoVGUtils.rounded(x, y, 340, 120, 10, SimpleColor.of(0x50ffffff), NanoVGUtils.Pattern.FILL);
         NanoVGUtils.rounded(x, y, 120, 120, 10, Uzaware.textureManager.getTextures("uzawa", 120, 120), NanoVGUtils.Pattern.FILL);
         NanoVGUtils.ntr.draw(Uzaware.modName + " v" + Uzaware.version, x + 130, y + 10, 32, 0xff000000);
-        String timeStamp = new SimpleDateFormat("MMddHHmmss").format(Calendar.getInstance().getTime());
-        char[] chars = timeStamp.toCharArray();
-        float width = NanoVGUtils.ntr.width("0", 32);
-        String[] separators = {"/", " ", ":", ":"};
+        String timeStamp = new SimpleDateFormat("MM/dd HH:mm:ss").format(Calendar.getInstance().getTime());
 
-        float currentX = x + 130;
-
-        for (int i = 0, sepIdx = 0; i < chars.length; i += 2, sepIdx++) {
-            values[i].draw(currentX, y + 40, 32, SimpleColor.of(0xff000000), Integer.valueOf(String.valueOf(chars[i])), 300);
-            currentX += width;
-            values[i + 1].draw(currentX, y + 40, 32, SimpleColor.of(0xff000000), Integer.valueOf(String.valueOf(chars[i + 1])), 300);
-            currentX += width;
-            if (sepIdx < separators.length) {
-                float separatorWidth = NanoVGUtils.ntr.width(separators[sepIdx], 32); // 区切り文字の幅を計算
-                NanoVGUtils.ntr.draw(separators[sepIdx], currentX, y + 40, 32, 0xff000000);
-                currentX += separatorWidth;
-            }
-        }
+        animateValue.draw(x + 130, y + 40, 32, timeStamp, 300, SimpleColor.of(0xff000000));
 
         Uzaware.nanoVGManager.end();
     }

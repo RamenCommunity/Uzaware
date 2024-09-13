@@ -4,38 +4,31 @@ import net.minearchive.util.NanoVGUtils;
 import net.minearchive.util.SimpleColor;
 import org.lwjgl.nanovg.NanoVG;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.stream.IntStream;
 
 public class AnimateValue {
-    List<SingleValue> singleValues = new ArrayList<>();
 
-    private int value;
+    SingleValue[] values;
+    private final int maxLength;
     IEasing easing;
 
-    public AnimateValue(int value, EnumEasing easing, int maxLength) {
-        this.value = value;
+    public AnimateValue(EnumEasing easing, int maxLength) {
         this.easing = easing.getEasing();
+        this.maxLength = maxLength;
+        values = new SingleValue[maxLength];
         for (int i = 0; i < maxLength; i++) {
-            singleValues.add(new SingleValue(easing));
+            values[i] = new SingleValue(easing);
         }
     }
 
-    public void setValue(int value) {
-        this.value = value;
-    }
+    public void draw(float x, float y, float size, String value, double duration, SimpleColor color) {
+        float width = 0;
+        char[] formatted = String.format("%1$-" + this.maxLength + "s", value).toCharArray();
 
-    public void draw(float x, float y, float size, double duration, SimpleColor color) {
-        long context = NanoVGUtils.context;
-        float width = NanoVGUtils.ntr.width("0", size * String.valueOf(value).length());
-        float height = NanoVGUtils.ntr.height(size);
-        NanoVG.nvgSave(context);
-        NanoVG.nvgScissor(context, x - width / 2f, y - height / 2f, width, height);
-
-
-        NanoVG.nvgResetScissor(context);
-        NanoVG.nvgRestore(context);
+        for (int i = 0; i < values.length; i++) {
+            values[i].draw(x + width, y, size, color, formatted[i], duration);
+            width += NanoVGUtils.ntr.width(String.valueOf(formatted[i]), size);
+        }
     }
 
     public static class SingleValue {
@@ -45,17 +38,23 @@ public class AnimateValue {
             this.animation = new Animation(0.0f, easing.getEasing());
         }
 
-        public void draw(float x, float y, float size, SimpleColor color, int value, double duration) {
+        public void draw(float x, float y, float size, SimpleColor color, char value, double duration) {
             float height = NanoVGUtils.ntr.height(size);
-            animation.animateTo(value, duration);
-            NanoVG.nvgScissor(NanoVGUtils.context, x, y, NanoVGUtils.ntr.width("0", size), height);
-            NanoVG.nvgTranslate(NanoVGUtils.context, 0, -animation.getValue() * height);
-            IntStream.range(0, 10).forEach(i -> {
-                if ((i < value || i > value)  && Math.abs(i - value) >= 2) return;
-                NanoVGUtils.ntr.draw(String.valueOf(i), x, y + (height * i), size, color.color());
-            });
-            NanoVG.nvgTranslate(NanoVGUtils.context, 0, animation.getValue() * height);
-            NanoVG.nnvgResetScissor(NanoVGUtils.context);
+
+            if (Character.isDigit(value)) {
+                int numericValue = Character.getNumericValue(value);
+                animation.animateTo(numericValue, duration);
+                NanoVG.nvgScissor(NanoVGUtils.context, x, y, NanoVGUtils.ntr.width(String.valueOf(numericValue), size), height);
+                NanoVG.nvgTranslate(NanoVGUtils.context, 0, -animation.getValue() * height);
+                IntStream.range(0, 10).forEach(i -> {
+                    if ((i < numericValue || i > numericValue) && Math.abs(i - numericValue) >= 2) return;
+                    NanoVGUtils.ntr.draw(String.valueOf(i), x, y + (height * i), size, color.color());
+                });
+                NanoVG.nvgTranslate(NanoVGUtils.context, 0, animation.getValue() * height);
+                NanoVG.nnvgResetScissor(NanoVGUtils.context);
+            } else {
+                NanoVGUtils.ntr.draw(String.valueOf(value), x, y, size, color.color());
+            }
         }
     }
 }
