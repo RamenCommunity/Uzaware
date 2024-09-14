@@ -20,9 +20,7 @@ public class Animation {
         float progress = (float) ((double) (deltaTime / 100L) / (duration * 10000L));
         float easedProgress = (float) easing.ease(progress);
 
-        float deltaValue = (target - value) * Math.min(easedProgress, 1);
-
-        value += deltaValue;
+        value += (target - value) * easedProgress;
     }
 
     public float getValue() {

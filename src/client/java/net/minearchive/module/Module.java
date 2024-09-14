@@ -1,6 +1,12 @@
 package net.minearchive.module;
 
 import net.minearchive.AccessMC;
+import net.minearchive.setting.Setting;
+import net.minearchive.setting.settings.BooleanSetting;
+import net.minearchive.setting.settings.FloatSetting;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static net.minearchive.Uzaware.EVENT_BUS;
 
@@ -10,6 +16,7 @@ public class Module implements AccessMC {
     public int keybind              = getAnnotation().keybind();
     public final Category category  = getAnnotation().category();
     public boolean enabled          = getAnnotation().enable();
+    public final List<Setting<?>> settings = new ArrayList<>();
 
     public void toggle() {
         enabled = !enabled;
@@ -42,6 +49,11 @@ public class Module implements AccessMC {
 
     public boolean nullCheck() {
         return client.world == null || client.player == null;
+    }
+
+    public  <T extends Setting<?>> T add(T t) {
+        settings.add(t);
+        return t;
     }
 
     public ModuleInfo getAnnotation() {

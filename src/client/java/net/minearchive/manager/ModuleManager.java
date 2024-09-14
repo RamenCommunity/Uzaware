@@ -2,6 +2,7 @@ package net.minearchive.manager;
 
 import net.minearchive.module.Module;
 import net.minearchive.module.modules.client.ClickGuiModule;
+import net.minearchive.module.modules.client.ElementSample;
 import net.minearchive.module.modules.hud.WaterMark;
 import net.minearchive.module.modules.misc.ChatSuffix;
 import net.minearchive.module.modules.render.FullBrightModule;
@@ -29,6 +30,7 @@ public class ModuleManager {
 
         //Client
         register(ClickGuiModule.class);
+        register(ElementSample.class);
 
         //Hud
         register(WaterMark.class);

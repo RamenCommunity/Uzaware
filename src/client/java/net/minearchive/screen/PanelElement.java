@@ -18,6 +18,7 @@ public class PanelElement implements IElement {
     private final float x;
     private final float y;
     private final float width;
+    private float height;
 
     public PanelElement(Category c, float x, float y, float width) {
         this.c = c;
@@ -25,11 +26,11 @@ public class PanelElement implements IElement {
         this.y = y;
         this.width = width;
         elements.addAll(Uzaware.moduleManager.modules.stream().filter(m -> m.category == c).map(m -> new ModuleElement(m, x, y, width, 40)).toList());
+        this.height = elements.size() * 55 + 80;
     }
 
     @Override
     public void render(DrawContext context, double mouseX, double mouseY, float delta, float offset) {
-        float height = elements.size() * 50 + 80;
         NanoVGUtils.shadow(x, y, width, height, 5, SimpleColor.of(0x40000000));
         NanoVGUtils.rounded(x, y, width, height, 5, SimpleColor.of(0x99FFFFFF), NanoVGUtils.Pattern.FILL);
         NanoVGUtils.ntr.draw(c.display(), x + width / 2F, y + 30, 30, 0xFFFFFFFF, NanoVG.NVG_ALIGN_CENTER | NanoVG.NVG_ALIGN_MIDDLE);
@@ -38,6 +39,7 @@ public class PanelElement implements IElement {
         NanoVGUtils.line(x + 10, y + 50, x + width - 10, y + 50, SimpleColor.of(0xFFFAC0FF), SimpleColor.of(0xFFB3A5FF));
         AtomicDouble off = new AtomicDouble(70);
         elements.forEach(m -> m.render(context, mouseX, mouseY, delta, (float) off.getAndAdd(m.height())));
+        height = off.floatValue() + 5;
     }
 
     @Override

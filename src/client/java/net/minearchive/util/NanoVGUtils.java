@@ -6,10 +6,16 @@ import org.lwjgl.nanovg.NVGPaint;
 import org.lwjgl.nanovg.NanoVG;
 import org.lwjgl.system.Struct;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class NanoVGUtils {
     public static long context = -1;
     public static Font ntr = new Font("/assets/uzaware/font/NTR-Regular.ttf", "NTR-Regular");
     public static Font symbols = new Font("/assets/uzaware/font/MaterialSymbolsRounded.ttf", "MaterialSymbolsRounded");
+
+    public static List<box> stencilBoxes = new ArrayList<>();
+    public static boolean usingStencil = false;
 
     public static void create(long context) {
         if (NanoVGUtils.context == -1) {
@@ -121,6 +127,29 @@ public class NanoVGUtils {
         calloc.free();
     }
 
+    public static void beginScissor(float x, float y, float width, float height) {
+        assertInitialize();
+        NanoVG.nvgScissor(context, x, y, width, height);
+        stencilBoxes.add(new box(x, y, width, height));
+        usingStencil = true;
+    }
+
+    public static void endScissor() {
+        assertInitialize();
+        NanoVG.nvgResetScissor(context);
+        stencilBoxes.clear();
+        usingStencil = false;
+    }
+
+    public static boolean stencilContain(float x, float y, float width, float height) {
+        return stencilBoxes.stream().filter(b -> isIntersecting(b, x, y, width, height)).toList().isEmpty();
+    }
+
+    private static boolean isIntersecting(box b1, float x, float y, float width, float height) {
+        return b1.x < x + width && b1.x + b1.width > x &&
+                b1.y < y + height && b1.y + b1.height > y;
+    }
+
     public static void stroke(float width) {
         assertInitialize();
         NanoVG.nvgStrokeWidth(context, width);
@@ -192,4 +221,6 @@ public class NanoVGUtils {
     public enum Orientation {
         LINE, HORIZONTAL, VERTICAL
     }
+
+    public record box(float x, float y, float width, float height) {  }
 }

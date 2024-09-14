@@ -44,14 +44,9 @@ public class AnimateValue {
             if (Character.isDigit(value)) {
                 int numericValue = Character.getNumericValue(value);
                 animation.animateTo(numericValue, duration);
-                NanoVG.nvgScissor(NanoVGUtils.context, x, y, NanoVGUtils.ntr.width(String.valueOf(numericValue), size), height);
-                NanoVG.nvgTranslate(NanoVGUtils.context, 0, -animation.getValue() * height);
-                IntStream.range(0, 10).forEach(i -> {
-                    if ((i < numericValue || i > numericValue) && Math.abs(i - numericValue) >= 2) return;
-                    NanoVGUtils.ntr.draw(String.valueOf(i), x, y + (height * i), size, color.color());
-                });
-                NanoVG.nvgTranslate(NanoVGUtils.context, 0, animation.getValue() * height);
-                NanoVG.nnvgResetScissor(NanoVGUtils.context);
+                NanoVGUtils.beginScissor(x, y, NanoVGUtils.ntr.width(String.valueOf(numericValue), size), height);
+                IntStream.range(0, 10).forEach(i -> NanoVGUtils.ntr.draw(String.valueOf(i), x, y + (height * i) - (animation.getValue() * height), size, color.color()));
+                NanoVGUtils.endScissor();
             } else {
                 NanoVGUtils.ntr.draw(String.valueOf(value), x, y, size, color.color());
             }

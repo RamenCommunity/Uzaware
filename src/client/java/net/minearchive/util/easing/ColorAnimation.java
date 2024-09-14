@@ -35,10 +35,10 @@ public class ColorAnimation {
 
     public Color getColor() {
         return new Color(
-                Math.clamp(0, 255, red.getValue()),
-                Math.clamp(0, 255, green.getValue()),
-                Math.clamp(0, 255, blue.getValue()),
-                Math.clamp(0, 255, alpha.getValue())
+                Math.clamp(0, 255, (int) red.getValue()),
+                Math.clamp(0, 255, (int) green.getValue()),
+                Math.clamp(0, 255, (int) blue.getValue()),
+                Math.clamp(0, 255, (int) alpha.getValue())
         );
     }
 

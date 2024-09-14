@@ -1,30 +1,60 @@
 package net.minearchive.screen.elements;
 
+import com.google.common.util.concurrent.AtomicDouble;
 import net.minearchive.module.Module;
 import net.minearchive.screen.AbstractElement;
+import net.minearchive.screen.IElement;
+import net.minearchive.screen.elements.setting.*;
+import net.minearchive.setting.settings.*;
 import net.minearchive.util.MouseUtils;
 import net.minearchive.util.NanoVGUtils;
 import net.minearchive.util.SimpleColor;
+import net.minearchive.util.easing.Animation;
+import net.minearchive.util.easing.ColorAnimation;
+import net.minearchive.util.easing.EnumEasing;
 import net.minecraft.client.gui.DrawContext;
 import org.lwjgl.nanovg.NanoVG;
 
+import java.awt.*;
+import java.util.ArrayList;
+import java.util.List;
+
 public class ModuleElement extends AbstractElement<Module> {
-    /* unused */ private boolean opened;
+    private final Module module;
+    private final List<IElement> settingComponents = new ArrayList<>();
+    private final ColorAnimation setting, backgroundL, backgroundR;
+    private final Animation h = new Animation(0.0f, EnumEasing.SINE.getEasing());
+    private boolean opened;
 
     public ModuleElement(Module module, float x, float y, float width, float height) {
         super(module, x, y, width, height);
+        module.settings.forEach(s -> {
+            if (s instanceof BooleanSetting) settingComponents.add(new BooleanElement((BooleanSetting) s, x, y ,width ,height));
+            if (s instanceof IntegerSetting) settingComponents.add(new IntegerElement((IntegerSetting) s, x, y ,width ,height));
+            if (s instanceof FloatSetting) settingComponents.add(new FloatElement((FloatSetting) s, x, y ,width ,height));
+            if (s instanceof DoubleSetting) settingComponents.add(new DoubleElement((DoubleSetting) s, x, y ,width ,height));
+            if (s instanceof StringSetting) settingComponents.add(new StringElement((StringSetting) s, x, y ,width ,height));
+            if (s instanceof EnumSetting) settingComponents.add(new EnumElement((EnumSetting) s, x, y ,width ,height));
+        });
+        this.module = module;
+        this.setting = new ColorAnimation(opened ? settingComponents.isEmpty() ? SimpleColor.of(0, 0, 0, 0) : SimpleColor.of(0, 0, 0, 94) : SimpleColor.of(0, 0, 0, 0), EnumEasing.SINE.getEasing());
+        this.backgroundL = new ColorAnimation(module.enabled ? new Color(0xFFFAC0FF) : new Color(0xD93C3C3C), EnumEasing.SINE.getEasing());
+        this.backgroundR = new ColorAnimation(module.enabled ? new Color(0xFFB3A5FF) : new Color(0xD93C3C3C), EnumEasing.SINE.getEasing());
     }
 
     @Override
     public void render(DrawContext context, double mouseX, double mouseY, float delta, float offset) {
         super.render(context, mouseX, mouseY, delta, offset);
+        setting.setAnimation(opened ? settingComponents.isEmpty() ? SimpleColor.of(0, 0, 0, 0) : SimpleColor.of(0, 0, 0, 94) : SimpleColor.of(0, 0, 0, 0), 150);
+        backgroundL.setAnimation(module.enabled ? new Color(0xFFFAC0FF) : new Color(0xD93C3C3C), 150);
+        backgroundR.setAnimation(module.enabled ? new Color(0xFFB3A5FF) : new Color(0xD93C3C3C), 150);
         NanoVGUtils.rounded(x + 20,
                 y + offset,
                 width - 40,
                 height,
                 5,
-                SimpleColor.of(t.enabled ? 0xFFFAC0FF : 0xD93C3C3C),
-                SimpleColor.of(t.enabled ? 0xFFB3A5FF : 0xD93C3C3C),
+                SimpleColor.of(backgroundL.getColor()),
+                SimpleColor.of(backgroundR.getColor()),
                 NanoVGUtils.Pattern.FILL,
                 NanoVGUtils.Orientation.HORIZONTAL);
         NanoVGUtils.stroke(2F);
@@ -39,7 +69,10 @@ public class ModuleElement extends AbstractElement<Module> {
                 NanoVGUtils.Orientation.HORIZONTAL);
         NanoVGUtils.ntr.draw(t.name, x + 30, y + offset + 3 + height / 2F, 20, 0xFFFFFFFF, NanoVG.NVG_ALIGN_LEFT | NanoVG.NVG_ALIGN_MIDDLE);
         NanoVGUtils.symbols.draw("\uE946", x + width - 37, y + offset + 2 + height / 2F, 20, 0x99FFFFFF, NanoVG.NVG_ALIGN_CENTER | NanoVG.NVG_ALIGN_MIDDLE);
-
+        AtomicDouble off = new AtomicDouble(70);
+        NanoVGUtils.rounded(x + 20, y + 50 + offset, width - 40, h.getValue(), 6, SimpleColor.of(setting.getColor()), NanoVGUtils.Pattern.FILL);
+        settingComponents.forEach(c -> c.render(context, mouseX, mouseY, delta, (float) off.getAndAdd(c.height()) + offset));
+        h.animateTo(opened ? off.floatValue() - 70 : 0, 150);
     }
 
     @Override
@@ -87,6 +120,6 @@ public class ModuleElement extends AbstractElement<Module> {
 
     @Override
     public float height() {
-        return height + 15;
+        return height + 15 + h.getValue();
     }
 }
