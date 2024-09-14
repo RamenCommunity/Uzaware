@@ -5,5 +5,5 @@ import net.minearchive.module.Module;
 import net.minearchive.module.ModuleInfo;
 
 @ModuleInfo(name = "SuperIQMath", category = Category.MISC)
-public class SuperIQmath extends Module {
+public class SuperIQMath extends Module {
 }
