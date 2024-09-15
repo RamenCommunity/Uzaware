@@ -12,8 +12,7 @@ public class ElementSample extends Module {
     public FloatSetting floatSetting = add(new FloatSetting("Float", 5.0f, 0.0f, 10.0f));
     public DoubleSetting doubleSetting = add(new DoubleSetting("Double", 5.0, 0.0, 10.0));
     public StringSetting stringSetting = add(new StringSetting("String", "default"));
-    public EnumSetting enumSetting = add(new EnumSetting("Enum", sample.One));
+    public EnumSetting<Sample> enumSetting = add(new EnumSetting<>("Enum", Sample.One));
 
-    enum sample { One, Two, Three }
-
+    enum Sample { One, Two, Three }
 }
