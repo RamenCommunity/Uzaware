@@ -1,9 +1,8 @@
 package net.minearchive.setting.settings;
 
 import net.minearchive.setting.Setting;
-import org.jetbrains.annotations.NotNull;
 
-public class EnumSetting<T extends Enum<T>> extends Setting<Enum<T>> {
+public class EnumSetting<T extends Enum<T>> extends Setting<T> {
     private final T[] contents;
 
     public EnumSetting(String name, T value) {
