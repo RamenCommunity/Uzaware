@@ -1,12 +1,20 @@
 package net.minearchive.screen.elements.setting;
 
+import net.minearchive.screen.ClickGuiScreen;
 import net.minearchive.screen.IElement;
 import net.minearchive.setting.settings.IntegerSetting;
+import net.minearchive.util.MouseUtils;
+import net.minearchive.util.NanoVGUtils;
+import net.minearchive.util.SimpleColor;
 import net.minecraft.client.gui.DrawContext;
+import org.joml.Math;
+import org.lwjgl.glfw.GLFW;
+import org.lwjgl.nanovg.NVGPaint;
 
 public class IntegerElement implements IElement {
     private final IntegerSetting setting;
-    private float x, y, width, height;
+    private final float x, y, width, height;
+    private boolean dragging = false;
 
     public IntegerElement(IntegerSetting setting, float x, float y, float width, float height) {
         this.setting = setting;
@@ -18,7 +26,23 @@ public class IntegerElement implements IElement {
 
     @Override
     public void render(DrawContext context, double mouseX, double mouseY, float delta, float offset) {
+        NVGPaint paint = NanoVGUtils.linearGradient(x + 30, offset + 36, width - 60, 14, SimpleColor.of(0xFFFAC0FF), SimpleColor.of(0xFFB3A5FF), NanoVGUtils.Orientation.HORIZONTAL);
+        NanoVGUtils.ntr.draw(setting.getName()+ " : " + setting.getValue(), x + 30, offset + 10, 22, 0xffffffff);
+        NanoVGUtils.rounded(x + 30, offset + 36, width - 60, 14, 7, SimpleColor.of(0xFF191919), NanoVGUtils.Pattern.FILL);
+        if (setting.getValue() != setting.getMin()) NanoVGUtils.rounded(x + 30, offset + 36, (width - 60) * ((float) setting.getValue() / (setting.getMax() - setting.getMin())), 14, 7, paint, NanoVGUtils.Pattern.FILL);
+        NanoVGUtils.rounded(x + 30, offset + 36, width - 60, 14, 7, SimpleColor.of(0xFF292929), NanoVGUtils.Pattern.STROKE);
 
+        if ((GLFW.glfwGetMouseButton(client.getWindow().getHandle(), GLFW.GLFW_MOUSE_BUTTON_LEFT) == GLFW.GLFW_PRESS)) {
+            if ((MouseUtils.hover(mouseX, mouseY, x + 30, offset + 36, width - 60, 14) && !ClickGuiScreen.isDragging) || dragging) {
+                float p = (float) ((mouseX - (x + 30)) / (width - 60));
+                setting.setValue(Math.clamp(setting.getMin(), setting.getMax(), Math.round(setting.getMin() + (setting.getMax() - setting.getMin()) * p)));
+                dragging = true;
+                ClickGuiScreen.isDragging = true;
+            }
+        } else if (GLFW.glfwGetMouseButton(client.getWindow().getHandle(), GLFW.GLFW_MOUSE_BUTTON_LEFT) == GLFW.GLFW_RELEASE) {
+            dragging = false;
+            ClickGuiScreen.isDragging = false;
+        }
     }
 
     @Override
@@ -58,6 +82,6 @@ public class IntegerElement implements IElement {
 
     @Override
     public float height() {
-        return 0;
+        return 50;
     }
 }

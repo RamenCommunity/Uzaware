@@ -150,72 +150,88 @@ public class SimpleColor extends Color {
      * Sets the alpha component of the color.
      *
      * @param alpha The alpha component of the color to set (0 to 255).
+     * @return Instance of changed value
      */
-    public void alpha(int alpha) {
+    public SimpleColor alpha(int alpha) {
         this.value = this.value & 0x00FFFFFF | alpha;
+        return this;
     }
 
     /**
      * Sets the red component of the color.
      *
      * @param red The red component of the color to set (0 to 255).
+     * @return Instance of changed value
      */
-    public void red(int red) {
+    public SimpleColor red(int red) {
         this.value = this.value & 0xFF00FFFF | red << 16;
+        return this;
     }
 
     /**
      * Sets the green component of the color.
      *
      * @param green The green component of the color to set (0 to 255).
+     * @return Instance of changed value
      */
-    public void green(int green) {
+    public SimpleColor green(int green) {
         this.value = this.value & 0xFFFF00FF | green << 8;
+        return this;
     }
 
     /**
      * Sets the blue component of the color.
      *
      * @param blue The blue component of the color to set (0 to 255).
+     * @return Instance of changed value
      */
-    public void blue(int blue) {
+    public SimpleColor blue(int blue) {
         this.value = this.value & 0xFFFFFF00 | blue;
+        return this;
     }
 
     /**
      * Sets the alpha component of the color using a floating-point value.
      *
      * @param alpha The alpha component of the color (0.0 to 1.0).
+     * @return Instance of changed value
      */
-    public void floatAlpha(float alpha) {
+    public SimpleColor floatAlpha(float alpha) {
         this.value = this.value & 0x00FFFFFF | (int) (alpha * 255F) << 24;
+        return this;
     }
 
     /**
      * Sets the red component of the color using a floating-point value.
      *
      * @param red The red component of the color (0.0 to 1.0).
+     * @return Instance of changed value
      */
-    public void floatRed(float red) {
+    public SimpleColor floatRed(float red) {
         this.value = this.value & 0xFF00FFFF | (int) (red * 255F) << 16;
+        return this;
     }
 
     /**
      * Sets the green component of the color using a floating-point value.
      *
      * @param green The green component of the color (0.0 to 1.0).
+     * @return Instance of changed value
      */
-    public void floatGreen(float green) {
+    public SimpleColor floatGreen(float green) {
         this.value = this.value & 0xFFFF00FF | (int) (green * 255F) << 8;
+        return this;
     }
 
     /**
      * Sets the blue component of the color using a floating-point value.
      *
      * @param blue The blue component of the color (0.0 to 1.0).
+     * @return Instance of changed value
      */
-    public void floatBlue(float blue) {
+    public SimpleColor floatBlue(float blue) {
         this.value = this.value & 0xFFFFFF00 | (int) (blue * 255F);
+        return this;
     }
 
     public static SimpleColor of(Color color) {

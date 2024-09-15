@@ -5,9 +5,8 @@ import net.minearchive.module.Module;
 import net.minearchive.module.ModuleInfo;
 import net.minearchive.setting.settings.*;
 
-@ModuleInfo(name = "Element Sample", category = Category.CLIENT)
+@ModuleInfo(name = "Element Sample", category = Category.COMBAT)
 public class ElementSample extends Module {
-
     public BooleanSetting booleanSetting = add(new BooleanSetting("Boolean", true));
     public IntegerSetting integerSetting = add(new IntegerSetting("Integer", 5, 0, 10));
     public FloatSetting floatSetting = add(new FloatSetting("Float", 5.0f, 0.0f, 10.0f));

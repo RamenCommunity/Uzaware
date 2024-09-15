@@ -23,7 +23,7 @@ public class ModuleElement extends AbstractElement<Module> {
     private final Module module;
     private final List<IElement> settingComponents = new ArrayList<>();
     private final ColorAnimation setting, backgroundL, backgroundR;
-    private final Animation h = new Animation(0.0f, EnumEasing.SINE.getEasing());
+    private final Animation h = new Animation(0.0f, EnumEasing.SINE.getEasing()), a;
     private boolean opened;
 
     public ModuleElement(Module module, float x, float y, float width, float height) {
@@ -40,11 +40,13 @@ public class ModuleElement extends AbstractElement<Module> {
         this.setting = new ColorAnimation(opened ? settingComponents.isEmpty() ? SimpleColor.of(0, 0, 0, 0) : SimpleColor.of(0, 0, 0, 94) : SimpleColor.of(0, 0, 0, 0), EnumEasing.SINE.getEasing());
         this.backgroundL = new ColorAnimation(module.enabled ? new Color(0xFFFAC0FF) : new Color(0xD93C3C3C), EnumEasing.SINE.getEasing());
         this.backgroundR = new ColorAnimation(module.enabled ? new Color(0xFFB3A5FF) : new Color(0xD93C3C3C), EnumEasing.SINE.getEasing());
+        this.a = new Animation(opened ? 1 : 0, EnumEasing.SINE.getEasing());
     }
 
     @Override
     public void render(DrawContext context, double mouseX, double mouseY, float delta, float offset) {
         super.render(context, mouseX, mouseY, delta, offset);
+        a.animateTo(opened ? 1 : 0, 150);
         setting.setAnimation(opened ? settingComponents.isEmpty() ? SimpleColor.of(0, 0, 0, 0) : SimpleColor.of(0, 0, 0, 94) : SimpleColor.of(0, 0, 0, 0), 150);
         backgroundL.setAnimation(module.enabled ? new Color(0xFFFAC0FF) : new Color(0xD93C3C3C), 150);
         backgroundR.setAnimation(module.enabled ? new Color(0xFFB3A5FF) : new Color(0xD93C3C3C), 150);
@@ -70,8 +72,13 @@ public class ModuleElement extends AbstractElement<Module> {
         NanoVGUtils.ntr.draw(t.name, x + 30, y + offset + 3 + height / 2F, 20, 0xFFFFFFFF, NanoVG.NVG_ALIGN_LEFT | NanoVG.NVG_ALIGN_MIDDLE);
         NanoVGUtils.symbols.draw("\uE946", x + width - 37, y + offset + 2 + height / 2F, 20, 0x99FFFFFF, NanoVG.NVG_ALIGN_CENTER | NanoVG.NVG_ALIGN_MIDDLE);
         AtomicDouble off = new AtomicDouble(70);
+        NanoVGUtils.beginScissor(x + 20, y + 50 + offset, width - 40, h.getValue());
         NanoVGUtils.rounded(x + 20, y + 50 + offset, width - 40, h.getValue(), 6, SimpleColor.of(setting.getColor()), NanoVGUtils.Pattern.FILL);
+        NanoVG.nvgSave(NanoVGUtils.context);
+        NanoVG.nvgGlobalAlpha(NanoVGUtils.context, a.getValue());
         settingComponents.forEach(c -> c.render(context, mouseX, mouseY, delta, (float) off.getAndAdd(c.height()) + offset));
+        NanoVG.nvgRestore(NanoVGUtils.context);
+        NanoVGUtils.endScissor();
         h.animateTo(opened ? off.floatValue() - 70 : 0, 150);
     }
 
@@ -85,7 +92,8 @@ public class ModuleElement extends AbstractElement<Module> {
 
             return true;
         }
-        return false;
+
+        return !settingComponents.stream().filter(c -> c.mouseClicked(mouseX, mouseY, button)).toList().isEmpty();
     }
 
     @Override

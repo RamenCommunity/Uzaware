@@ -20,6 +20,8 @@ public class ClickGuiScreen extends Screen {
     private final int PANEL_WIDTH = 250;
     private final ClickGuiModule clickGuiModule;
 
+    public static boolean isDragging = false;
+
     public ClickGuiScreen(ClickGuiModule clickGuiModule) {
         super(Text.of("Uzaware"));
         this.clickGuiModule = clickGuiModule;

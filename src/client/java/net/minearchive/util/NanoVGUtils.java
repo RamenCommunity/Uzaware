@@ -92,6 +92,17 @@ public class NanoVGUtils {
         calloc.free();
     }
 
+    public static void line(float fromX, float fromY, float toX, float toY, NVGPaint paint) {
+        assertInitialize();
+        if (stencilUnContain(fromX, fromY, toX - fromX, toY - fromY)) return;
+        NanoVG.nvgBeginPath(context);
+        NanoVG.nvgMoveTo(context, fromX, fromY);
+        NanoVG.nvgLineTo(context, toX, toY);
+        painter(Pattern.STROKE, paint);
+        NanoVG.nvgClosePath(context);
+        paint.free();
+    }
+
     public static void line(float fromX, float fromY, float toX, float toY, SimpleColor start, SimpleColor end) {
         assertInitialize();
         if (stencilUnContain(fromX, fromY, toX - fromX, toY - fromY)) return;
