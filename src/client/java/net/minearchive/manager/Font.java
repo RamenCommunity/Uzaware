@@ -101,38 +101,6 @@ public class Font {
         nvgColor.free();
     }
 
-    public void formatDraw(String text, float x, float y, float size, int color) {
-        String[] split = text.split("§");
-        Arrays.stream(split).toList().forEach(string -> {
-            if (!string.isEmpty()) {
-                Color textColor = switch (string.charAt(0)) {
-                    case '0' -> new Color(0, 0, 0);
-                    case '1' -> new Color(0, 0, 170);
-                    case '2' -> new Color(0, 170, 0);
-                    case '3' -> new Color(0, 170, 170);
-                    case '4' -> new Color(170, 0, 0);
-                    case '5' -> new Color(170, 0, 170);
-                    case '6' -> new Color(255, 170, 0);
-                    case '7' -> new Color(170, 170, 170);
-                    case '8' -> new Color(85, 85, 85);
-                    case '9' -> new Color(85, 85, 255);
-                    case 'a' -> new Color(85, 255, 85);
-                    case 'b' -> new Color(85, 255, 255);
-                    case 'c' -> new Color(255, 85, 85);
-                    case 'd' -> new Color(255, 85, 255);
-                    case 'e' -> new Color(255, 255, 85);
-                    case 'f' -> new Color(255, 255, 255);
-                    default -> new Color(color);
-                };
-                string = string.substring(1);
-                draw(string, x, y, size, SimpleColor.of(textColor).color());
-                NanoVG.nvgTranslate(NanoVGUtils.context, width(string, size), 0);
-            }
-        });
-        String str = text.replaceAll("\u00A7.", "");
-        NanoVG.nvgTranslate(NanoVGUtils.context, -width(str, size), 0);
-    }
-
     public float width(String text, float scale) {
         float[] bounds = new float[4];
         NanoVG.nvgFontSize(nvg, scale);
