@@ -29,6 +29,7 @@ public class NanoVGUtils {
 
     public static void rect(float x, float y, float width, float height, SimpleColor color, Pattern pattern) {
         assertInitialize();
+        if (stencilUnContain(x, y, width, height)) return;
         NVGColor calloc = setupColor(color);
         NanoVG.nvgBeginPath(context);
         NanoVG.nvgRect(context, x, y, width, height);
@@ -39,6 +40,7 @@ public class NanoVGUtils {
 
     public static void rect(float x, float y, float width, float height, NVGPaint paint, Pattern pattern) {
         assertInitialize();
+        if (stencilUnContain(x, y, width, height)) return;
         NanoVG.nvgBeginPath(context);
         NanoVG.nvgRect(context, x, y, width, height);
         painter(pattern, paint);
@@ -48,6 +50,7 @@ public class NanoVGUtils {
 
     public static void rounded(float x, float y, float width, float height, float radius, SimpleColor color, Pattern pattern) {
         assertInitialize();
+        if (stencilUnContain(x, y, width, height)) return;
         NVGColor calloc = setupColor(color);
         NanoVG.nvgBeginPath(context);
         NanoVG.nvgRoundedRect(context, x, y, width, height, radius);
@@ -58,6 +61,7 @@ public class NanoVGUtils {
 
     public static void rounded(float x, float y, float width, float height, float radius, NVGPaint paint, Pattern pattern) {
         assertInitialize();
+        if (stencilUnContain(x, y, width, height)) return;
         NanoVG.nvgBeginPath(context);
         NanoVG.nvgRoundedRect(context, x, y, width, height, radius);
         painter(pattern, paint);
@@ -67,6 +71,7 @@ public class NanoVGUtils {
 
     public static void rounded(float x, float y, float width, float height, float radius, SimpleColor start, SimpleColor end, Pattern pattern, Orientation orientation) {
         assertInitialize();
+        if (stencilUnContain(x, y, width, height)) return;
         NVGPaint calloc = linearGradient(x, y, x + width, y + height, start, end, orientation);
         NanoVG.nvgBeginPath(context);
         NanoVG.nvgRoundedRect(context, x, y, width, height, radius);
@@ -77,6 +82,7 @@ public class NanoVGUtils {
 
     public static void line(float fromX, float fromY, float toX, float toY, SimpleColor color) {
         assertInitialize();
+        if (stencilUnContain(fromX, fromY, toX - fromX, toY - fromY)) return;
         NVGColor calloc = setupColor(color);
         NanoVG.nvgBeginPath(context);
         NanoVG.nvgMoveTo(context, fromX, fromY);
@@ -86,12 +92,13 @@ public class NanoVGUtils {
         calloc.free();
     }
 
-    public static void line(float startX, float startY, float endX, float endY, SimpleColor start, SimpleColor end) {
+    public static void line(float fromX, float fromY, float toX, float toY, SimpleColor start, SimpleColor end) {
         assertInitialize();
-        NVGPaint paint = linearGradient(startX, startY, endX, endY, start, end, Orientation.LINE);
+        if (stencilUnContain(fromX, fromY, toX - fromX, toY - fromY)) return;
+        NVGPaint paint = linearGradient(fromX, fromY, toX, toY, start, end, Orientation.LINE);
         NanoVG.nvgBeginPath(context);
-        NanoVG.nvgMoveTo(context, startX, startY);
-        NanoVG.nvgLineTo(context, endX, endY);
+        NanoVG.nvgMoveTo(context, fromX, fromY);
+        NanoVG.nvgLineTo(context, toX, toY);
         painter(Pattern.STROKE, paint);
         NanoVG.nvgClosePath(context);
         paint.free();
@@ -99,6 +106,7 @@ public class NanoVGUtils {
 
     public static void shadow(float x, float y, float width, float height, float radius, SimpleColor color) {
         assertInitialize();
+        if (stencilUnContain(x, y, width, height)) return;
         NVGColor inner = setupColor(color);
         color.alpha(0);
         NVGColor outer = setupColor(color);
@@ -119,6 +127,7 @@ public class NanoVGUtils {
 
     public static void circle(float x, float y, float radius, SimpleColor color, Pattern pattern) {
         assertInitialize();
+        if (stencilUnContain(x - radius, y - radius, x + radius, y + radius)) return;
         NVGColor calloc = setupColor(color);
         NanoVG.nvgBeginPath(context);
         NanoVG.nvgCircle(context, x, y, radius);
@@ -141,8 +150,8 @@ public class NanoVGUtils {
         usingStencil = false;
     }
 
-    public static boolean stencilContain(float x, float y, float width, float height) {
-        return stencilBoxes.stream().filter(b -> isIntersecting(b, x, y, width, height)).toList().isEmpty();
+    public static boolean stencilUnContain(float x, float y, float width, float height) {
+        return stencilBoxes.stream().filter(b -> isIntersecting(b, x, y, width, height)).toList().isEmpty() && NanoVGUtils.usingStencil;
     }
 
     private static boolean isIntersecting(box b1, float x, float y, float width, float height) {

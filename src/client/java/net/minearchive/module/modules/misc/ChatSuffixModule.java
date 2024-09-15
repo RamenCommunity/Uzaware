@@ -10,11 +10,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 @ModuleInfo(name = "ChatSuffix", category = Category.MISC)
-public class ChatSuffix extends Module {
+public class ChatSuffixModule extends Module {
 
     private static final Map<String, String> smallCapsMap = new HashMap<>();
 
-    public ChatSuffix() {
+    public ChatSuffixModule() {
         smallCapsMap.put("a", "ᴀ");
         smallCapsMap.put("b", "ʙ");
         smallCapsMap.put("c", "ᴄ");

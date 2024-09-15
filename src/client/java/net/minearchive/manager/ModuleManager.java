@@ -3,8 +3,8 @@ package net.minearchive.manager;
 import net.minearchive.module.Module;
 import net.minearchive.module.modules.client.ClickGuiModule;
 import net.minearchive.module.modules.client.ElementSample;
-import net.minearchive.module.modules.hud.WaterMark;
-import net.minearchive.module.modules.misc.ChatSuffix;
+import net.minearchive.module.modules.hud.WaterMarkModule;
+import net.minearchive.module.modules.misc.ChatSuffixModule;
 import net.minearchive.module.modules.render.FullBrightModule;
 
 import java.util.ArrayList;
@@ -21,7 +21,7 @@ public class ModuleManager {
         //Combat
 
         //Misc
-        register(ChatSuffix.class);
+        register(ChatSuffixModule.class);
 
         //Movement
 
@@ -33,7 +33,7 @@ public class ModuleManager {
         register(ElementSample.class);
 
         //Hud
-        register(WaterMark.class);
+        register(WaterMarkModule.class);
 
         modules.sort(Comparator.comparing(m -> m.name));
     }

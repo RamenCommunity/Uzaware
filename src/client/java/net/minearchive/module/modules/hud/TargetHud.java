@@ -15,5 +15,10 @@ public class TargetHud extends HudModule {
     public void onRender(Render2DStartEvent event) {
         if (entity == null) return;
 
+        new Thread(() -> {
+
+            //ここでエンティティを探す
+
+        }).start();
     }
 }

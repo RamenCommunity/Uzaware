@@ -9,14 +9,12 @@ import net.minearchive.util.NanoVGUtils;
 import net.minearchive.util.SimpleColor;
 import net.minearchive.util.easing.AnimateValue;
 import net.minearchive.util.easing.EnumEasing;
-import net.minecraft.text.Text;
-import org.lwjgl.nanovg.NanoVG;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 @ModuleInfo(name = "WaterMark", category = Category.HUD)
-public class WaterMark extends HudModule {
+public class WaterMarkModule extends HudModule {
 
     AnimateValue animateValue = new AnimateValue(EnumEasing.SINE, 14);
 

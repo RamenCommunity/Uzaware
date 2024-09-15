@@ -82,7 +82,7 @@ public class Font {
                 break;
         }
 
-        if (NanoVGUtils.usingStencil && NanoVGUtils.stencilContain(x + offsetX, y + offsetY, width, height)) return;
+        if (NanoVGUtils.stencilUnContain(x + offsetX, y + offsetY, width, height)) return;
         NanoVG.nvgBeginPath(nvg);
         NanoVG.nvgFontSize(nvg, size);
         NanoVG.nvgTextAlign(nvg, align);
