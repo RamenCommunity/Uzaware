@@ -61,7 +61,11 @@ public class EnumElement implements IElement {
     @Override
     public boolean mouseClicked(double mouseX, double mouseY, int button) {
         if (MouseUtils.hover(mouseX, mouseY, x + 30, offset + 30, width - 60, 40)) {
-            if (button == GLFW.GLFW_MOUSE_BUTTON_LEFT) setting.next();
+            if (button == GLFW.GLFW_MOUSE_BUTTON_LEFT) {
+                setting.next();
+                this.selectAlpha.setValue(0);
+                this.yAnim.setValue(-15);
+            }
             if (button == GLFW.GLFW_MOUSE_BUTTON_RIGHT) opened = !opened;
             for (int i = 0; i < setting.contents().length; i++) {
                 if (setting.getValue().name() == setting.contents()[i].name()) this.v = i;
