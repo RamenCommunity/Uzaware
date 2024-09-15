@@ -7,8 +7,4 @@ import net.minearchive.module.ModuleInfo;
 @ModuleInfo(name = "KillAura", category = Category.COMBAT)
 public class KillAuraModule extends Module {
 
-    @Override
-    public void onTick() {
-
-    }
 }

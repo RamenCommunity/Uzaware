@@ -5,6 +5,8 @@ import net.minearchive.module.Module;
 import net.minearchive.module.ModuleInfo;
 import net.minearchive.setting.settings.*;
 
+import java.awt.*;
+
 @ModuleInfo(name = "Element Sample", category = Category.COMBAT)
 public class ElementSample extends Module {
     public BooleanSetting booleanSetting = add(new BooleanSetting("Boolean", true));
@@ -13,6 +15,7 @@ public class ElementSample extends Module {
     public DoubleSetting doubleSetting = add(new DoubleSetting("Double", 5.0, 0.0, 10.0));
     public StringSetting stringSetting = add(new StringSetting("String", "default"));
     public EnumSetting<Sample> enumSetting = add(new EnumSetting<>("Enum", Sample.One));
+    public ColorSetting colorSetting = add(new ColorSetting("Color", Color.black));
 
-    enum Sample { One, Two, Three }
+    public enum Sample { One, Two, Three }
 }

@@ -2,11 +2,18 @@ package net.minearchive.setting.settings;
 
 import net.minearchive.setting.Setting;
 
+import java.util.function.Supplier;
+
 public class EnumSetting<T extends Enum<T>> extends Setting<T> {
     private final T[] contents;
 
     public EnumSetting(String name, T value) {
         super(name, value);
+        contents = value.getDeclaringClass().getEnumConstants();
+    }
+
+    public EnumSetting(String name, T value, Supplier<Boolean> visible) {
+        super(name, value, visible);
         contents = value.getDeclaringClass().getEnumConstants();
     }
 

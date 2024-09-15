@@ -18,17 +18,17 @@ import java.util.Calendar;
 @ModuleInfo(name = "WaterMark", category = Category.HUD)
 public class WaterMarkModule extends HudModule {
 
-    public EnumSetting<Uzawa> enumSetting = add(new EnumSetting<>("GUI" , Uzawa.Uzawa1));
-    enum Uzawa {Uzawa1,Uzawa2}
+    public EnumSetting<Mode> enumSetting = add(new EnumSetting<>("Mode" , Mode.Uzawa1));
+    public enum Mode { Uzawa1, Uzawa2 }
 
     AnimateValue animateValue = new AnimateValue(EnumEasing.SINE, 14);
     FPSCalculator fpsCalculator = new FPSCalculator();
 
     @Override
-    public void onRender(Render2DStartEvent event) {;
-        switch (enumSetting.getValue()){
-            case Uzawa1 ->{
-                Uzaware.nanoVGManager.begin(false);
+    public void onRender(Render2DStartEvent event) {
+        Uzaware.nanoVGManager.begin(false);
+        switch (enumSetting.getValue()) {
+            case Uzawa1 -> {
                 fpsCalculator.render(event);
                 NanoVGUtils.shadow(x, y, 340, 120, 10, SimpleColor.of(0x40000000));
                 Uzaware.textureManager.createTexture(getClass().getResourceAsStream("/assets/uzaware/texture/reisa.png"), "uzawa");
@@ -40,14 +40,10 @@ public class WaterMarkModule extends HudModule {
                 animateValue.draw(x + 130, y + 40, 32, timeStamp, 300, SimpleColor.of(0xffffffff));
 
                 NanoVGUtils.ntr.draw("FPS: " + fpsCalculator.currentFPS, x + 130, y + 70, 32, 0xffffffff);
-                Uzaware.nanoVGManager.end();
             }
-            case Uzawa2 ->{
-                Uzaware.nanoVGManager.begin(false);
-                NanoVGUtils.ntr.draw("UzaWere v"  + Uzaware.version, x + 5, y + 5, 32, 0xffffffff);
-                Uzaware.nanoVGManager.end();
-            }
+            case Uzawa2 -> NanoVGUtils.ntr.draw("UzaWere v"  + Uzaware.version, x + 5, y + 5, 32, 0xffffffff);
         }
+        Uzaware.nanoVGManager.end();
     }
 
     @Override
