@@ -74,14 +74,14 @@ public class ModuleElement extends AbstractElement<Module> {
         NanoVGUtils.ntr.draw(t.name, x + 30, y + offset + 3 + height / 2F, 20, 0xFFFFFFFF, NanoVG.NVG_ALIGN_LEFT | NanoVG.NVG_ALIGN_MIDDLE);
         NanoVGUtils.symbols.draw("\uE946", x + width - 37, y + offset + 2 + height / 2F, 20, 0x99FFFFFF, NanoVG.NVG_ALIGN_CENTER | NanoVG.NVG_ALIGN_MIDDLE);
         AtomicDouble off = new AtomicDouble(70);
-        NanoVGUtils.beginScissor(x + 20, y + 50 + offset, width - 40, h.getValue());
-        NanoVGUtils.rounded(x + 20, y + 50 + offset, width - 40, h.getValue(), 6, SimpleColor.of(setting.getColor()), NanoVGUtils.Pattern.FILL);
+        NanoVGUtils.beginScissor(x + 20, y + 50 + offset, width - 40, h.getValue() + 5);
+        NanoVGUtils.rounded(x + 20, y + 50 + offset, width - 40, h.getValue() + 5, 6, SimpleColor.of(setting.getColor()), NanoVGUtils.Pattern.FILL);
         NanoVG.nvgSave(NanoVGUtils.context);
         NanoVG.nvgGlobalAlpha(NanoVGUtils.context, a.getValue());
         settingComponents.forEach(c -> c.render(context, mouseX, mouseY, delta, (float) off.getAndAdd(c.height()) + offset));
         NanoVG.nvgRestore(NanoVGUtils.context);
         NanoVGUtils.endScissor();
-        h.animateTo((opened ? off.floatValue() - 70 : - 10) + 5, 150);
+        h.animateTo((opened ? off.floatValue() - 70 : - 10), 150);
     }
 
     @Override
@@ -131,6 +131,6 @@ public class ModuleElement extends AbstractElement<Module> {
 
     @Override
     public float height() {
-        return height + 20 + h.getValue();
+        return height + 20 + h.getValue() + 5;
     }
 }
