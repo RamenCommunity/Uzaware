@@ -23,7 +23,7 @@ public class ModuleElement extends AbstractElement<Module> {
     private final Module module;
     private final List<IElement> settingComponents = new ArrayList<>();
     private final ColorAnimation setting, backgroundL, backgroundR;
-    private final Animation h = new Animation(0.0f, EnumEasing.SINE.getEasing()), a;
+    private final Animation h = new Animation(- 10, EnumEasing.SINE.getEasing()), a;
     private boolean opened;
 
     public ModuleElement(Module module, float x, float y, float width, float height) {

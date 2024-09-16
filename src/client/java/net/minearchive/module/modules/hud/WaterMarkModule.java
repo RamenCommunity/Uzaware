@@ -4,6 +4,7 @@ import com.google.common.eventbus.Subscribe;
 import net.minearchive.Uzaware;
 import net.minearchive.event.events.Render2DStartEvent;
 import net.minearchive.module.Category;
+import net.minearchive.module.HudInfo;
 import net.minearchive.module.HudModule;
 import net.minearchive.module.ModuleInfo;
 import net.minearchive.setting.settings.EnumSetting;
@@ -16,6 +17,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 @ModuleInfo(name = "WaterMark", category = Category.HUD)
+@HudInfo(width = 340f, height = 120f, round = 10)
 public class WaterMarkModule extends HudModule {
 
     public final EnumSetting<Mode> enumSetting = add(new EnumSetting<>("Mode" , Mode.Uzawa1));
@@ -33,7 +35,7 @@ public class WaterMarkModule extends HudModule {
                 NanoVGUtils.shadow(x, y, 340, 120, 10, SimpleColor.of(0x40000000));
                 Uzaware.textureManager.createTexture(getClass().getResourceAsStream("/assets/uzaware/texture/reisa.png"), "uzawa");
                 NanoVGUtils.rounded(x, y, 340, 120, 10, SimpleColor.of(0x50ffffff), NanoVGUtils.Pattern.FILL);
-                NanoVGUtils.rounded(x, y, 120, 120, 10, Uzaware.textureManager.getTextures("uzawa", 120, 120), NanoVGUtils.Pattern.FILL);
+                NanoVGUtils.rounded(x, y, 120, 120, 10, Uzaware.textureManager.getTextures("uzawa", x, y, 120, 120), NanoVGUtils.Pattern.FILL);
                 NanoVGUtils.ntr.draw(Uzaware.modName + " v" + Uzaware.version, x + 130, y + 10, 32, 0xffffffff);
                 String timeStamp = new SimpleDateFormat("MM/dd HH:mm:ss").format(Calendar.getInstance().getTime());
 
@@ -45,12 +47,6 @@ public class WaterMarkModule extends HudModule {
         }
         Uzaware.nanoVGManager.end();
     }
-
-    @Override
-    public void onDrag(float x, float y, float deltaX, float deltaY) {
-        super.onDrag(x, y, deltaX, deltaY);
-    }
-
 
     public static class FPSCalculator {
         private int currentFPS;

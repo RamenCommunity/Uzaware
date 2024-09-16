@@ -1,5 +1,6 @@
 package net.minearchive.manager;
 
+import net.minearchive.module.HudModule;
 import net.minearchive.module.Module;
 import net.minearchive.module.modules.client.ClickGuiModule;
 import net.minearchive.module.modules.client.ClientDebuggerModule;
@@ -16,6 +17,7 @@ import java.util.Optional;
 public class ModuleManager {
     public static ModuleManager INSTANCE;
     public final List<Module> modules = new ArrayList<>();
+    public HudModule dragging = null;
 
     public ModuleManager() {
         INSTANCE = this;
