@@ -33,7 +33,6 @@ public class ModuleManager {
         //Render
         register(FullBrightModule.class);
         register(NoRenderModule.class);
-        register(TestModule.class);
 
         //Client
         register(ClickGuiModule.class);
