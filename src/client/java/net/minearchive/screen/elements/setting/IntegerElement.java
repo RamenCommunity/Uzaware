@@ -1,6 +1,7 @@
 package net.minearchive.screen.elements.setting;
 
 import net.minearchive.module.modules.client.ClientDebuggerModule;
+import net.minearchive.screen.AbstractElement;
 import net.minearchive.screen.ClickGuiScreen;
 import net.minearchive.screen.IElement;
 import net.minearchive.setting.settings.IntegerSetting;
@@ -12,31 +13,25 @@ import org.joml.Math;
 import org.lwjgl.glfw.GLFW;
 import org.lwjgl.nanovg.NVGPaint;
 
-public class IntegerElement implements IElement {
-    private final IntegerSetting setting;
-    private final float x, y, width, height;
+public class IntegerElement extends AbstractElement<IntegerSetting> {
     private boolean dragging = false;
 
     public IntegerElement(IntegerSetting setting, float x, float y, float width, float height) {
-        this.setting = setting;
-        this.x = x;
-        this.y= y;
-        this.width = width;
-        this.height = height;
+        super(setting, x, y, width, height);
     }
 
     @Override
     public void render(DrawContext context, double mouseX, double mouseY, float delta, float offset) {
         NVGPaint paint = NanoVGUtils.linearGradient(x + 30, offset + 36, width - 60, 14, SimpleColor.of(0xFFFAC0FF), SimpleColor.of(0xFFB3A5FF), NanoVGUtils.Orientation.HORIZONTAL);
-        NanoVGUtils.ntr.draw(setting.getName()+ " : " + setting.getValue(), x + 30, offset + 10, 22, 0xffffffff);
+        NanoVGUtils.ntr.draw(t.getName()+ " : " + t.getValue(), x + 30, offset + 10, 22, 0xffffffff);
         NanoVGUtils.rounded(x + 30, offset + 36, width - 60, 14, 7, SimpleColor.of(0xFF191919), NanoVGUtils.Pattern.FILL);
-        if (setting.getValue() != setting.getMin()) NanoVGUtils.rounded(x + 30, offset + 36, (width - 60) * ((float) setting.getValue() / (setting.getMax() - setting.getMin())), 14, 7, paint, NanoVGUtils.Pattern.FILL);
+        if (t.getValue() != t.getMin()) NanoVGUtils.rounded(x + 30, offset + 36, (width - 60) * ((float) t.getValue() / (t.getMax() - t.getMin())), 14, 7, paint, NanoVGUtils.Pattern.FILL);
         NanoVGUtils.rounded(x + 30, offset + 36, width - 60, 14, 7, SimpleColor.of(0xFF292929), NanoVGUtils.Pattern.STROKE);
 
         if ((GLFW.glfwGetMouseButton(client.getWindow().getHandle(), GLFW.GLFW_MOUSE_BUTTON_LEFT) == GLFW.GLFW_PRESS)) {
             if ((MouseUtils.hover(mouseX, mouseY, x + 30, offset + 36, width - 60, 14) && !ClickGuiScreen.INSTANCE.isDragging) || dragging) {
                 float p = (float) ((mouseX - (x + 30)) / (width - 60));
-                setting.setValue(Math.clamp(setting.getMin(), setting.getMax(), Math.round(setting.getMin() + (setting.getMax() - setting.getMin()) * p)));
+                t.setValue(Math.clamp(t.getMin(), t.getMax(), Math.round(t.getMin() + (t.getMax() - t.getMin()) * p)));
                 dragging = true;
                 ClickGuiScreen.INSTANCE.isDragging = true;
             }

@@ -1,6 +1,7 @@
 package net.minearchive.screen.elements.setting;
 
 import net.minearchive.module.modules.client.ClientDebuggerModule;
+import net.minearchive.screen.AbstractElement;
 import net.minearchive.screen.ClickGuiScreen;
 import net.minearchive.screen.IElement;
 import net.minearchive.setting.settings.KeyBindSetting;
@@ -11,27 +12,21 @@ import net.minecraft.client.gui.DrawContext;
 import org.lwjgl.glfw.GLFW;
 import org.lwjgl.nanovg.NanoVG;
 
-public class KeyBindElement implements IElement {
-    private final KeyBindSetting setting;
-    private final float x, y, width, height;
+public class KeyBindElement extends AbstractElement<KeyBindSetting> {
     private float offset = 0;
     private boolean listening;
 
     public KeyBindElement(KeyBindSetting setting, float x, float y, float width, float height) {
-        this.setting = setting;
-        this.x = x;
-        this.y= y;
-        this.width = width;
-        this.height = height;
+        super(setting, x, y, width, height);
     }
 
     @Override
     public void render(DrawContext context, double mouseX, double mouseY, float delta, float offset) {
         this.offset = offset;
-        float realW = Math.max(NanoVGUtils.ntr.width(listening ? "Listening..." : setting.getValue().getKeyName(), 22) + 20, 70);
-        NanoVGUtils.ntr.draw(setting.getName(), x + 30, offset + 13, 22, 0xffffffff);
+        float realW = Math.max(NanoVGUtils.ntr.width(listening ? "Listening..." : t.getValue().getKeyName(), 22) + 20, 70);
+        NanoVGUtils.ntr.draw(t.getName(), x + 30, offset + 13, 22, 0xffffffff);
         NanoVGUtils.rounded(x + width - 30 - realW, offset + 9, realW, 22, 5, SimpleColor.of(0xD13C3C3C), NanoVGUtils.Pattern.FILL);
-        NanoVGUtils.ntr.draw(listening ? "Listening..." : setting.getValue().getKeyName(), x + width - 30 - realW / 2f, offset + 24, 22, 0xffffffff, NanoVG.NVG_ALIGN_MIDDLE | NanoVG.NVG_ALIGN_CENTER);
+        NanoVGUtils.ntr.draw(listening ? "Listening..." : t.getValue().getKeyName(), x + width - 30 - realW / 2f, offset + 24, 22, 0xffffffff, NanoVG.NVG_ALIGN_MIDDLE | NanoVG.NVG_ALIGN_CENTER);
         ClickGuiScreen.INSTANCE.isKeyListening = listening;
         if (ClientDebuggerModule.INSTANCE.componentDebug.getValue()) NanoVGUtils.rect(x, offset, width, height(), SimpleColor.of(0xffff0000), NanoVGUtils.Pattern.STROKE);
     }
@@ -65,8 +60,8 @@ public class KeyBindElement implements IElement {
     public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
         if (listening) {
             if (keyCode == GLFW.GLFW_KEY_UNKNOWN || keyCode == GLFW.GLFW_KEY_ESCAPE ||
-                    keyCode == GLFW.GLFW_KEY_DELETE || keyCode == GLFW.GLFW_KEY_BACKSLASH) setting.getValue().setKey(GLFW.GLFW_KEY_UNKNOWN);
-            else setting.getValue().setKey(keyCode);
+                    keyCode == GLFW.GLFW_KEY_DELETE || keyCode == GLFW.GLFW_KEY_BACKSLASH) t.getValue().setKey(GLFW.GLFW_KEY_UNKNOWN);
+            else t.getValue().setKey(keyCode);
             listening = false;
         }
         return false;

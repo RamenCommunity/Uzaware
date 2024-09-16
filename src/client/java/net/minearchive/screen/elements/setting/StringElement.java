@@ -1,22 +1,16 @@
 package net.minearchive.screen.elements.setting;
 
 import net.minearchive.module.modules.client.ClientDebuggerModule;
-import net.minearchive.screen.IElement;
+import net.minearchive.screen.AbstractElement;
 import net.minearchive.setting.settings.StringSetting;
 import net.minearchive.util.NanoVGUtils;
 import net.minearchive.util.SimpleColor;
 import net.minecraft.client.gui.DrawContext;
 
-public class StringElement implements IElement {
-    private final StringSetting setting;
-    private float x, y, width, height;
+public class StringElement extends AbstractElement<StringSetting> {
 
     public StringElement(StringSetting setting, float x, float y, float width, float height) {
-        this.setting = setting;
-        this.x = x;
-        this.y= y;
-        this.width = width;
-        this.height = height;
+        super(setting, x, y, width, height);
     }
 
     @Override

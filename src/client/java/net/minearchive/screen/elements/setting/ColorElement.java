@@ -1,28 +1,24 @@
 package net.minearchive.screen.elements.setting;
 
 import net.minearchive.module.modules.client.ClientDebuggerModule;
+import net.minearchive.screen.AbstractElement;
 import net.minearchive.screen.IElement;
 import net.minearchive.setting.settings.ColorSetting;
 import net.minearchive.util.NanoVGUtils;
 import net.minearchive.util.SimpleColor;
 import net.minecraft.client.gui.DrawContext;
 
-public class ColorElement implements IElement {
-    private final ColorSetting setting;
-    private final float x, y, width, height;
+public class ColorElement extends AbstractElement<ColorSetting> {
 
     public ColorElement(ColorSetting setting, float x, float y, float width, float height) {
-        this.setting = setting;
-        this.x = x;
-        this.y= y;
-        this.width = width;
-        this.height = height;
+        super(setting, x, y, width, height);
     }
 
     @Override
     public void render(DrawContext context, double mouseX, double mouseY, float delta, float offset) {
-        if (ClientDebuggerModule.INSTANCE.componentDebug.getValue()) NanoVGUtils.rect(x, offset, width, height(), SimpleColor.of(0xffff0000), NanoVGUtils.Pattern.STROKE);
 
+
+        if (ClientDebuggerModule.INSTANCE.componentDebug.getValue()) NanoVGUtils.rect(x, offset, width, height(), SimpleColor.of(0xffff0000), NanoVGUtils.Pattern.STROKE);
     }
 
     @Override
