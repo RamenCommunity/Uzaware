@@ -1,5 +1,6 @@
 package net.minearchive.screen.elements.setting;
 
+import net.minearchive.module.modules.client.ClientDebuggerModule;
 import net.minearchive.screen.IElement;
 import net.minearchive.setting.settings.EnumSetting;
 import net.minearchive.util.MouseUtils;
@@ -52,10 +53,11 @@ public class EnumElement implements IElement {
         NanoVGUtils.ntr.draw(setting.getValue().name(), x + 30 + (width - 60) / 2f, offset + 55 - yAnim.getValue(), 22, SimpleColor.of(0xFFFFFFFF).floatAlpha(selectAlpha.getValue()).color(), NanoVG.NVG_ALIGN_CENTER | NanoVG.NVG_ALIGN_MIDDLE);
         NanoVGUtils.symbols.draw("\uE313", x + 30 + width - 60, offset + 55, 22, 0xFFFFFFFF, NanoVG.NVG_ALIGN_RIGHT | NanoVG.NVG_ALIGN_MIDDLE);
         paint = NanoVGUtils.linearGradient(x + 40, offset + 80, x + width - 40, offset + 100, SimpleColor.of(0xFFFAC0FF).floatAlpha(a.getValue()), SimpleColor.of(0xFFB3A5FF).floatAlpha(a.getValue()), NanoVGUtils.Orientation.HORIZONTAL);
-        NanoVGUtils.rounded(x + 80, offset + 77.5f + 40 * selecting.getValue(), width - 160, 25, 5, paint, NanoVGUtils.Pattern.FILL);
+        NanoVGUtils.rounded(x + 80, offset + 78f + 40 * selecting.getValue(), width - 160, 25, 5, paint, NanoVGUtils.Pattern.FILL);
         for (int i = 0; i < setting.contents().length; i++) {
             NanoVGUtils.ntr.draw(setting.contents()[i].name(), x + 30 + (width - 60) / 2f, offset + 95 + i * 40, 22, SimpleColor.of(0xFFFFFFFF).floatAlpha(a.getValue()).color(), NanoVG.NVG_ALIGN_CENTER | NanoVG.NVG_ALIGN_MIDDLE);
         }
+        if (ClientDebuggerModule.INSTANCE.componentDebug.getValue()) NanoVGUtils.rect(x, offset, width, height(), SimpleColor.of(0xffff0000), NanoVGUtils.Pattern.STROKE);
     }
 
     @Override

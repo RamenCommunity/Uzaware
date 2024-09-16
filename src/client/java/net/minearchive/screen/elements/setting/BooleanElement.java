@@ -1,5 +1,6 @@
 package net.minearchive.screen.elements.setting;
 
+import net.minearchive.module.modules.client.ClientDebuggerModule;
 import net.minearchive.screen.IElement;
 import net.minearchive.setting.settings.BooleanSetting;
 import net.minearchive.util.MouseUtils;
@@ -37,9 +38,10 @@ public class BooleanElement implements IElement {
         colorT.setAnimation(new Color(this.setting.getValue() ? 0xFFFAC0FF : 0xFF323232), 150);
         colorB.setAnimation(new Color(this.setting.getValue() ? 0xFFB3A5FF : 0xFF323232), 150);
         circleAnim.animateTo(setting.getValue() ? 1 : 0, 150);
-        NanoVGUtils.ntr.draw(setting.getName(), x + 30, offset + 12, 22, 0xffffffff);
-        NanoVGUtils.rounded(x + width - 70, offset + 8, 40, 20, 9, SimpleColor.of(colorT.getColor()), SimpleColor.of(colorB.getColor()), NanoVGUtils.Pattern.FILL, NanoVGUtils.Orientation.VERTICAL);
-        NanoVGUtils.circle(x + width - 70 + 10 + 20 * circleAnim.getValue(), offset + 8 + 10, 8, SimpleColor.of(Color.white), NanoVGUtils.Pattern.FILL);
+        NanoVGUtils.ntr.draw(setting.getName(), x + 30, offset + 8, 22, 0xffffffff);
+        NanoVGUtils.rounded(x + width - 70, offset + 5, 40, 20, 9, SimpleColor.of(colorT.getColor()), SimpleColor.of(colorB.getColor()), NanoVGUtils.Pattern.FILL, NanoVGUtils.Orientation.VERTICAL);
+        NanoVGUtils.circle(x + width - 70 + 10 + 20 * circleAnim.getValue(), offset + 5 + 10, 8, SimpleColor.of(Color.white), NanoVGUtils.Pattern.FILL);
+        if (ClientDebuggerModule.INSTANCE.componentDebug.getValue()) NanoVGUtils.rect(x, offset, width, height(), SimpleColor.of(0xffff0000), NanoVGUtils.Pattern.STROKE);
     }
 
     @Override

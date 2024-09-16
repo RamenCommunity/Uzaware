@@ -1,6 +1,6 @@
 package net.minearchive.setting;
 
-import org.lwjgl.glfw.GLFW;
+import net.minearchive.util.KeyUtils;
 
 public class KeyBind {
     private int key;
@@ -10,7 +10,7 @@ public class KeyBind {
     }
 
     public String getKeyName() {
-        return GLFW.glfwGetKeyName(key, GLFW.glfwGetKeyScancode(key));
+        return KeyUtils.getNameByKey(key);
     }
 
     public int getKey() {

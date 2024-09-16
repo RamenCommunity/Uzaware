@@ -1,5 +1,6 @@
 package net.minearchive.screen.elements.setting;
 
+import net.minearchive.module.modules.client.ClientDebuggerModule;
 import net.minearchive.screen.ClickGuiScreen;
 import net.minearchive.screen.IElement;
 import net.minearchive.setting.settings.FloatSetting;
@@ -33,16 +34,17 @@ public class FloatElement implements IElement {
         NanoVGUtils.rounded(x + 30, offset + 36, width - 60, 14, 7, SimpleColor.of(0xFF292929), NanoVGUtils.Pattern.STROKE);
 
         if ((GLFW.glfwGetMouseButton(client.getWindow().getHandle(), GLFW.GLFW_MOUSE_BUTTON_LEFT) == GLFW.GLFW_PRESS)) {
-            if ((MouseUtils.hover(mouseX, mouseY, x + 30, offset + 36, width - 60, 14) && !ClickGuiScreen.isDragging) || dragging) {
+            if ((MouseUtils.hover(mouseX, mouseY, x + 30, offset + 36, width - 60, 14) && !ClickGuiScreen.INSTANCE.isDragging) || dragging) {
                 float p = (float) ((mouseX - (x + 30)) / (width - 60));
                 setting.setValue(Math.clamp(setting.getMin(), setting.getMax(), setting.getMin() + (setting.getMax() - setting.getMin()) * p));
                 dragging = true;
-                ClickGuiScreen.isDragging = true;
+                ClickGuiScreen.INSTANCE.isDragging = true;
             }
         } else if (GLFW.glfwGetMouseButton(client.getWindow().getHandle(), GLFW.GLFW_MOUSE_BUTTON_LEFT) == GLFW.GLFW_RELEASE) {
             dragging = false;
-            ClickGuiScreen.isDragging = false;
+            ClickGuiScreen.INSTANCE.isDragging = false;
         }
+        if (ClientDebuggerModule.INSTANCE.componentDebug.getValue()) NanoVGUtils.rect(x, offset, width, height(), SimpleColor.of(0xffff0000), NanoVGUtils.Pattern.STROKE);
     }
 
     @Override
@@ -82,6 +84,6 @@ public class FloatElement implements IElement {
 
     @Override
     public float height() {
-        return 55;
+        return 50;
     }
 }

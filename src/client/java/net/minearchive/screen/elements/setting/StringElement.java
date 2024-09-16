@@ -1,7 +1,10 @@
 package net.minearchive.screen.elements.setting;
 
+import net.minearchive.module.modules.client.ClientDebuggerModule;
 import net.minearchive.screen.IElement;
 import net.minearchive.setting.settings.StringSetting;
+import net.minearchive.util.NanoVGUtils;
+import net.minearchive.util.SimpleColor;
 import net.minecraft.client.gui.DrawContext;
 
 public class StringElement implements IElement {
@@ -18,7 +21,7 @@ public class StringElement implements IElement {
 
     @Override
     public void render(DrawContext context, double mouseX, double mouseY, float delta, float offset) {
-
+        if (ClientDebuggerModule.INSTANCE.componentDebug.getValue()) NanoVGUtils.rect(x, offset, width, height(), SimpleColor.of(0xffff0000), NanoVGUtils.Pattern.STROKE);
     }
 
     @Override

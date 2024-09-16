@@ -1,12 +1,10 @@
 package net.minearchive.screen;
 
-import com.mojang.blaze3d.systems.RenderSystem;
 import net.minearchive.Uzaware;
 import net.minearchive.module.Category;
 import net.minearchive.module.modules.client.ClickGuiModule;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.gui.screen.ingame.InventoryScreen;
 import net.minecraft.text.Text;
 
 import java.util.ArrayList;
@@ -15,12 +13,15 @@ import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class ClickGuiScreen extends Screen {
+    public static ClickGuiScreen INSTANCE;
+
     private final List<PanelElement> elements = new ArrayList<>();
     private final int PANEL_MARGIN = 20;
     private final int PANEL_WIDTH = 250;
     private final ClickGuiModule clickGuiModule;
 
-    public static boolean isDragging = false;
+    public boolean isDragging = false;
+    public boolean isKeyListening = false;
 
     public ClickGuiScreen(ClickGuiModule clickGuiModule) {
         super(Text.of("Uzaware"));
@@ -29,6 +30,8 @@ public class ClickGuiScreen extends Screen {
             AtomicInteger integer = new AtomicInteger(0);
             Arrays.stream(Category.values()).forEach(c -> elements.add(new PanelElement(c, PANEL_MARGIN + integer.getAndAdd(PANEL_WIDTH + PANEL_MARGIN), PANEL_MARGIN, PANEL_WIDTH)));
         }
+
+        INSTANCE = this;
     }
 
     @Override
@@ -99,5 +102,10 @@ public class ClickGuiScreen extends Screen {
     @Override
     public boolean shouldPause() {
         return false;
+    }
+
+    @Override
+    public boolean shouldCloseOnEsc() {
+        return !isKeyListening;
     }
 }

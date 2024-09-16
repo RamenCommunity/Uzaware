@@ -14,6 +14,6 @@ public class MixinKeyboard {
     @Inject(method = "onKey", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/option/KeyBinding;onKeyPressed(Lnet/minecraft/client/util/InputUtil$Key;)V"))
     public void onKeyPressed(long window, int key, int scancode, int action, int modifiers, CallbackInfo ci) {
         if (key == GLFW.GLFW_KEY_UNKNOWN) return;
-        Uzaware.moduleManager.modules.stream().filter(m -> m.keybind == key).forEach(Module::toggle);
+        Uzaware.moduleManager.modules.stream().filter(m -> m.bind.getValue().getKey() == key).forEach(Module::toggle);
     }
 }

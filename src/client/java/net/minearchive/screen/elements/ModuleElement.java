@@ -34,7 +34,8 @@ public class ModuleElement extends AbstractElement<Module> {
             if (s instanceof FloatSetting) settingComponents.add(new FloatElement((FloatSetting) s, x, y ,width ,height));
             if (s instanceof DoubleSetting) settingComponents.add(new DoubleElement((DoubleSetting) s, x, y ,width ,height));
             if (s instanceof StringSetting) settingComponents.add(new StringElement((StringSetting) s, x, y ,width ,height));
-            if (s instanceof EnumSetting) settingComponents.add(new EnumElement((EnumSetting) s, x, y ,width ,height));
+            if (s instanceof EnumSetting) settingComponents.add(new EnumElement((EnumSetting<? extends Enum<?>>) s, x, y ,width ,height));
+            if (s instanceof KeyBindSetting) settingComponents.add(new KeyBindElement((KeyBindSetting) s, x, y, width, height));
         });
         this.module = module;
         this.setting = new ColorAnimation(opened ? settingComponents.isEmpty() ? SimpleColor.of(0, 0, 0, 0) : SimpleColor.of(0, 0, 0, 94) : SimpleColor.of(0, 0, 0, 0), EnumEasing.SINE.getEasing());
@@ -46,10 +47,11 @@ public class ModuleElement extends AbstractElement<Module> {
     @Override
     public void render(DrawContext context, double mouseX, double mouseY, float delta, float offset) {
         super.render(context, mouseX, mouseY, delta, offset);
-        a.animateTo(opened ? 1 : 0, 150);
-        setting.setAnimation(opened ? settingComponents.isEmpty() ? SimpleColor.of(0, 0, 0, 0) : SimpleColor.of(0, 0, 0, 94) : SimpleColor.of(0, 0, 0, 0), 150);
-        backgroundL.setAnimation(module.enabled ? new Color(0xFFFAC0FF) : new Color(0xD93C3C3C), 150);
-        backgroundR.setAnimation(module.enabled ? new Color(0xFFB3A5FF) : new Color(0xD93C3C3C), 150);
+        this.offset = offset;
+        this.a.animateTo(opened ? 1 : 0, 150);
+        this.setting.setAnimation(opened ? settingComponents.isEmpty() ? SimpleColor.of(0, 0, 0, 0) : SimpleColor.of(0, 0, 0, 94) : SimpleColor.of(0, 0, 0, 0), 150);
+        this.backgroundL.setAnimation(module.enabled ? new Color(0xFFFAC0FF) : new Color(0xD93C3C3C), 150);
+        this.backgroundR.setAnimation(module.enabled ? new Color(0xFFB3A5FF) : new Color(0xD93C3C3C), 150);
         NanoVGUtils.rounded(x + 20,
                 y + offset,
                 width - 40,
@@ -79,7 +81,7 @@ public class ModuleElement extends AbstractElement<Module> {
         settingComponents.forEach(c -> c.render(context, mouseX, mouseY, delta, (float) off.getAndAdd(c.height()) + offset));
         NanoVG.nvgRestore(NanoVGUtils.context);
         NanoVGUtils.endScissor();
-        h.animateTo(opened ? off.floatValue() - 70 : 0, 150);
+        h.animateTo(opened ? off.floatValue() - 70 : - 10, 150);
     }
 
     @Override
@@ -92,6 +94,7 @@ public class ModuleElement extends AbstractElement<Module> {
 
             return true;
         }
+        if (!opened) return false;
 
         return !settingComponents.stream().filter(c -> c.mouseClicked(mouseX, mouseY, button)).toList().isEmpty();
     }
@@ -108,7 +111,7 @@ public class ModuleElement extends AbstractElement<Module> {
 
     @Override
     public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
-        return false;
+        return !settingComponents.stream().filter(c -> c.keyPressed(keyCode, scanCode, modifiers)).toList().isEmpty();
     }
 
     @Override
@@ -128,6 +131,6 @@ public class ModuleElement extends AbstractElement<Module> {
 
     @Override
     public float height() {
-        return height + 15 + h.getValue();
+        return height + 20 + h.getValue();
     }
 }
