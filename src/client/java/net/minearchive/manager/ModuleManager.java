@@ -29,6 +29,7 @@ public class ModuleManager {
 
         //Render
         register(FullBrightModule.class);
+        register(NoRenderModule.class);
 
         //Client
         register(ClickGuiModule.class);
