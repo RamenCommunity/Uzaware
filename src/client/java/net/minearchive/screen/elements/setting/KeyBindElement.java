@@ -78,6 +78,6 @@ public class KeyBindElement extends AbstractElement<KeyBindSetting> {
 
     @Override
     public float height() {
-        return 40;
+        return 35;
     }
 }

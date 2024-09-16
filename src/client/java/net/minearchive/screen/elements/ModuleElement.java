@@ -81,7 +81,7 @@ public class ModuleElement extends AbstractElement<Module> {
         settingComponents.forEach(c -> c.render(context, mouseX, mouseY, delta, (float) off.getAndAdd(c.height()) + offset));
         NanoVG.nvgRestore(NanoVGUtils.context);
         NanoVGUtils.endScissor();
-        h.animateTo(opened ? off.floatValue() - 70 : - 10, 150);
+        h.animateTo((opened ? off.floatValue() - 70 : - 10) + 5, 150);
     }
 
     @Override

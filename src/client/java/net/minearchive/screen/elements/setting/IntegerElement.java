@@ -21,14 +21,14 @@ public class IntegerElement extends AbstractElement<IntegerSetting> {
 
     @Override
     public void render(DrawContext context, double mouseX, double mouseY, float delta, float offset) {
-        NVGPaint paint = NanoVGUtils.linearGradient(x + 30, offset + 36, width - 60, 14, SimpleColor.of(0xFFFAC0FF), SimpleColor.of(0xFFB3A5FF), NanoVGUtils.Orientation.HORIZONTAL);
-        NanoVGUtils.ntr.draw(t.getName()+ " : " + t.getValue(), x + 30, offset + 10, 22, 0xffffffff);
-        NanoVGUtils.rounded(x + 30, offset + 36, width - 60, 14, 7, SimpleColor.of(0xFF191919), NanoVGUtils.Pattern.FILL);
-        if (t.getValue() != t.getMin()) NanoVGUtils.rounded(x + 30, offset + 36, (width - 60) * ((float) t.getValue() / (t.getMax() - t.getMin())), 14, 7, paint, NanoVGUtils.Pattern.FILL);
-        NanoVGUtils.rounded(x + 30, offset + 36, width - 60, 14, 7, SimpleColor.of(0xFF292929), NanoVGUtils.Pattern.STROKE);
+        NVGPaint paint = NanoVGUtils.linearGradient(x + 30, offset + 26, width - 60, 14, SimpleColor.of(0xFFFAC0FF), SimpleColor.of(0xFFB3A5FF), NanoVGUtils.Orientation.HORIZONTAL);
+        NanoVGUtils.ntr.draw(t.getName()+ " : " + t.getValue(), x + 30, offset + 5, 22, 0xffffffff);
+        NanoVGUtils.rounded(x + 30, offset + 26, width - 60, 14, 7, SimpleColor.of(0xFF191919), NanoVGUtils.Pattern.FILL);
+        if (t.getValue() != t.getMin()) NanoVGUtils.rounded(x + 30, offset + 26, (width - 60) * ((float) t.getValue() / (t.getMax() - t.getMin())), 14, 7, paint, NanoVGUtils.Pattern.FILL);
+        NanoVGUtils.rounded(x + 30, offset + 26, width - 60, 14, 7, SimpleColor.of(0xFF292929), NanoVGUtils.Pattern.STROKE);
 
         if ((GLFW.glfwGetMouseButton(client.getWindow().getHandle(), GLFW.GLFW_MOUSE_BUTTON_LEFT) == GLFW.GLFW_PRESS)) {
-            if ((MouseUtils.hover(mouseX, mouseY, x + 30, offset + 36, width - 60, 14) && !ClickGuiScreen.INSTANCE.isDragging) || dragging) {
+            if ((MouseUtils.hover(mouseX, mouseY, x + 30, offset + 26, width - 60, 14) && !ClickGuiScreen.INSTANCE.isDragging) || dragging) {
                 float p = (float) ((mouseX - (x + 30)) / (width - 60));
                 t.setValue(Math.clamp(t.getMin(), t.getMax(), Math.round(t.getMin() + (t.getMax() - t.getMin()) * p)));
                 dragging = true;
@@ -78,6 +78,6 @@ public class IntegerElement extends AbstractElement<IntegerSetting> {
 
     @Override
     public float height() {
-        return 50;
+        return 45;
     }
 }
