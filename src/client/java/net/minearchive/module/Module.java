@@ -6,6 +6,7 @@ import net.minearchive.module.modules.client.ClientSettings;
 import net.minearchive.setting.KeyBind;
 import net.minearchive.setting.Setting;
 import net.minearchive.setting.settings.KeyBindSetting;
+import net.minearchive.util.ChatUtil;
 import net.minecraft.text.Text;
 
 import java.util.ArrayList;
@@ -32,7 +33,7 @@ public class Module implements AccessMC {
     public final void enable() {
         EVENT_BUS.register(this);
         if (!nullCheck() && ClientSettings.INSTANCE.chatNotify.getValue())
-            client.player.sendMessage(Text.of(String.format("§d%s§r | %s§a Enabled§r" + " §a✔", Uzaware.modName, this.name)));
+            ChatUtil.addMessage(this.hashCode(), Text.of(String.format("§d%s§r | %s§a Enabled§r" + " §a✔", Uzaware.modName, this.name)));
         enabled = true;
         onEnable();
     }
@@ -40,7 +41,7 @@ public class Module implements AccessMC {
     public final void disable() {
         EVENT_BUS.unregister(this);
         if (!nullCheck() && ClientSettings.INSTANCE.chatNotify.getValue())
-            client.player.sendMessage(Text.of(String.format("§d%s§r | %s§c Disabled§r" + " §c✘", Uzaware.modName, this.name)));
+            ChatUtil.addMessage(this.hashCode(), Text.of(String.format("§d%s§r | %s§c Disabled§r" + " §c✘", Uzaware.modName, this.name)));
         enabled = false;
         onDisable();
     }
