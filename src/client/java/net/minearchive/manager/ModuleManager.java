@@ -6,6 +6,7 @@ import net.minearchive.module.modules.client.*;
 import net.minearchive.module.modules.combat.*;
 import net.minearchive.module.modules.hud.*;
 import net.minearchive.module.modules.misc.*;
+import net.minearchive.module.modules.movement.*;
 import net.minearchive.module.modules.render.*;
 
 import java.util.ArrayList;
@@ -26,6 +27,7 @@ public class ModuleManager {
         register(ChatSuffixModule.class);
 
         //Movement
+        register(FlightModule.class);
 
         //Render
         register(FullBrightModule.class);
