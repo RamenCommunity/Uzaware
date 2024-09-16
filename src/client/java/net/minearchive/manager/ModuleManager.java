@@ -2,12 +2,11 @@ package net.minearchive.manager;
 
 import net.minearchive.module.HudModule;
 import net.minearchive.module.Module;
-import net.minearchive.module.modules.client.ClickGuiModule;
-import net.minearchive.module.modules.client.ClientDebuggerModule;
-import net.minearchive.module.modules.client.ElementSample;
-import net.minearchive.module.modules.hud.WaterMarkModule;
-import net.minearchive.module.modules.misc.ChatSuffixModule;
-import net.minearchive.module.modules.render.FullBrightModule;
+import net.minearchive.module.modules.client.*;
+import net.minearchive.module.modules.combat.*;
+import net.minearchive.module.modules.hud.*;
+import net.minearchive.module.modules.misc.*;
+import net.minearchive.module.modules.render.*;
 
 import java.util.ArrayList;
 import java.util.Comparator;

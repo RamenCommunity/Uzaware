@@ -12,7 +12,8 @@
     "MixinLightmapTextureManager",
     "MixinMinecraftClient",
     "MixinScreen",
-    "MixinWindow"
+    "MixinWindow",
+    "MixinWorldRenderer"
   ],
   "injectors": {
     "defaultRequire": 1
