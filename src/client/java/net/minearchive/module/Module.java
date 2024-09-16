@@ -1,11 +1,15 @@
 package net.minearchive.module;
 
 import net.minearchive.AccessMC;
+import net.minearchive.Uzaware;
 import net.minearchive.setting.KeyBind;
 import net.minearchive.setting.Setting;
 import net.minearchive.setting.settings.KeyBindSetting;
+import net.minecraft.text.Text;
+import net.minecraft.util.Formatting;
 
 import java.util.ArrayList;
+import java.util.EventListener;
 import java.util.List;
 
 import static net.minearchive.Uzaware.EVENT_BUS;
@@ -45,9 +49,14 @@ public class Module implements AccessMC {
         }
     }
 
+
     public void onTick() { }
-    public void onEnable() { }
-    public void onDisable() { }
+    public void onEnable() {
+        client.player.sendMessage(Text.of(String.format("§d%s§r | %s§a Enabled§r" + " §a✔" , Uzaware.modName ,this.name)));
+    }
+    public void onDisable() {
+        client.player.sendMessage(Text.of(String.format("§d%s§r | %s§c Disabled§r" + " §c✘", Uzaware.modName ,this.name)));
+    }
 
     public boolean nullCheck() {
         return client.world == null || client.player == null;
