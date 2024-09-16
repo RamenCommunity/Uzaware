@@ -1,6 +1,7 @@
 package net.minearchive.module.modules.hud;
 
 import net.minearchive.event.events.Render2DStartEvent;
+import net.minearchive.manager.EntityManager;
 import net.minearchive.module.Category;
 import net.minearchive.module.HudInfo;
 import net.minearchive.module.HudModule;
@@ -11,16 +12,17 @@ import net.minecraft.entity.Entity;
 @HudInfo()
 public class TargetHud extends HudModule {
 
-    private Entity entity;
+    private Entity target;
 
     @Override
     public void onRender(Render2DStartEvent event) {
-        if (entity == null) return;
+        if (nullCheck()) return;
 
-        new Thread(() -> {
+        if (target == null) return;
+    }
 
-            //ここでエンティティを探す
-
-        }).start();
+    @Override
+    public void onTick() {
+        target = EntityManager.getEnemies().stream().findFirst().orElse(null);
     }
 }

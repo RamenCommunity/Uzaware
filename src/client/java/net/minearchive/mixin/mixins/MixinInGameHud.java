@@ -29,9 +29,5 @@ public class MixinInGameHud {
     @Inject(method = "render", at = @At("TAIL"))
     public void onRenderEnd(DrawContext context, float tickDelta, CallbackInfo ci) {
         EVENT_BUS.post(new Render2DEndEvent(context, tickDelta));
-        ModuleManager.INSTANCE.modules.stream().filter(m -> m instanceof HudModule).map(m -> (HudModule) m).forEach(m -> {
-            m.x = Math.clamp(0, MinecraftClient.getInstance().getWindow().getWidth() - m.width, m.x);
-            m.y = Math.clamp(0, MinecraftClient.getInstance().getWindow().getHeight() - m.height, m.y);
-        });
     }
 }

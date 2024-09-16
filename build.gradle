@@ -1,6 +1,7 @@
 plugins {
 	id 'fabric-loom' version '1.6-SNAPSHOT'
 	id 'maven-publish'
+	id "com.github.johnrengelman.shadow" version "8.1.1"
 }
 
 version = project.mod_version
@@ -75,3 +76,5 @@ jar {
 		rename { "${it}_${project.base.archivesName.get()}"}
 	}
 }
+
+build.dependsOn shadowJar

@@ -6,22 +6,21 @@ import net.minearchive.module.HudModule;
 import net.minearchive.util.MouseUtils;
 import net.minearchive.util.NanoVGUtils;
 import net.minearchive.util.SimpleColor;
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.ChatScreen;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.text.Text;
+import org.joml.Math;
 import org.lwjgl.glfw.GLFW;
 import org.lwjgl.nanovg.NanoVG;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(ChatScreen.class)
 public abstract class MixinChatScreen extends Screen {
-    @Shadow protected abstract void onChatFieldUpdate(String chatText);
-
     protected MixinChatScreen(Text title) { super(title); }
 
     @Inject(method = "render", at = @At("TAIL"))
@@ -30,16 +29,23 @@ public abstract class MixinChatScreen extends Screen {
         float x = (float) client.mouse.getX();
         float y = (float) client.mouse.getY();
 
-        ModuleManager.INSTANCE.modules.stream().filter(m -> m instanceof HudModule).map(m -> ((HudModule) m)).toList().forEach(m -> {
+        if (client.getWindow().getWidth() < x || client.getWindow().getHeight() < y) {
+            ModuleManager.INSTANCE.dragging = null;
+            ModuleManager.INSTANCE.modules.stream().filter(m -> m instanceof HudModule).map(m -> (HudModule) m).forEach(m -> {
+                m.x = Math.clamp(0, MinecraftClient.getInstance().getWindow().getWidth() - m.width, m.x);
+                m.y = Math.clamp(0, MinecraftClient.getInstance().getWindow().getHeight() - m.height, m.y);
+            });
+        }
+
+        ModuleManager.INSTANCE.modules.stream().filter(m -> m instanceof HudModule).map(m -> ((HudModule) m)).filter(m -> m.enabled).toList().forEach(m -> {
             if (MouseUtils.hover(x, y, m.x, m.y, m.width, m.height)) {
                 if (GLFW.glfwGetMouseButton(client.getWindow().getHandle(), GLFW.GLFW_MOUSE_BUTTON_LEFT) == GLFW.GLFW_PRESS
                         && ModuleManager.INSTANCE.dragging == null) {
                     ModuleManager.INSTANCE.dragging = m;
                     m.oldMouseX = x;
                     m.oldMouseY = y;
-                } else if (GLFW.glfwGetMouseButton(client.getWindow().getHandle(), GLFW.GLFW_MOUSE_BUTTON_LEFT) == GLFW.GLFW_RELEASE) {
-                    ModuleManager.INSTANCE.dragging = null;
                 }
+
                 m.alpha.animateTo(0.5f, 150);
             } else m.alpha.animateTo(0, 150);
 
@@ -49,6 +55,10 @@ public abstract class MixinChatScreen extends Screen {
 
                 m.oldMouseX = x;
                 m.oldMouseY = y;
+            }
+
+            if (GLFW.glfwGetMouseButton(client.getWindow().getHandle(), GLFW.GLFW_MOUSE_BUTTON_LEFT) == GLFW.GLFW_RELEASE) {
+                ModuleManager.INSTANCE.dragging = null;
             }
 
             Uzaware.nanoVGManager.begin(false);

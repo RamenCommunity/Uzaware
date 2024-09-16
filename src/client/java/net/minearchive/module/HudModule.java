@@ -4,6 +4,8 @@ import com.google.common.eventbus.Subscribe;
 import net.minearchive.event.events.Render2DStartEvent;
 import net.minearchive.util.easing.Animation;
 import net.minearchive.util.easing.EnumEasing;
+import net.minecraft.client.MinecraftClient;
+import org.joml.Math;
 
 public class HudModule extends Module {
 
@@ -15,13 +17,8 @@ public class HudModule extends Module {
     public final Animation alpha = new Animation(0.0f, EnumEasing.SINE.getEasing());
 
     @Subscribe
-    public void onRender(Render2DStartEvent event) {
-
-    }
-
-    public void onMouseClick(float x, float y, int mouseButton) {
-
-    }
+    public void onRender(Render2DStartEvent event) { }
+    public void onMouseClick(float x, float y, int mouseButton) { }
 
     public HudInfo getHudAnnotation() {
         if (this.getClass().isAnnotationPresent(HudInfo.class)) return this.getClass().getAnnotation(HudInfo.class);
