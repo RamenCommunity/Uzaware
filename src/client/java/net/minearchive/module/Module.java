@@ -6,19 +6,17 @@ import net.minearchive.setting.KeyBind;
 import net.minearchive.setting.Setting;
 import net.minearchive.setting.settings.KeyBindSetting;
 import net.minecraft.text.Text;
-import net.minecraft.util.Formatting;
 
 import java.util.ArrayList;
-import java.util.EventListener;
 import java.util.List;
 
 import static net.minearchive.Uzaware.EVENT_BUS;
 
 public class Module implements AccessMC {
-    public final String name            = getAnnotation().name();
-    public final String description     = getAnnotation().description();
-    public final Category category      = getAnnotation().category();
-    public boolean enabled              = getAnnotation().enable();
+    public final String name = getAnnotation().name();
+    public final String description = getAnnotation().description();
+    public final Category category = getAnnotation().category();
+    public boolean enabled = getAnnotation().enable();
 
     public final List<Setting<?>> settings = new ArrayList<>();
 
@@ -26,49 +24,44 @@ public class Module implements AccessMC {
 
     public void toggle() {
         enabled = !enabled;
-        if (enabled) {
-            onEnable();
-            EVENT_BUS.register(this);
-        } else {
-            onDisable();
-            EVENT_BUS.unregister(this);
-        }
+        if (enabled) enable();
+        else disable();
     }
 
     public final void enable() {
-        if (!enabled) {
-            enabled = true;
-            onEnable();
-        }
+        EVENT_BUS.register(this);
+        if (!nullCheck())
+            client.player.sendMessage(Text.of(String.format("§d%s§r | %s§a Enabled§r" + " §a✔", Uzaware.modName, this.name)));
+        enabled = true;
+        onEnable();
     }
 
     public final void disable() {
-        if (enabled) {
-            enabled = false;
-            onDisable();
-        }
+        EVENT_BUS.unregister(this);
+        if (!nullCheck())
+            client.player.sendMessage(Text.of(String.format("§d%s§r | %s§c Disabled§r" + " §c✘", Uzaware.modName, this.name)));
+        enabled = false;
+        onDisable();
     }
-
 
     public void onTick() { }
-    public void onEnable() {
-        client.player.sendMessage(Text.of(String.format("§d%s§r | %s§a Enabled§r" + " §a✔" , Uzaware.modName ,this.name)));
-    }
-    public void onDisable() {
-        client.player.sendMessage(Text.of(String.format("§d%s§r | %s§c Disabled§r" + " §c✘", Uzaware.modName ,this.name)));
-    }
+
+    public void onEnable() { }
+
+    public void onDisable() { }
 
     public boolean nullCheck() {
         return client.world == null || client.player == null;
     }
 
-    public  <T extends Setting<?>> T add(T t) {
+    public <T extends Setting<?>> T add(T t) {
         settings.add(t);
         return t;
     }
 
     public ModuleInfo getAnnotation() {
-        if (this.getClass().isAnnotationPresent(ModuleInfo.class)) return this.getClass().getAnnotation(ModuleInfo.class);
+        if (this.getClass().isAnnotationPresent(ModuleInfo.class))
+            return this.getClass().getAnnotation(ModuleInfo.class);
         else throw new RuntimeException("ModuleInfo Annotation is not found! Can't initialize module!");
     }
 }
