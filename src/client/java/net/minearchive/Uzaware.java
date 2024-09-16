@@ -36,6 +36,7 @@ public class Uzaware implements ClientModInitializer {
 
 		ClientTickEvents.START_CLIENT_TICK.register(tick -> EVENT_BUS.post(new TickStartEvent()));
 		ClientTickEvents.END_CLIENT_TICK.register(tick -> EVENT_BUS.post(new TickEndEvent()));
+		EVENT_BUS.register(new AlwaysListener());
 
 		LOGGER.info("Uzaware Initialized!");
 	}
