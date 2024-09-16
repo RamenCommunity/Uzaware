@@ -2,6 +2,7 @@ package net.minearchive.module;
 
 import net.minearchive.AccessMC;
 import net.minearchive.Uzaware;
+import net.minearchive.module.modules.client.ClientSettings;
 import net.minearchive.setting.KeyBind;
 import net.minearchive.setting.Setting;
 import net.minearchive.setting.settings.KeyBindSetting;
@@ -30,7 +31,7 @@ public class Module implements AccessMC {
 
     public final void enable() {
         EVENT_BUS.register(this);
-        if (!nullCheck())
+        if (!nullCheck() && ClientSettings.INSTANCE.chatNotify.getValue())
             client.player.sendMessage(Text.of(String.format("§d%s§r | %s§a Enabled§r" + " §a✔", Uzaware.modName, this.name)));
         enabled = true;
         onEnable();
@@ -38,7 +39,7 @@ public class Module implements AccessMC {
 
     public final void disable() {
         EVENT_BUS.unregister(this);
-        if (!nullCheck())
+        if (!nullCheck() && ClientSettings.INSTANCE.chatNotify.getValue())
             client.player.sendMessage(Text.of(String.format("§d%s§r | %s§c Disabled§r" + " §c✘", Uzaware.modName, this.name)));
         enabled = false;
         onDisable();

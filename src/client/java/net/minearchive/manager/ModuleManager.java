@@ -33,11 +33,13 @@ public class ModuleManager {
         //Render
         register(FullBrightModule.class);
         register(NoRenderModule.class);
+        register(TestModule.class);
 
         //Client
         register(ClickGuiModule.class);
         register(ElementSample.class);
         register(ClientDebuggerModule.class);
+        register(ClientSettings.class);
 
         //Hud
         register(WaterMarkModule.class);
