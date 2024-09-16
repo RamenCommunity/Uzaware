@@ -25,6 +25,7 @@ public class ModuleManager {
 
         //Misc
         register(ChatSuffixModule.class);
+        register(SuperIQMathModule.class);
 
         //Movement
         register(FlightModule.class);

@@ -6,4 +6,10 @@ import net.minearchive.module.ModuleInfo;
 
 @ModuleInfo(name = "SuperIQMath", category = Category.MISC)
 public class SuperIQMathModule extends Module {
+    @Override
+    public void onEnable() {
+        if (nullCheck()) return;
+        client.player.networkHandler.sendChatMessage("superuzawa");
+        toggle();
+    }
 }
