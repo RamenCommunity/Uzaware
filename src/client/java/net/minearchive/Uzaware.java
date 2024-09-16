@@ -14,9 +14,9 @@ import org.slf4j.LoggerFactory;
 import java.util.Random;
 
 public class Uzaware implements ClientModInitializer {
-	public static String modID 					= "uzaware";
-	public static String modName 				= "Uzaware";
-	public static String version 				= "1.0";
+	public static final String modID 			= "uzaware";
+	public static final String modName 			= "Uzaware";
+	public static final String version 			= "1.0";
 
     public static final Logger LOGGER 			= LoggerFactory.getLogger(modName);
 	public static ModuleManager moduleManager 	= new ModuleManager();

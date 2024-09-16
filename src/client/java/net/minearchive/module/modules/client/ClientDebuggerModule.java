@@ -10,7 +10,7 @@ public class ClientDebuggerModule extends Module {
 
     public static ClientDebuggerModule INSTANCE;
 
-    public BooleanSetting componentDebug = add(new BooleanSetting("Component box", false));
+    public final BooleanSetting componentDebug = add(new BooleanSetting("Component box", false));
 
     public ClientDebuggerModule() {
         INSTANCE = this;

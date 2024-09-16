@@ -8,7 +8,7 @@ public enum EnumEasing {
     QUART(value -> 1 - Math.pow(1 - value, 4)),
     QUINT(value -> 1 - Math.pow(1 - value, 5)),
     EXPO(value -> value == 1 ? 1 : 1 - Math.pow(2, -10 * value)),
-    CIRC(value -> Math.sqrt(1 - Math.min(Math.pow(value - 1, 2), 1))),
+    CIRCLE(value -> Math.sqrt(1 - Math.min(Math.pow(value - 1, 2), 1))),
     BACK(value -> {
         double c1 = 1.70158;
         double c3 = c1 + 1;

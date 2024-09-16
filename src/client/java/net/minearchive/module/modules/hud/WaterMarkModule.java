@@ -18,11 +18,11 @@ import java.util.Calendar;
 @ModuleInfo(name = "WaterMark", category = Category.HUD)
 public class WaterMarkModule extends HudModule {
 
-    public EnumSetting<Mode> enumSetting = add(new EnumSetting<>("Mode" , Mode.Uzawa1));
+    public final EnumSetting<Mode> enumSetting = add(new EnumSetting<>("Mode" , Mode.Uzawa1));
     public enum Mode { Uzawa1, Uzawa2 }
 
-    AnimateValue animateValue = new AnimateValue(EnumEasing.SINE, 14);
-    FPSCalculator fpsCalculator = new FPSCalculator();
+    final AnimateValue animateValue = new AnimateValue(EnumEasing.SINE, 14);
+    final FPSCalculator fpsCalculator = new FPSCalculator();
 
     @Override
     public void onRender(Render2DStartEvent event) {

@@ -2,7 +2,6 @@ package net.minearchive.screen.elements.setting;
 
 import net.minearchive.module.modules.client.ClientDebuggerModule;
 import net.minearchive.screen.AbstractElement;
-import net.minearchive.screen.IElement;
 import net.minearchive.setting.settings.ColorSetting;
 import net.minearchive.util.NanoVGUtils;
 import net.minearchive.util.SimpleColor;

@@ -2,15 +2,14 @@ package net.minearchive.util.easing;
 
 import net.minearchive.util.NanoVGUtils;
 import net.minearchive.util.SimpleColor;
-import org.lwjgl.nanovg.NanoVG;
 
 import java.util.stream.IntStream;
 
 public class AnimateValue {
 
-    SingleValue[] values;
+    private SingleValue[] values;
     private final int maxLength;
-    IEasing easing;
+    private IEasing easing;
 
     public AnimateValue(EnumEasing easing, int maxLength) {
         this.easing = easing.getEasing();

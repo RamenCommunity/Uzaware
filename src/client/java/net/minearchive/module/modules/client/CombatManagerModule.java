@@ -10,10 +10,10 @@ import net.minearchive.setting.settings.EnumSetting;
 public class CombatManagerModule extends Module {
     public static CombatManagerModule INSTANCE;
 
-    public BooleanSetting player = add(new BooleanSetting("Player", true));
-    public BooleanSetting passive = add(new BooleanSetting("Passive", true));
-    public BooleanSetting villagerSafe = add(new BooleanSetting("No Villager", true, () -> passive.getValue()));
-    public BooleanSetting enemy = add(new BooleanSetting("Enemy", true));
+    public final BooleanSetting player = add(new BooleanSetting("Player", true));
+    public final BooleanSetting passive = add(new BooleanSetting("Passive", true));
+    public final BooleanSetting villagerSafe = add(new BooleanSetting("No Villager", true, () -> passive.getValue()));
+    public final BooleanSetting enemy = add(new BooleanSetting("Enemy", true));
 
     public EnumSetting<Priority> priority = add(new EnumSetting<>("Priority", Priority.Health));
 

@@ -3,7 +3,6 @@ package net.minearchive.screen.elements.setting;
 import net.minearchive.module.modules.client.ClientDebuggerModule;
 import net.minearchive.screen.AbstractElement;
 import net.minearchive.screen.ClickGuiScreen;
-import net.minearchive.screen.IElement;
 import net.minearchive.setting.settings.KeyBindSetting;
 import net.minearchive.util.MouseUtils;
 import net.minearchive.util.NanoVGUtils;

@@ -37,7 +37,7 @@ public class TextureManager {
             try {
                 textureMap.put(identifier, NanoVG.nvgCreateImageMem(NanoVGUtils.context, NanoVG.NVG_IMAGE_NEAREST, byteBuffer(stream)));
             } catch (Exception e) {
-                e.printStackTrace();
+                Uzaware.LOGGER.error("Error caused while creating texture", e);
             }
         }
     }

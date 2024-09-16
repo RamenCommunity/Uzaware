@@ -3,7 +3,6 @@ package net.minearchive.screen.elements.setting;
 import net.minearchive.module.modules.client.ClientDebuggerModule;
 import net.minearchive.screen.AbstractElement;
 import net.minearchive.screen.ClickGuiScreen;
-import net.minearchive.screen.IElement;
 import net.minearchive.setting.settings.FloatSetting;
 import net.minearchive.util.MouseUtils;
 import net.minearchive.util.NanoVGUtils;
@@ -25,7 +24,7 @@ public class FloatElement extends AbstractElement<FloatSetting> {
         NVGPaint paint = NanoVGUtils.linearGradient(x + 30, offset + 36, width - 60, 14, SimpleColor.of(0xFFFAC0FF), SimpleColor.of(0xFFB3A5FF), NanoVGUtils.Orientation.HORIZONTAL);
         NanoVGUtils.ntr.draw(t.getName()+ " : " + String.format("%.2f", t.getValue()), x + 30, offset + 10, 22, 0xffffffff);
         NanoVGUtils.rounded(x + 30, offset + 36, width - 60, 14, 7, SimpleColor.of(0xFF191919), NanoVGUtils.Pattern.FILL);
-        if (t.getValue() != t.getMin()) NanoVGUtils.rounded(x + 30, offset + 36, (width - 60) * ((float) t.getValue() / (t.getMax() - t.getMin())), 14, 7, paint, NanoVGUtils.Pattern.FILL);
+        if (t.getValue() != t.getMin()) NanoVGUtils.rounded(x + 30, offset + 36, (width - 60) * (t.getValue() / (t.getMax() - t.getMin())), 14, 7, paint, NanoVGUtils.Pattern.FILL);
         NanoVGUtils.rounded(x + 30, offset + 36, width - 60, 14, 7, SimpleColor.of(0xFF292929), NanoVGUtils.Pattern.STROKE);
 
         if ((GLFW.glfwGetMouseButton(client.getWindow().getHandle(), GLFW.GLFW_MOUSE_BUTTON_LEFT) == GLFW.GLFW_PRESS)) {

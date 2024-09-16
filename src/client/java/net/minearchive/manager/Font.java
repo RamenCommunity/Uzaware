@@ -1,19 +1,16 @@
 package net.minearchive.manager;
 
 import net.minearchive.util.NanoVGUtils;
-import net.minearchive.util.SimpleColor;
 import org.apache.logging.log4j.LogManager;
 import org.jetbrains.annotations.Nullable;
 import org.lwjgl.nanovg.NVGColor;
 import org.lwjgl.nanovg.NanoVG;
 
-import java.awt.*;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
-import java.util.Arrays;
 
 public class Font {
     private ByteBuffer buffer;
@@ -126,7 +123,8 @@ public class Font {
         LogManager.getLogger("FontLoader").info("Loaded {}", name);
     }
 
-    public static ByteBuffer byteBuffer(@Nullable InputStream input) throws IOException {
+    public static ByteBuffer byteBuffer(@Nullable InputStream input) throws IOException, IllegalArgumentException {
+        if (input == null) throw new IllegalArgumentException("InputStream was null");
         ByteArrayOutputStream output = new ByteArrayOutputStream();
         byte[] buffer = new byte[4096];
         for (int n = 0; n != -1; n = input.read(buffer)) {
