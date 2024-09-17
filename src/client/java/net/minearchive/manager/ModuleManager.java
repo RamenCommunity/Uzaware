@@ -26,6 +26,7 @@ public class ModuleManager {
         //Misc
         register(ChatSuffixModule.class);
         register(SuperIQMathModule.class);
+        register(FakePlayerModule.class);
 
         //Movement
         register(FlightModule.class);
