@@ -35,6 +35,7 @@ public class TextureManager {
     public void createTexture(InputStream stream, String identifier) {
         if (!textureMap.containsKey(identifier)) {
             try {
+                /* ↓ NanoVG.NVG_IMAGE_GENERATE_MIPMAPS 検討お願いします */
                 textureMap.put(identifier, NanoVG.nvgCreateImageMem(NanoVGUtils.context, NanoVG.NVG_IMAGE_NEAREST, byteBuffer(stream)));
             } catch (Exception e) {
                 Uzaware.LOGGER.error("Error caused while creating texture", e);

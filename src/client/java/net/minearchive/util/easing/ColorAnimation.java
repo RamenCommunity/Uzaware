@@ -10,6 +10,11 @@ public class ColorAnimation {
     private final Animation blue;
     private final Animation alpha;
 
+
+/*
+SimpleColor使ったほうがいいと思う
+*/
+
     public ColorAnimation(Color color, IEasing animation) {
         this.red = new Animation((color == null) ? 0.0f : color.getRed(), animation);
         this.green = new Animation((color == null) ? 0.0f : color.getGreen(), animation);
