@@ -1,5 +1,6 @@
 package net.minearchive.util.easing;
 
+import net.minearchive.util.SimpleColor;
 import org.joml.Math;
 
 import java.awt.*;
@@ -10,11 +11,6 @@ public class ColorAnimation {
     private final Animation blue;
     private final Animation alpha;
 
-
-/*
-SimpleColor使ったほうがいいと思う
-*/
-
     public ColorAnimation(Color color, IEasing animation) {
         this.red = new Animation((color == null) ? 0.0f : color.getRed(), animation);
         this.green = new Animation((color == null) ? 0.0f : color.getGreen(), animation);
@@ -22,12 +18,11 @@ SimpleColor使ったほうがいいと思う
         this.alpha = new Animation((color == null) ? 0.0f : color.getAlpha(), animation);
     }
 
-    public ColorAnimation setAnimation(Color color, float time) {
+    public void setAnimation(Color color, float time) {
         this.red.animateTo(color.getRed(), time);
         this.green.animateTo(color.getGreen(), time);
         this.blue.animateTo(color.getBlue(), time);
         this.alpha.animateTo(color.getAlpha(), time);
-        return this;
     }
 
     public ColorAnimation setValue(Color color) {
@@ -45,6 +40,10 @@ SimpleColor使ったほうがいいと思う
                 Math.clamp(0, 255, (int) blue.getValue()),
                 Math.clamp(0, 255, (int) alpha.getValue())
         );
+    }
+
+    public SimpleColor getAsSimpleColor() {
+        return SimpleColor.of(getColor());
     }
 
 }
