@@ -14,7 +14,6 @@ import org.lwjgl.nanovg.NVGPaint;
 import org.lwjgl.nanovg.NanoVG;
 
 public class EnumElement extends AbstractElement<EnumSetting<? extends Enum<?>>> {
-    private float offset = 0;
     private boolean opened = false;
     private int v = 0;
     private final Animation
@@ -33,7 +32,6 @@ public class EnumElement extends AbstractElement<EnumSetting<? extends Enum<?>>>
 
     @Override
     public void render(DrawContext context, double mouseX, double mouseY, float delta, float offset) {
-        this.offset = offset;
         this.boxHeight.animateTo(opened ? t.contents().length + 1 : 1, 150);
         this.a.animateTo(opened ? 1 : 0, 150);
         this.yAnim.animateTo(0, 150);

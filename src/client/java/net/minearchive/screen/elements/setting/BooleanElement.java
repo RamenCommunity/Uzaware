@@ -15,7 +15,6 @@ import org.lwjgl.glfw.GLFW;
 import java.awt.*;
 
 public class BooleanElement extends AbstractElement<BooleanSetting> {
-    private float offset = 0;
     private final ColorAnimation colorT, colorB;
     private final Animation circleAnim;
 
@@ -28,7 +27,6 @@ public class BooleanElement extends AbstractElement<BooleanSetting> {
 
     @Override
     public void render(DrawContext context, double mouseX, double mouseY, float delta, float offset) {
-        this.offset = offset;
         colorT.setAnimation(new Color(t.getValue() ? 0xFFFAC0FF : 0xCC323232, true), 150);
         colorB.setAnimation(new Color(t.getValue() ? 0xFFB3A5FF : 0xCC323232, true), 150);
         circleAnim.animateTo(t.getValue() ? 1 : 0, 150);
