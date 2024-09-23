@@ -4,9 +4,6 @@ import net.minearchive.module.Category;
 import net.minearchive.module.Module;
 import net.minearchive.module.ModuleInfo;
 import net.minearchive.setting.settings.BooleanSetting;
-import net.minearchive.util.SimpleColor;
-import net.minearchive.util.easing.ColorAnimation;
-import net.minearchive.util.easing.EnumEasing;
 import net.minecraft.entity.EntityPose;
 
 @ModuleInfo(name = "MovementTweaks", category = Category.MOVEMENT)
