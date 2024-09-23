@@ -27,6 +27,7 @@ public class BooleanElement extends AbstractElement<BooleanSetting> {
 
     @Override
     public void render(DrawContext context, double mouseX, double mouseY, float delta, float offset) {
+        this.offset = offset;
         colorT.setAnimation(new Color(t.getValue() ? 0xFFFAC0FF : 0xCC323232, true), 350);
         colorB.setAnimation(new Color(t.getValue() ? 0xFFB3A5FF : 0xCC323232, true), 350);
         circleAnim.animateTo(t.getValue() ? 1 : 0, 350);
@@ -45,6 +46,7 @@ public class BooleanElement extends AbstractElement<BooleanSetting> {
     @Override
     public boolean mouseClicked(double mouseX, double mouseY, int button) {
         if (MouseUtils.hover(mouseX, mouseY, x + width - 70, offset + 8, 40, 20) && button == GLFW.GLFW_MOUSE_BUTTON_1) {
+            System.out.println("a");
             t.setValue(!t.getValue());
             return true;
         }

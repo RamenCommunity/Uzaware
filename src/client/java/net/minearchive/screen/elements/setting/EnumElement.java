@@ -32,11 +32,12 @@ public class EnumElement extends AbstractElement<EnumSetting<? extends Enum<?>>>
 
     @Override
     public void render(DrawContext context, double mouseX, double mouseY, float delta, float offset) {
+        this.offset = offset;
         this.boxHeight.animateTo(opened ? t.contents().length + 1 : 1, 350);
         this.a.animateTo(opened ? 1 : 0, 350);
-        this.yAnim.animateTo(0, 350);
-        this.selectAlpha.animateTo(1, 350);
-        this.selecting.animateTo(v, 100);
+        this.yAnim.animateTo(0, 550);
+        this.selectAlpha.animateTo(1, 550);
+        this.selecting.animateTo(v, 250);
         NVGPaint paint = NanoVGUtils.linearGradient(x + 30, offset + 70, x + width - 30, offset + 72, SimpleColor.of(0xFFFAC0FF).floatAlpha(a.getValue()), SimpleColor.of(0xFFB3A5FF).floatAlpha(a.getValue()), NanoVGUtils.Orientation.HORIZONTAL);
         NanoVGUtils.ntr.draw(t.getName(), x + 30, offset + 10, 22, 0xFFFFFFFF);
         NanoVGUtils.rounded(x + 30, offset + 30, width - 60, 40 * boxHeight.getValue(), 5, SimpleColor.of(0xD13C3C3C), NanoVGUtils.Pattern.FILL);

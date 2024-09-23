@@ -49,5 +49,6 @@ public class Animation {
 
     public void setValue(float value) {
         this.value = value;
+        this.targetValue = value;
     }
 }

@@ -20,6 +20,7 @@ public class KeyBindElement extends AbstractElement<KeyBindSetting> {
 
     @Override
     public void render(DrawContext context, double mouseX, double mouseY, float delta, float offset) {
+        this.offset = offset;
         float realW = Math.max(NanoVGUtils.ntr.width(listening ? "Listening..." : t.getValue().getKeyName(), 22) + 20, 70);
         NanoVGUtils.ntr.draw(t.getName(), x + 30, offset + 13, 22, 0xffffffff);
         NanoVGUtils.rounded(x + width - 30 - realW, offset + 9, realW, 22, 5, SimpleColor.of(0xD13C3C3C), NanoVGUtils.Pattern.FILL);
