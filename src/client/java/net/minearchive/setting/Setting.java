@@ -19,12 +19,14 @@ public class Setting<T> {
         this.visible = () -> true;
     }
 
-    public void setValue(T value) {
+    public Setting<T> setValue(T value) {
         this.value = value;
+        return this;
     }
 
-    public void setName(String name) {
+    public Setting<T> setName(String name) {
         this.name = name;
+        return this;
     }
 
     public T getValue() {
@@ -39,7 +41,8 @@ public class Setting<T> {
         return visible;
     }
 
-    public void setVisible(Supplier<Boolean> visible) {
+    public Setting<T> setVisible(Supplier<Boolean> visible) {
         this.visible = visible;
+        return this;
     }
 }
