@@ -1,4 +1,4 @@
-package net.minearchive.module.modules.client;
+package net.minearchive.module.modules.combat;
 
 import net.minearchive.module.Category;
 import net.minearchive.module.Module;
