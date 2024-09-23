@@ -5,6 +5,7 @@ import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.minearchive.event.events.TickEndEvent;
 import net.minearchive.event.events.TickStartEvent;
+import net.minearchive.manager.ConfigManager;
 import net.minearchive.manager.ModuleManager;
 import net.minearchive.manager.NanoVGManager;
 import net.minearchive.manager.TextureManager;
@@ -22,6 +23,7 @@ public class Uzaware implements ClientModInitializer {
 	public static ModuleManager moduleManager 	= new ModuleManager();
 	public static NanoVGManager nanoVGManager 	= new NanoVGManager();
 	public static TextureManager textureManager = new TextureManager();
+	public static ConfigManager configManager 	= new ConfigManager();
 	public static final EventBus EVENT_BUS 		= new EventBus();
 	private final String[] serif 				= new String[] {
 			"呼ばれて飛び出て！参りました！ みんなのスーパースター、宇沢レイサ、登場です！",
@@ -37,7 +39,10 @@ public class Uzaware implements ClientModInitializer {
 		ClientTickEvents.START_CLIENT_TICK.register(tick -> EVENT_BUS.post(new TickStartEvent()));
 		ClientTickEvents.END_CLIENT_TICK.register(tick -> EVENT_BUS.post(new TickEndEvent()));
 		EVENT_BUS.register(new AlwaysListener());
+		configManager.onInit();
 
 		LOGGER.info("Uzaware Initialized!");
+
+		Runtime.getRuntime().addShutdownHook(new Thread(() -> configManager.onShutdown(), "Shutdown_hook"));
 	}
 }
