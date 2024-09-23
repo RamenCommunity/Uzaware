@@ -30,6 +30,7 @@ public class ModuleManager {
 
         //Movement
         register(FlightModule.class);
+        register(MovementTweaksModule.class);
 
         //Render
         register(FullBrightModule.class);
@@ -43,6 +44,7 @@ public class ModuleManager {
 
         //Hud
         register(WaterMarkModule.class);
+        register(NotificationModule.class);
 
         modules.sort(Comparator.comparing(m -> m.name));
     }
