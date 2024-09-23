@@ -126,7 +126,7 @@ public class ConfigManager implements AccessMC {
     private void createFile(File file, JsonObject jsonObject) {
         try {
             if (file.getParentFile() != null && !file.getParentFile().exists()) {
-                file.getParentFile().mkdirs()
+                file.getParentFile().mkdirs();
                 file.createNewFile();
             }
             if (!file.exists()) file.createNewFile();
