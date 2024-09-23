@@ -14,6 +14,13 @@ public enum EnumEasing {
         double c3 = c1 + 1;
         return 1 + c3 * Math.pow(value - 1, 3) + c1 * Math.pow(value - 1, 2);
     }),
+    BACK_IN_OUT(value -> {
+        double c1 = 1.70158;
+        double c2 = c1 * 1.525;
+        return value < 0.5 ?
+                (Math.pow(2 * value, 2) * ((c2 + 1) * 2 * value - c2)) / 2 :
+                (Math.pow(2 * value - 2, 2) * ((c2 + 1) * (value * 2 - 2) + c2) + 2) / 2;
+    }),
     ELASTIC(value -> {
         double c4 = 2 * Math.PI / 3;
 

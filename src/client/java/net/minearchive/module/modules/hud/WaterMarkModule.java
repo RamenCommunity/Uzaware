@@ -23,7 +23,7 @@ public class WaterMarkModule extends HudModule {
     public final EnumSetting<Mode> enumSetting = add(new EnumSetting<>("Mode" , Mode.Uzawa1));
     public enum Mode { Uzawa1, Uzawa2 }
 
-    final AnimateValue animateValue = new AnimateValue(EnumEasing.SINE, 14);
+    final AnimateValue animateValue = new AnimateValue(EnumEasing.QUART, 14);
     final FPSCalculator fpsCalculator = new FPSCalculator();
 
     @Override

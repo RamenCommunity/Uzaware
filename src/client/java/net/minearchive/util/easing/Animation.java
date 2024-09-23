@@ -2,25 +2,41 @@ package net.minearchive.util.easing;
 
 public class Animation {
 
-    private float value;
-    private long lastUpdateTime;
+    private float value, startValue, targetValue;
+    private long startTime, duration;
     private IEasing easing;
 
     public Animation(float value, IEasing easing) {
         this.value = value;
-        this.lastUpdateTime = System.nanoTime();
         this.easing = easing;
     }
 
-    public void animateTo(float target, double duration) {
+    public void animateTo(float target, double durationMs) {
         long currentTime = System.nanoTime();
-        long deltaTime = currentTime - lastUpdateTime;
-        lastUpdateTime = currentTime;
 
-        float progress = (float) ((double) (deltaTime / 100L) / (duration * 10000L));
-        float easedProgress = (float) easing.ease(progress);
+        if (targetValue != target) {
+            if (duration > 0) {
+                long elapsedTime = currentTime - startTime;
+                if (elapsedTime < duration) {
+                    float progress = (float) elapsedTime / duration;
+                    float easedProgress = (float) easing.ease(progress);
+                    this.value = startValue + (targetValue - startValue) * easedProgress;
+                } else value = targetValue;
+            }
 
-        value += (target - value) * easedProgress;
+            this.startValue = value;
+            this.targetValue = target;
+            this.startTime = currentTime;
+            this.duration = (long) (durationMs * 1_000_000);
+        }
+
+        long elapsedTime = currentTime - startTime;
+        if (elapsedTime < duration) {
+            float progress = (float) elapsedTime / duration;
+            float easedProgress = (float) easing.ease(progress);
+
+            this.value = startValue + (targetValue - startValue) * easedProgress;
+        } else this.value = targetValue;
     }
 
     public float getValue() {

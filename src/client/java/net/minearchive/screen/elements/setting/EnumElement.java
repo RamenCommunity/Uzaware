@@ -17,11 +17,11 @@ public class EnumElement extends AbstractElement<EnumSetting<? extends Enum<?>>>
     private boolean opened = false;
     private int v = 0;
     private final Animation
-            boxHeight = new Animation(0, EnumEasing.SINE.getEasing()),
-            a = new Animation(0, EnumEasing.SINE.getEasing()),
-            selecting = new Animation(0, EnumEasing.SINE.getEasing()),
-            yAnim = new Animation(0, EnumEasing.SINE.getEasing()),
-            selectAlpha = new Animation(0, EnumEasing.SINE.getEasing());
+            boxHeight = new Animation(0, EnumEasing.QUART.getEasing()),
+            a = new Animation(0, EnumEasing.QUART.getEasing()),
+            selecting = new Animation(0, EnumEasing.QUART.getEasing()),
+            yAnim = new Animation(0, EnumEasing.QUART.getEasing()),
+            selectAlpha = new Animation(0, EnumEasing.QUART.getEasing());
 
     public EnumElement(EnumSetting<? extends Enum<?>> setting, float x, float y, float width, float height) {
         super(setting, x, y ,width, height);
@@ -32,10 +32,10 @@ public class EnumElement extends AbstractElement<EnumSetting<? extends Enum<?>>>
 
     @Override
     public void render(DrawContext context, double mouseX, double mouseY, float delta, float offset) {
-        this.boxHeight.animateTo(opened ? t.contents().length + 1 : 1, 150);
-        this.a.animateTo(opened ? 1 : 0, 150);
-        this.yAnim.animateTo(0, 150);
-        this.selectAlpha.animateTo(1, 150);
+        this.boxHeight.animateTo(opened ? t.contents().length + 1 : 1, 350);
+        this.a.animateTo(opened ? 1 : 0, 350);
+        this.yAnim.animateTo(0, 350);
+        this.selectAlpha.animateTo(1, 350);
         this.selecting.animateTo(v, 100);
         NVGPaint paint = NanoVGUtils.linearGradient(x + 30, offset + 70, x + width - 30, offset + 72, SimpleColor.of(0xFFFAC0FF).floatAlpha(a.getValue()), SimpleColor.of(0xFFB3A5FF).floatAlpha(a.getValue()), NanoVGUtils.Orientation.HORIZONTAL);
         NanoVGUtils.ntr.draw(t.getName(), x + 30, offset + 10, 22, 0xFFFFFFFF);

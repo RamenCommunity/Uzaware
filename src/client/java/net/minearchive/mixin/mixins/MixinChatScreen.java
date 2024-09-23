@@ -46,8 +46,8 @@ public abstract class MixinChatScreen extends Screen {
                     m.oldMouseY = y;
                 }
 
-                m.alpha.animateTo(0.5f, 150);
-            } else m.alpha.animateTo(0, 150);
+                m.alpha.animateTo(0.5f, 350);
+            } else m.alpha.animateTo(0, 350);
 
             if (ModuleManager.INSTANCE.dragging == m) {
                 m.x += x - m.oldMouseX;

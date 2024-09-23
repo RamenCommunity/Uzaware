@@ -23,7 +23,7 @@ public class ModuleElement extends AbstractElement<Module> {
     private final Module module;
     private final List<IElement> settingComponents = new ArrayList<>();
     private final ColorAnimation setting, backgroundL, backgroundR;
-    private final Animation h = new Animation(- 10, EnumEasing.SINE.getEasing()), a;
+    private final Animation h = new Animation(- 10, EnumEasing.QUART.getEasing()), a;
     private boolean opened;
 
     public ModuleElement(Module module, float x, float y, float width, float height) {
@@ -38,20 +38,20 @@ public class ModuleElement extends AbstractElement<Module> {
             if (s instanceof KeyBindSetting) settingComponents.add(new KeyBindElement((KeyBindSetting) s, x, y, width, height));
         });
         this.module = module;
-        this.setting = new ColorAnimation(opened ? settingComponents.isEmpty() ? SimpleColor.of(0, 0, 0, 0) : SimpleColor.of(0, 0, 0, 94) : SimpleColor.of(0, 0, 0, 0), EnumEasing.SINE.getEasing());
-        this.backgroundL = new ColorAnimation(module.enabled ? SimpleColor.of(0xFFFAC0FF) : SimpleColor.of(0xD93C3C3C), EnumEasing.SINE.getEasing());
-        this.backgroundR = new ColorAnimation(module.enabled ? SimpleColor.of(0xFFB3A5FF) : SimpleColor.of(0xD93C3C3C), EnumEasing.SINE.getEasing());
-        this.a = new Animation(opened ? 1 : 0, EnumEasing.SINE.getEasing());
+        this.setting = new ColorAnimation(opened ? settingComponents.isEmpty() ? SimpleColor.of(0, 0, 0, 0) : SimpleColor.of(0, 0, 0, 94) : SimpleColor.of(0, 0, 0, 0), EnumEasing.QUART.getEasing());
+        this.backgroundL = new ColorAnimation(module.enabled ? SimpleColor.of(0xFFFAC0FF) : SimpleColor.of(0xD93C3C3C), EnumEasing.QUART.getEasing());
+        this.backgroundR = new ColorAnimation(module.enabled ? SimpleColor.of(0xFFB3A5FF) : SimpleColor.of(0xD93C3C3C), EnumEasing.QUART.getEasing());
+        this.a = new Animation(opened ? 1 : 0, EnumEasing.QUART.getEasing());
     }
 
     @Override
     public void render(DrawContext context, double mouseX, double mouseY, float delta, float offset) {
         super.render(context, mouseX, mouseY, delta, offset);
         this.offset = offset;
-        this.a.animateTo(opened ? 1 : 0, 150);
-        this.setting.setAnimation(opened ? settingComponents.isEmpty() ? SimpleColor.of(0, 0, 0, 0) : SimpleColor.of(0, 0, 0, 94) : SimpleColor.of(0, 0, 0, 0), 150);
-        this.backgroundL.setAnimation(module.enabled ? new Color(0xFFFAC0FF) : new Color(0xD93C3C3C), 150);
-        this.backgroundR.setAnimation(module.enabled ? new Color(0xFFB3A5FF) : new Color(0xD93C3C3C), 150);
+        this.a.animateTo(opened ? 1 : 0, 350);
+        this.setting.setAnimation(opened ? settingComponents.isEmpty() ? SimpleColor.of(0, 0, 0, 0) : SimpleColor.of(0, 0, 0, 94) : SimpleColor.of(0, 0, 0, 0), 350);
+        this.backgroundL.setAnimation(module.enabled ? new Color(0xFFFAC0FF) : new Color(0xD93C3C3C), 350);
+        this.backgroundR.setAnimation(module.enabled ? new Color(0xFFB3A5FF) : new Color(0xD93C3C3C), 350);
         NanoVGUtils.rounded(x + 20,
                 y + offset,
                 width - 40,
@@ -81,7 +81,7 @@ public class ModuleElement extends AbstractElement<Module> {
         settingComponents.forEach(c -> c.render(context, mouseX, mouseY, delta, (float) off.getAndAdd(c.height()) + offset));
         NanoVG.nvgRestore(NanoVGUtils.context);
         NanoVGUtils.endScissor();
-        h.animateTo((opened ? off.floatValue() - 70 : - 10), 150);
+        h.animateTo((opened ? off.floatValue() - 70 : - 10), 350);
     }
 
     @Override

@@ -14,7 +14,7 @@ public class HudModule extends Module {
             round = getHudAnnotation().round(),
             oldMouseX = 0f, oldMouseY = 0f;
 
-    public final Animation alpha = new Animation(0.0f, EnumEasing.SINE.getEasing());
+    public final Animation alpha = new Animation(0.0f, EnumEasing.QUART.getEasing());
 
     @Subscribe
     public void onRender(Render2DStartEvent event) { }

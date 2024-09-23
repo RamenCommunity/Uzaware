@@ -20,16 +20,16 @@ public class BooleanElement extends AbstractElement<BooleanSetting> {
 
     public BooleanElement(BooleanSetting setting, float x, float y, float width, float height) {
         super(setting, x, y, width, height);
-        this.colorT = new ColorAnimation(new Color(setting.getValue() ? 0xFFFAC0FF : 0xCC323232), EnumEasing.SINE.getEasing());
-        this.colorB = new ColorAnimation(new Color(setting.getValue() ? 0xFFB3A5FF : 0xCC323232), EnumEasing.SINE.getEasing());
-        this.circleAnim = new Animation(setting.getValue() ? 1 : 0, EnumEasing.SINE.getEasing());
+        this.colorT = new ColorAnimation(new Color(setting.getValue() ? 0xFFFAC0FF : 0xCC323232), EnumEasing.QUART.getEasing());
+        this.colorB = new ColorAnimation(new Color(setting.getValue() ? 0xFFB3A5FF : 0xCC323232), EnumEasing.QUART.getEasing());
+        this.circleAnim = new Animation(setting.getValue() ? 1 : 0, EnumEasing.QUART.getEasing());
     }
 
     @Override
     public void render(DrawContext context, double mouseX, double mouseY, float delta, float offset) {
-        colorT.setAnimation(new Color(t.getValue() ? 0xFFFAC0FF : 0xCC323232, true), 150);
-        colorB.setAnimation(new Color(t.getValue() ? 0xFFB3A5FF : 0xCC323232, true), 150);
-        circleAnim.animateTo(t.getValue() ? 1 : 0, 150);
+        colorT.setAnimation(new Color(t.getValue() ? 0xFFFAC0FF : 0xCC323232, true), 350);
+        colorB.setAnimation(new Color(t.getValue() ? 0xFFB3A5FF : 0xCC323232, true), 350);
+        circleAnim.animateTo(t.getValue() ? 1 : 0, 350);
         NanoVGUtils.ntr.draw(t.getName(), x + 30, offset + 8, 22, 0xFFFFFFFF);
 
         NanoVGUtils.stroke(2F);
