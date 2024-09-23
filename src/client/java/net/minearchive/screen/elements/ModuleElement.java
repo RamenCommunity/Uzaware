@@ -39,8 +39,8 @@ public class ModuleElement extends AbstractElement<Module> {
         });
         this.module = module;
         this.setting = new ColorAnimation(opened ? settingComponents.isEmpty() ? SimpleColor.of(0, 0, 0, 0) : SimpleColor.of(0, 0, 0, 94) : SimpleColor.of(0, 0, 0, 0), EnumEasing.SINE.getEasing());
-        this.backgroundL = new ColorAnimation(module.enabled ? new Color(0xFFFAC0FF) : new Color(0xD93C3C3C), EnumEasing.SINE.getEasing());
-        this.backgroundR = new ColorAnimation(module.enabled ? new Color(0xFFB3A5FF) : new Color(0xD93C3C3C), EnumEasing.SINE.getEasing());
+        this.backgroundL = new ColorAnimation(module.enabled ? SimpleColor.of(0xFFFAC0FF) : SimpleColor.of(0xD93C3C3C), EnumEasing.SINE.getEasing());
+        this.backgroundR = new ColorAnimation(module.enabled ? SimpleColor.of(0xFFB3A5FF) : SimpleColor.of(0xD93C3C3C), EnumEasing.SINE.getEasing());
         this.a = new Animation(opened ? 1 : 0, EnumEasing.SINE.getEasing());
     }
 

@@ -27,8 +27,7 @@ public class FloatElement extends AbstractElement<FloatSetting> {
         NanoVGUtils.rounded(x + 29, offset + 25, width - 58, 16, 8, SimpleColor.of(0x59000000), NanoVGUtils.Pattern.STROKE);
         NanoVGUtils.stroke(1F);
         NanoVGUtils.rounded(x + 30, offset + 26, width - 60, 14, 7, SimpleColor.of(0xCC323232), NanoVGUtils.Pattern.FILL);
-
-        if (t.getValue() > t.getMin()) NanoVGUtils.rounded(x + 30, offset + 26, (width - 60) * (t.getValue() / (t.getMax() - t.getMin())), 14, 7, paint, NanoVGUtils.Pattern.FILL);
+        if (t.getValue() > t.getMin()) NanoVGUtils.rounded(x + 30, offset + 26, (width - 60) * Math.clamp(0, 1, (t.getValue() / (t.getMax() - t.getMin()))), 14, 7, paint, NanoVGUtils.Pattern.FILL);
 
         if ((GLFW.glfwGetMouseButton(client.getWindow().getHandle(), GLFW.GLFW_MOUSE_BUTTON_LEFT) == GLFW.GLFW_PRESS)) {
             if ((MouseUtils.hover(mouseX, mouseY, x + 30, offset + 31, width - 60, 14) && !ClickGuiScreen.INSTANCE.isDragging) || dragging) {

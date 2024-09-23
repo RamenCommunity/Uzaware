@@ -27,7 +27,7 @@ public class EnumElement extends AbstractElement<EnumSetting<? extends Enum<?>>>
     public EnumElement(EnumSetting<? extends Enum<?>> setting, float x, float y, float width, float height) {
         super(setting, x, y ,width, height);
         for (int i = 0; i < setting.contents().length; i++) {
-            if (setting.getValue().name() == setting.contents()[i].name()) this.v = i;
+            if (setting.getValue().name().equals(setting.contents()[i].name())) this.v = i;
         }
     }
 
@@ -64,14 +64,14 @@ public class EnumElement extends AbstractElement<EnumSetting<? extends Enum<?>>>
             }
             if (button == GLFW.GLFW_MOUSE_BUTTON_RIGHT) opened = !opened;
             for (int i = 0; i < t.contents().length; i++) {
-                if (t.getValue().name() == t.contents()[i].name()) this.v = i;
+                if (t.getValue().name().equals(t.contents()[i].name())) this.v = i;
             }
         }
 
         if (MouseUtils.hover(mouseX, mouseY, x + 30, offset + 70, width - 60, 40 * boxHeight.getValue()) && opened) {
             for (int i = 0; i < t.contents().length; i++) {
                 if (MouseUtils.hover(mouseX, mouseY, x + 30, offset + 70 + i * 40, width - 60, 40)) {
-                    if (t.getValue().name() != t.contents()[i].name()) {
+                    if (!t.getValue().name().equals(t.contents()[i].name())) {
                         this.v = i;
                         this.selectAlpha.setValue(0);
                         this.yAnim.setValue(-15);
