@@ -25,7 +25,7 @@ public class ConfigManager implements AccessMC {
         load();
     }
 
-    public void onShutdown() {
+    public void saveAll() {
         save(
                 new ConfigFile(new File(new File(CLIENT_PATH, "modules"), String.format("%s.json", currentConfig)), TYPE.MODULE),
                 new ConfigFile(new File(new File(CLIENT_PATH, "binds"), String.format("%s.json", currentBind)), TYPE.BIND),
@@ -93,7 +93,10 @@ public class ConfigManager implements AccessMC {
     private void load(Module module, Object jsonObject, TYPE type) {
         switch (type) {
             case MODULE -> ((JsonObject) jsonObject).entrySet().forEach(config -> {
-                if (config.getKey().equals("enabled")) module.enabled = config.getValue().getAsBoolean();
+                if (config.getKey().equals("enabled")) {
+                    if (config.getValue().getAsBoolean()) module.enable();
+                    else module.disable();
+                }
                 if (config.getKey().equals("configs")) apply(config, module);
             });
             case BIND -> module.bind.getValue().setKey((int) jsonObject);
@@ -102,8 +105,10 @@ public class ConfigManager implements AccessMC {
             }
             case HUD -> ((JsonObject) jsonObject).entrySet().forEach(config -> {
                 if (!(module instanceof HudModule)) return;
-                if (config.getKey().equals("enabled")) module.enabled = config.getValue().getAsBoolean();
-                if (config.getKey().equals("x")) ((HudModule) module).x = config.getValue().getAsFloat();
+                if (config.getKey().equals("enabled")) {
+                    if (config.getValue().getAsBoolean()) module.enable();
+                    else module.disable();
+                }                if (config.getKey().equals("x")) ((HudModule) module).x = config.getValue().getAsFloat();
                 if (config.getKey().equals("y")) ((HudModule) module).x = config.getValue().getAsFloat();
                 if (config.getKey().equals("configs")) apply(config, module);
             });
