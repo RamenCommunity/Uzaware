@@ -16,7 +16,7 @@ public class Notification implements AccessMC {
     private NotificationData data;
 
     private final Animation xAnim = new Animation(0, EnumEasing.BACK.getEasing());
-    private final Animation yAnim = new Animation(0, EnumEasing.QUART.getEasing());
+    private Animation yAnim;
     private Stage stage = Stage.In;
     private final TimerUtils timer = new TimerUtils(TimeUnit.MILLISECONDS);
     public Notification(NotificationData data) {
@@ -51,6 +51,8 @@ public class Notification implements AccessMC {
         float w = NanoVGUtils.ntr.width(data.title, 26) + 50;
         float ww = NanoVGUtils.ntr.width(data.message, 26) + 15;
         float width= w + ww + 40;
+
+        if (yAnim == null) yAnim = new Animation(i * 60, EnumEasing.QUART.getEasing());
 
         yAnim.animateTo(i * 60, 350);
         xAnim.animateTo((stage == Stage.Out ? -1 : 1) * width, duration);

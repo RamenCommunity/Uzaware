@@ -10,11 +10,16 @@ import org.lwjgl.glfw.GLFW;
 public class ClickGuiModule extends Module {
     @Override
     public void onEnable() {
+        if (nullCheck()) {
+            disable();
+            return;
+        }
         client.setScreen(new ClickGuiScreen(this));
     }
 
     @Override
     public void onDisable() {
+        if (nullCheck()) return;
         if (client.currentScreen instanceof ClickGuiScreen)
             client.setScreen(null);
     }
