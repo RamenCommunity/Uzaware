@@ -8,7 +8,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @ModuleInfo(name = "NoRender", category = Category.RENDER, enable = true)
 public class NoRenderModule extends Module {
-    public BooleanSetting weather = add(new BooleanSetting("Weather", true));
+    public final BooleanSetting weather = add(new BooleanSetting("Weather", true));
     public static NoRenderModule INSTANCE;
 
     public NoRenderModule() {

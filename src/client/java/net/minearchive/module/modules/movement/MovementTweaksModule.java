@@ -9,8 +9,8 @@ import net.minearchive.setting.settings.BooleanSetting;
 public class MovementTweaksModule extends Module {
     public static MovementTweaksModule INSTANCE;
 
-    public BooleanSetting noSwim = add(new BooleanSetting("No Block Swim", false));
-    public BooleanSetting noRiptide = add(new BooleanSetting("No Riptide", false));
+    public final BooleanSetting noSwim = add(new BooleanSetting("No Block Swim", false));
+    public final BooleanSetting noRiptide = add(new BooleanSetting("No Riptide", false));
 
     public MovementTweaksModule() {
         INSTANCE = this;

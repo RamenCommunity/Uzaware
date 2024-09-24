@@ -2,7 +2,6 @@ package net.minearchive.module;
 
 import net.minearchive.AccessMC;
 import net.minearchive.Uzaware;
-import net.minearchive.module.modules.client.ClientSettings;
 import net.minearchive.module.modules.hud.NotificationModule;
 import net.minearchive.setting.KeyBind;
 import net.minearchive.setting.Setting;
@@ -33,7 +32,7 @@ public class Module implements AccessMC {
 
     public final void enable() {
         Uzaware.registerEventBus(this);
-        if (!nullCheck() && ClientSettings.INSTANCE.chatNotify.getValue())
+        if (!nullCheck() && NotificationModule.INSTANCE.chatNotify.getValue())
             ChatUtil.addMessage(this.hashCode(), Text.of(String.format("§d%s§r | %s§a Enabled§r" + " §a✔", Uzaware.modName, this.name)));
         if (!nullCheck() && NotificationModule.INSTANCE.enabled)
             new NotificationUtils.Builder()
@@ -48,7 +47,7 @@ public class Module implements AccessMC {
 
     public final void disable() {
         Uzaware.unRegisterEventBus(this);
-        if (!nullCheck() && ClientSettings.INSTANCE.chatNotify.getValue())
+        if (!nullCheck() && NotificationModule.INSTANCE.chatNotify.getValue())
             ChatUtil.addMessage(this.hashCode(), Text.of(String.format("§d%s§r | %s§c Disabled§r" + " §c✘", Uzaware.modName, this.name)));
         if (!nullCheck() && NotificationModule.INSTANCE.enabled)
             new NotificationUtils.Builder()

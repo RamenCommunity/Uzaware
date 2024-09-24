@@ -40,7 +40,6 @@ public class ModuleManager {
         register(ClickGuiModule.class);
         register(ElementSample.class);
         register(ClientDebuggerModule.class);
-        register(ClientSettings.class);
 
         //Hud
         register(WaterMarkModule.class);
