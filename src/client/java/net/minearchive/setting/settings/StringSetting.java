@@ -14,6 +14,7 @@ public class StringSetting extends Setting<String> {
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public StringSetting build() {
         return this;
     }

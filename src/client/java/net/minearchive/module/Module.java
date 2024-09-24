@@ -15,9 +15,6 @@ import net.minecraft.text.Text;
 import java.util.ArrayList;
 import java.util.List;
 
-import static net.minearchive.Uzaware.EVENT_BUS;
-import static net.minearchive.Uzaware.registeredObject;
-
 public class Module implements AccessMC {
     public final String name = getAnnotation().name();
     public final String description = getAnnotation().description();

@@ -1,5 +1,6 @@
 package net.minearchive.util.easing;
 
+@SuppressWarnings("unused")
 public enum EnumEasing {
     LINEAR(value -> value),
     SINE(value -> Math.sin(value * Math.PI / 2)),
