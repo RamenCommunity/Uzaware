@@ -13,4 +13,10 @@ public class ColorSetting extends Setting<Color> {
     public SimpleColor getAsSimpleColor() {
         return SimpleColor.of(getValue());
     }
+
+    @Override
+    @SuppressWarnings("unchecked")
+    public ColorSetting build() {
+        return this;
+    }
 }

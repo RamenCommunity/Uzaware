@@ -1,11 +1,13 @@
 package net.minearchive.setting;
 
+import java.util.function.Consumer;
 import java.util.function.Supplier;
 
-public class Setting<T> {
+public abstract class Setting<T> {
     private T value;
     private String name;
     private Supplier<Boolean> visible;
+    private Consumer<T> onValueChange = v -> {};
 
     public Setting(String name, T value, Supplier<Boolean> visible) {
         this.value = value;
@@ -20,6 +22,7 @@ public class Setting<T> {
     }
 
     public Setting<T> setValue(T value) {
+        if (this.value != value) onValueChange.accept(value);
         this.value = value;
         return this;
     }
@@ -45,4 +48,11 @@ public class Setting<T> {
         this.visible = visible;
         return this;
     }
+
+    public Setting<T> setOnValueChange(Consumer<T> onValueChange) {
+        this.onValueChange = onValueChange;
+        return this;
+    }
+
+    public abstract <S extends Setting<T>> S build();
 }

@@ -34,4 +34,10 @@ public class IntegerSetting extends Setting<Integer> {
     public int getMax() {
         return max;
     }
+
+    @Override
+    @SuppressWarnings("unchecked")
+    public IntegerSetting build() {
+        return this;
+    }
 }

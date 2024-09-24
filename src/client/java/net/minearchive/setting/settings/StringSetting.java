@@ -12,4 +12,9 @@ public class StringSetting extends Setting<String> {
     public StringSetting(String name, String value, Supplier<Boolean> visible) {
         super(name, value, visible);
     }
+
+    @Override
+    public StringSetting build() {
+        return this;
+    }
 }

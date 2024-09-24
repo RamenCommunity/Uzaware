@@ -34,4 +34,10 @@ public class FloatSetting extends Setting<Float> {
     public float getMax() {
         return max;
     }
+
+    @Override
+    @SuppressWarnings("unchecked")
+    public FloatSetting build() {
+        return this;
+    }
 }

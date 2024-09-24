@@ -12,4 +12,10 @@ public class BooleanSetting extends Setting<Boolean> {
     public BooleanSetting(String name, Boolean value) {
         super(name, value);
     }
+
+    @Override
+    @SuppressWarnings("unchecked")
+    public BooleanSetting build() {
+        return this;
+    }
 }

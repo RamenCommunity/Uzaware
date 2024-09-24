@@ -13,4 +13,10 @@ public class KeyBindSetting extends Setting<KeyBind> {
     public KeyBindSetting(String name, KeyBind value, Supplier<Boolean> visible) {
         super(name, value, visible);
     }
+
+    @Override
+    @SuppressWarnings("unchecked")
+    public KeyBindSetting build() {
+        return this;
+    }
 }

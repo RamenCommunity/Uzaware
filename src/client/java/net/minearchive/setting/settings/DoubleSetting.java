@@ -34,4 +34,10 @@ public class DoubleSetting extends Setting<Double> {
     public double getMax() {
         return max;
     }
+
+    @Override
+    @SuppressWarnings("unchecked")
+    public DoubleSetting build() {
+        return this;
+    }
 }

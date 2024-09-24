@@ -34,4 +34,10 @@ public class EnumSetting<T extends Enum<T>> extends Setting<T> {
     public void back() {
         setValue(contents[(getValue().ordinal() == 0 ? contents.length - 1 : getValue().ordinal()) - 1]);
     }
+
+    @Override
+    @SuppressWarnings("unchecked")
+    public EnumSetting<? extends Enum<?>> build() {
+        return this;
+    }
 }
