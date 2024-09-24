@@ -3,16 +3,20 @@ package net.minearchive.module;
 import net.minearchive.AccessMC;
 import net.minearchive.Uzaware;
 import net.minearchive.module.modules.client.ClientSettings;
+import net.minearchive.module.modules.hud.NotificationModule;
 import net.minearchive.setting.KeyBind;
 import net.minearchive.setting.Setting;
 import net.minearchive.setting.settings.KeyBindSetting;
 import net.minearchive.util.ChatUtil;
+import net.minearchive.util.NotificationUtils;
+import net.minearchive.util.notification.Notification;
 import net.minecraft.text.Text;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import static net.minearchive.Uzaware.EVENT_BUS;
+import static net.minearchive.Uzaware.registeredObject;
 
 public class Module implements AccessMC {
     public final String name = getAnnotation().name();
@@ -31,17 +35,31 @@ public class Module implements AccessMC {
     }
 
     public final void enable() {
-        EVENT_BUS.register(this);
+        Uzaware.registerEventBus(this);
         if (!nullCheck() && ClientSettings.INSTANCE.chatNotify.getValue())
             ChatUtil.addMessage(this.hashCode(), Text.of(String.format("§d%s§r | %s§a Enabled§r" + " §a✔", Uzaware.modName, this.name)));
+        if (!nullCheck() && NotificationModule.INSTANCE.enabled)
+            new NotificationUtils.Builder()
+                    .setId(hashCode())
+                    .setTitle(name)
+                    .setMessage("Enabled")
+                    .setType(Notification.NotificationType.SUCCESS)
+                    .buildAndAdd();
         enabled = true;
         onEnable();
     }
 
     public final void disable() {
-        EVENT_BUS.unregister(this);
+        Uzaware.unRegisterEventBus(this);
         if (!nullCheck() && ClientSettings.INSTANCE.chatNotify.getValue())
             ChatUtil.addMessage(this.hashCode(), Text.of(String.format("§d%s§r | %s§c Disabled§r" + " §c✘", Uzaware.modName, this.name)));
+        if (!nullCheck() && NotificationModule.INSTANCE.enabled)
+            new NotificationUtils.Builder()
+                    .setId(hashCode())
+                    .setTitle(name)
+                    .setMessage("Disabled")
+                    .setType(Notification.NotificationType.ERROR)
+                    .buildAndAdd();
         enabled = false;
         onDisable();
     }
