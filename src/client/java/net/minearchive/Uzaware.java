@@ -5,10 +5,7 @@ import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.minearchive.event.events.TickEndEvent;
 import net.minearchive.event.events.TickStartEvent;
-import net.minearchive.manager.ConfigManager;
-import net.minearchive.manager.ModuleManager;
-import net.minearchive.manager.NanoVGManager;
-import net.minearchive.manager.TextureManager;
+import net.minearchive.manager.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -26,6 +23,7 @@ public class Uzaware implements ClientModInitializer {
 	public static NanoVGManager nanoVGManager 	= new NanoVGManager();
 	public static TextureManager textureManager = new TextureManager();
 	public static ConfigManager configManager 	= new ConfigManager();
+	public static EntityManager entityManager 	= new EntityManager();
 	public static final EventBus EVENT_BUS 		= new EventBus();
 	public static List<Object> registeredObject = new CopyOnWriteArrayList<>();
 	private final String[] serif 				= new String[] {

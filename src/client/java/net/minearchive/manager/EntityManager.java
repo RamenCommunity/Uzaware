@@ -1,25 +1,32 @@
 package net.minearchive.manager;
 
 import net.minearchive.AccessMC;
-import net.minearchive.module.modules.client.CombatManagerModule;
+import net.minearchive.module.modules.combat.CombatManagerModule;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.entity.passive.PassiveEntity;
 import net.minecraft.entity.passive.VillagerEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import org.jetbrains.annotations.Nullable;
 
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.StreamSupport;
 
 public class EntityManager implements AccessMC {
 
-    public static List<Entity> getEnemies() {
-        CombatManagerModule cm = CombatManagerModule.INSTANCE;
-        if (client.world == null || client.player == null) return List.of();
+    @Nullable
+    private Entity targeting = null;
+    private boolean isChangeable = false;
+    private List<Entity> entities = new ArrayList<>();
 
-        return StreamSupport.stream(client.world.getEntities().spliterator(), false)
+    public void update() {
+        CombatManagerModule cm = CombatManagerModule.INSTANCE;
+        if (client.world == null || client.player == null) return;
+
+        entities = StreamSupport.stream(client.world.getEntities().spliterator(), false)
                 .filter(e -> e instanceof LivingEntity)
                 .filter(e -> (cm.player.getValue() && e instanceof PlayerEntity) ||
                         (cm.enemy.getValue() && e instanceof HostileEntity) ||
@@ -30,5 +37,25 @@ public class EntityManager implements AccessMC {
                     case Health -> ((LivingEntity) e).getHealth();
                 }))
                 .toList();
+    }
+
+    public @Nullable Entity getTargeting() {
+        return targeting;
+    }
+
+    public void setTargeting(@Nullable Entity targeting) {
+        this.targeting = targeting;
+    }
+
+    public boolean isChangeable() {
+        return isChangeable;
+    }
+
+    public void setChangeable(boolean changeable) {
+        isChangeable = changeable;
+    }
+
+    public List<Entity> getEntities() {
+        return entities;
     }
 }

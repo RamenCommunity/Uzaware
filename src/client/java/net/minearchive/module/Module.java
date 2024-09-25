@@ -1,7 +1,10 @@
 package net.minearchive.module;
 
+import com.google.common.eventbus.Subscribe;
 import net.minearchive.AccessMC;
 import net.minearchive.Uzaware;
+import net.minearchive.event.events.TickStartEvent;
+import net.minearchive.event.events.UpdateEvent;
 import net.minearchive.module.modules.hud.NotificationModule;
 import net.minearchive.setting.KeyBind;
 import net.minearchive.setting.Setting;
@@ -60,7 +63,11 @@ public class Module implements AccessMC {
         onDisable();
     }
 
-    public void onTick() { }
+    @Subscribe
+    public void onTick(TickStartEvent event) { }
+
+    @Subscribe
+    public void onUpdate(UpdateEvent event) { }
 
     public void onEnable() { }
 

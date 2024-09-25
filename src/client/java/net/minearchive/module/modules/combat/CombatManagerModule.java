@@ -1,12 +1,14 @@
-package net.minearchive.module.modules.client;
+package net.minearchive.module.modules.combat;
 
+import net.minearchive.Uzaware;
+import net.minearchive.event.events.UpdateEvent;
 import net.minearchive.module.Category;
 import net.minearchive.module.Module;
 import net.minearchive.module.ModuleInfo;
 import net.minearchive.setting.settings.BooleanSetting;
 import net.minearchive.setting.settings.EnumSetting;
 
-@ModuleInfo(name = "CombatManager", category = Category.CLIENT)
+@ModuleInfo(name = "CombatManager", category = Category.COMBAT)
 public class CombatManagerModule extends Module {
     public static CombatManagerModule INSTANCE;
 
@@ -23,4 +25,8 @@ public class CombatManagerModule extends Module {
         INSTANCE = this;
     }
 
+    @Override
+    public void onUpdate(UpdateEvent event) {
+        Uzaware.entityManager.update();
+    }
 }
