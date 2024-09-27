@@ -15,7 +15,7 @@ import java.util.Optional;
 
 @Mixin(StatusEffectInstance.class)
 public class MixinStatusEffectInstance implements StatusEffectInstanceDuck {
-    @Unique private int shimejiReborn_maxDuration;
+    @Unique private int uzaware_maxDuration;
 
     @Inject(method = "<init>(Lnet/minecraft/entity/effect/StatusEffect;IIZZZLnet/minecraft/entity/effect/StatusEffectInstance;Ljava/util/Optional;)V", at = @At(value = "RETURN"))
     public void initPotionEffect(StatusEffect type,
@@ -32,23 +32,23 @@ public class MixinStatusEffectInstance implements StatusEffectInstanceDuck {
 
     @Inject(method = "copyFrom", at = @At(value = "RETURN"))
     public void initPotionEffect(StatusEffectInstance that, CallbackInfo ci) {
-        uzaware$maxDuration(((MixinStatusEffectInstance) (Object) that).shimejiReborn_maxDuration);
+        uzaware$maxDuration(((MixinStatusEffectInstance) (Object) that).uzaware_maxDuration);
     }
 
     @Inject(method = "upgrade", at = @At(value = "FIELD", target = "Lnet/minecraft/entity/effect/StatusEffectInstance;duration:I", opcode = Opcodes.PUTFIELD))
     public void combineInSetDuration(StatusEffectInstance that, CallbackInfoReturnable<Boolean> cir) {
-        uzaware$maxDuration(((MixinStatusEffectInstance) (Object) that).shimejiReborn_maxDuration);
+        uzaware$maxDuration(((MixinStatusEffectInstance) (Object) that).uzaware_maxDuration);
     }
 
     @Unique
     @Override
     public void uzaware$maxDuration(int maxDuration) {
-        this.shimejiReborn_maxDuration = maxDuration;
+        this.uzaware_maxDuration = maxDuration;
     }
 
     @Unique
     @Override
     public int uzaware$maxDuration() {
-        return this.shimejiReborn_maxDuration;
+        return this.uzaware_maxDuration;
     }
 }

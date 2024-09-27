@@ -114,6 +114,6 @@ public class EnumElement extends AbstractElement<EnumSetting<? extends Enum<?>>>
 
     @Override
     public float height() {
-        return 40 * ((opened ? t.contents().length + 1 : 1) + 1) - 5;
+        return 40 * (boxHeight.getValue() + 1) - 5;
     }
 }

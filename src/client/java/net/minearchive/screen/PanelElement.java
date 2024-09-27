@@ -39,7 +39,7 @@ public class PanelElement implements IElement {
         NanoVGUtils.line(x + 10, y + 50, x + width - 10, y + 50, SimpleColor.of(0xFFFAC0FF), SimpleColor.of(0xFFB3A5FF));
         AtomicDouble off = new AtomicDouble(70);
         elements.forEach(m -> m.render(context, mouseX, mouseY, delta, (float) off.getAndAdd(m.height())));
-        height = off.floatValue() + 10;
+        height = off.floatValue() + 20;
     }
 
     @Override

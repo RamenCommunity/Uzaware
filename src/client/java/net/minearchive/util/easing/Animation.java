@@ -5,13 +5,14 @@ public class Animation {
     private float value, startValue, targetValue;
     private long startTime, duration;
     private IEasing easing;
+    private Runnable onFinished;
 
     public Animation(float value, IEasing easing) {
         this.value = value;
         this.easing = easing;
     }
 
-    public void animateTo(float target, double durationMs) {
+    public Animation animateTo(float target, double durationMs) {
         long currentTime = System.nanoTime();
 
         if (targetValue != target) {
@@ -36,7 +37,18 @@ public class Animation {
             float easedProgress = (float) easing.ease(progress);
 
             this.value = startValue + (targetValue - startValue) * easedProgress;
-        } else this.value = targetValue;
+        } else {
+            if (onFinished != null) {
+                onFinished.run();
+                onFinished = null;
+            }
+            this.value = targetValue;
+        }
+        return this;
+    }
+
+    public void setOnFinished(Runnable runnable) {
+        this.onFinished = runnable;
     }
 
     public float getValue() {
