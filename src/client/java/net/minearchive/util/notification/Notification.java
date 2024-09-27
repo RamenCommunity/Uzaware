@@ -24,7 +24,6 @@ public class Notification implements AccessMC {
     }
 
     public void draw(int i, int duration, int keep) {
-        Uzaware.nanoVGManager.begin(false);
         switch (stage) {
             case In -> {
                 xAnim.setEasing(EnumEasing.BACK.getEasing());
@@ -68,7 +67,6 @@ public class Notification implements AccessMC {
 
         NanoVG.nvgTranslate(NanoVGUtils.context, -100, 100);
         NanoVG.nvgRestore(NanoVGUtils.context);
-        Uzaware.nanoVGManager.end();
     }
 
     public boolean shouldDestroy() {

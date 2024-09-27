@@ -25,6 +25,7 @@ public class ModuleElement extends AbstractElement<Module> {
     private final ColorAnimation setting, backgroundL, backgroundR;
     private final Animation h = new Animation(- 10, EnumEasing.QUART.getEasing()), a;
     private boolean opened;
+    private float cache = 0;
 
     public ModuleElement(Module module, float x, float y, float width, float height) {
         super(module, x, y, width, height);
@@ -74,14 +75,16 @@ public class ModuleElement extends AbstractElement<Module> {
         NanoVGUtils.ntr.draw(t.name, x + 30, y + offset + 3 + height / 2F, 20, 0xFFFFFFFF, NanoVG.NVG_ALIGN_LEFT | NanoVG.NVG_ALIGN_MIDDLE);
         NanoVGUtils.symbols.draw("\uE946", x + width - 37, y + offset + 2 + height / 2F, 20, 0x99FFFFFF, NanoVG.NVG_ALIGN_CENTER | NanoVG.NVG_ALIGN_MIDDLE);
         AtomicDouble off = new AtomicDouble(70);
-        NanoVGUtils.beginScissor(x + 20, y + 50 + offset, width - 40, h.getValue() + 5);
-        NanoVGUtils.rounded(x + 20, y + 50 + offset, width - 40, h.getValue() + 5, 6, SimpleColor.of(setting.getColor()), NanoVGUtils.Pattern.FILL);
+        NanoVGUtils.beginScissor(x + 20, y + 45 + offset, width - 40, h.getValue());
+        NanoVGUtils.rounded(x + 20, y + 45 + offset, width - 40, h.getValue(), 6, SimpleColor.of(setting.getColor()), NanoVGUtils.Pattern.FILL);
         NanoVG.nvgSave(NanoVGUtils.context);
         NanoVG.nvgGlobalAlpha(NanoVGUtils.context, a.getValue());
         settingComponents.forEach(c -> c.render(context, mouseX, mouseY, delta, (float) off.getAndAdd(c.height()) + offset));
         NanoVG.nvgRestore(NanoVGUtils.context);
         NanoVGUtils.endScissor();
-        h.animateTo((opened ? off.floatValue() - 70 : - 10), 350);
+        if (cache != off.floatValue() && opened) h.setValue(off.floatValue() - 60);
+        else h.animateTo(opened ? off.floatValue() - 60 : 0, 350);
+        cache = off.floatValue();
     }
 
     @Override
@@ -91,7 +94,6 @@ public class ModuleElement extends AbstractElement<Module> {
                 case 0 -> t.toggle();
                 case 1 -> opened = !opened;
             }
-
             return true;
         }
         if (!opened) return false;
@@ -131,6 +133,6 @@ public class ModuleElement extends AbstractElement<Module> {
 
     @Override
     public float height() {
-        return height + 20 + h.getValue() + 5;
+        return height + h.getValue() + 10;
     }
 }

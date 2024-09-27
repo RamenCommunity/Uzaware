@@ -15,6 +15,8 @@ public class StringElement extends AbstractElement<StringSetting> {
 
     @Override
     public void render(DrawContext context, double mouseX, double mouseY, float delta, float offset) {
+        NanoVGUtils.ntr.draw(t.getName(), x + 30, offset + 10, 22, 0xFFFFFFFF);
+        NanoVGUtils.rounded(x + 30, offset + 30, width - 60, 40, 5, SimpleColor.of(0xD13C3C3C), NanoVGUtils.Pattern.FILL);
         if (ClientDebuggerModule.INSTANCE.componentDebug.getValue()) NanoVGUtils.rect(x, offset, width, height(), SimpleColor.of(0xffff0000), NanoVGUtils.Pattern.STROKE);
     }
 
@@ -55,6 +57,6 @@ public class StringElement extends AbstractElement<StringSetting> {
 
     @Override
     public float height() {
-        return 0;
+        return 75;
     }
 }

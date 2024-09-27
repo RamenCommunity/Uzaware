@@ -28,7 +28,6 @@ public class WaterMarkModule extends HudModule {
 
     @Override
     public void onRender(Render2DStartEvent event) {
-        Uzaware.nanoVGManager.begin(false);
         switch (enumSetting.getValue()) {
             case Uzawa1 -> {
                 fpsCalculator.render(event);
@@ -45,7 +44,6 @@ public class WaterMarkModule extends HudModule {
             }
             case Uzawa2 -> NanoVGUtils.ntr.draw("UzaWere v"  + Uzaware.version, x + 5, y + 5, 32, 0xffffffff);
         }
-        Uzaware.nanoVGManager.end();
     }
 
     public static class FPSCalculator {
