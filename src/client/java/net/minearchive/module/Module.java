@@ -33,7 +33,7 @@ public class Module implements AccessMC {
     public final void enable() {
         Uzaware.registerEventBus(this);
         if (!nullCheck() && NotificationModule.INSTANCE.chatNotify.getValue())
-            ChatUtil.addMessage(this.hashCode(), Text.of(String.format("§d%s§r | %s§a Enabled§r" + " §a✔", Uzaware.modName, this.name)));
+            ChatUtil.addMessage(this.hashCode(), Text.of(String.format("§d%s§r | §7%s§r toggled §aon§r" , Uzaware.modName, this.name)));
         if (!nullCheck() && NotificationModule.INSTANCE.enabled)
             new NotificationUtils.Builder()
                     .setId(hashCode())
@@ -48,7 +48,7 @@ public class Module implements AccessMC {
     public final void disable() {
         Uzaware.unRegisterEventBus(this);
         if (!nullCheck() && NotificationModule.INSTANCE.chatNotify.getValue())
-            ChatUtil.addMessage(this.hashCode(), Text.of(String.format("§d%s§r | %s§c Disabled§r" + " §c✘", Uzaware.modName, this.name)));
+            ChatUtil.addMessage(this.hashCode(), Text.of(String.format("§d%s§r | §7%s§r toggled §coff§r" , Uzaware.modName, this.name)));
         if (!nullCheck() && NotificationModule.INSTANCE.enabled)
             new NotificationUtils.Builder()
                     .setId(hashCode())
