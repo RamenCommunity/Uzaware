@@ -20,6 +20,10 @@ public class NotificationUtils {
         if (!added.get()) notifications.add(notification);
     }
 
+    public static Builder Builder() {
+        return new Builder();
+    }
+
     public static class Builder {
         private String title, message;
         private Notification.NotificationType type;

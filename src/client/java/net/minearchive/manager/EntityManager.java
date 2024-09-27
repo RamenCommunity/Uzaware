@@ -1,6 +1,7 @@
 package net.minearchive.manager;
 
 import net.minearchive.AccessMC;
+import net.minearchive.module.Module;
 import net.minearchive.module.modules.combat.CombatManagerModule;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
@@ -19,7 +20,7 @@ public class EntityManager implements AccessMC {
 
     @Nullable
     private Entity targeting = null;
-    private boolean isChangeable = false;
+    private Module usingModule;
     private List<Entity> entities = new ArrayList<>();
 
     public void update() {
@@ -47,12 +48,12 @@ public class EntityManager implements AccessMC {
         this.targeting = targeting;
     }
 
-    public boolean isChangeable() {
-        return isChangeable;
+    public Module getUsingModule() {
+        return usingModule;
     }
 
-    public void setChangeable(boolean changeable) {
-        isChangeable = changeable;
+    public void setUsingModule(Module usingModule) {
+        this.usingModule = usingModule;
     }
 
     public List<Entity> getEntities() {
