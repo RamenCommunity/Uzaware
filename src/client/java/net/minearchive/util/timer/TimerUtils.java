@@ -9,6 +9,10 @@ public class TimerUtils {
         this.unit = unit;
     }
 
+    public TimerUtils() {
+        this(TimeUnit.MILLISECONDS);
+    }
+
     public boolean passed(long time) {
         return current() - this.time >= time * this.unit.multiplier();
     }
