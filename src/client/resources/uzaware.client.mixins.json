@@ -13,6 +13,7 @@
     "MixinKeyboard",
     "MixinLightmapTextureManager",
     "MixinMinecraftClient",
+    "MixinParticleManager",
     "MixinScreen",
     "MixinWindow",
     "MixinWorldRenderer"

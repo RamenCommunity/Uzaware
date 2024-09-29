@@ -87,4 +87,8 @@ public class Module implements AccessMC {
             return this.getClass().getAnnotation(ModuleInfo.class);
         else throw new RuntimeException("ModuleInfo Annotation is not found! Can't initialize module!");
     }
+
+    public void addMessage(String msg) {
+        ChatUtil.addMessage(msg);
+    }
 }
