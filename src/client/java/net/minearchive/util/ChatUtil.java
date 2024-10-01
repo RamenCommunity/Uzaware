@@ -11,7 +11,7 @@ import java.nio.charset.StandardCharsets;
 public class ChatUtil implements AccessMC {
 
     public static void sendPlayerMessage(String message) {
-        if (nullCheck()) return;
+        if (client.world == null || client.player == null) return;
         client.player.networkHandler.sendChatMessage(message);
     }
 
@@ -21,15 +21,7 @@ public class ChatUtil implements AccessMC {
 
     public static void addMessage(int id, Text message) {
         ((ChatHudDuck) (client.inGameHud.getChatHud())).uzaware$remove(new MessageSignatureData(signature(String.format("%s", id))), true);
-        client.inGameHud.getChatHud().addMessage(
-                message,
-                new MessageSignatureData(signature(String.format("%s", id))),
-                client.isConnectedToLocalServer() ? MessageIndicator.singlePlayer() : MessageIndicator.system()
-        );
-    }
-
-    private static boolean nullCheck() {
-        return client.world == null || client.player == null;
+        client.inGameHud.getChatHud().addMessage(message, new MessageSignatureData(signature(String.format("%s", id))), client.isConnectedToLocalServer() ? MessageIndicator.singlePlayer() : MessageIndicator.system());
     }
 
     private static byte[] signature(String identifier) {
