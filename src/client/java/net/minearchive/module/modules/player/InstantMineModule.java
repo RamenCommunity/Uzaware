@@ -87,6 +87,7 @@ public class InstantMineModule extends Module {
                 InventoryUtils.swapInv(old);
                 InventoryUtils.updateHotBar();
             }
+            packetTimer.reset();
         }
     }
 

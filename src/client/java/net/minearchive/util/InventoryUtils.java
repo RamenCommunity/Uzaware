@@ -35,7 +35,8 @@ public class InventoryUtils implements AccessMC {
         return IntStream.rangeClosed(0, 8)
                 .boxed()
                 .filter(i -> client.player.getInventory().getStack(i).getItem() instanceof ToolItem)
-                .min(Comparator.comparing(i -> calcScore(client.player.getInventory().getStack(i), blockState)))
+                .sorted(Comparator.comparing(i -> calcScore(client.player.getInventory().getStack(i), blockState)))
+                .max(Comparator.naturalOrder())
                 .orElse(-1);
     }
 
