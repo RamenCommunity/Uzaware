@@ -6,6 +6,7 @@
     "AccessorMinecraftClient",
     "MixinChatHud",
     "MixinChatScreen",
+    "MixinClientPlayerInteractionManager",
     "MixinClientPlayNetworkHandler",
     "MixinFramebuffer",
     "MixinGameRenderer",

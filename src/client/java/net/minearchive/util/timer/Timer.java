@@ -1,15 +1,15 @@
 package net.minearchive.util.timer;
 
-public class TimerUtils {
+public class Timer {
     private long time;
     private TimeUnit unit;
 
-    public TimerUtils(TimeUnit unit) {
+    public Timer(TimeUnit unit) {
         this.time = -1L;
         this.unit = unit;
     }
 
-    public TimerUtils() {
+    public Timer() {
         this(TimeUnit.MILLISECONDS);
     }
 

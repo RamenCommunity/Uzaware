@@ -2,6 +2,7 @@ package net.minearchive.setting.settings;
 
 import net.minearchive.setting.KeyBind;
 import net.minearchive.setting.Setting;
+import net.minearchive.util.InputUtils;
 
 import java.util.function.Supplier;
 
@@ -18,5 +19,9 @@ public class KeyBindSetting extends Setting<KeyBind> {
     @SuppressWarnings("unchecked")
     public KeyBindSetting build() {
         return this;
+    }
+
+    public boolean pressed() {
+        return InputUtils.pressed(getValue().getKey());
     }
 }

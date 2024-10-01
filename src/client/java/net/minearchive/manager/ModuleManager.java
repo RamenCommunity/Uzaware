@@ -7,6 +7,7 @@ import net.minearchive.module.modules.combat.*;
 import net.minearchive.module.modules.hud.*;
 import net.minearchive.module.modules.misc.*;
 import net.minearchive.module.modules.movement.*;
+import net.minearchive.module.modules.player.InstantMineModule;
 import net.minearchive.module.modules.render.*;
 
 import java.util.ArrayList;
@@ -22,6 +23,7 @@ public class ModuleManager {
     public ModuleManager() {
         INSTANCE = this;
         //Combat
+        register(AutoPhaseModule.class);
 
         //Misc
         register(ChatSuffixModule.class);
@@ -37,6 +39,9 @@ public class ModuleManager {
         register(FullBrightModule.class);
         register(NoRenderModule.class);
 
+        //Player
+        register(InstantMineModule.class);
+
         //Client
         register(ClickGuiModule.class);
         register(ElementSample.class);
@@ -45,6 +50,8 @@ public class ModuleManager {
         //Hud
         register(WaterMarkModule.class);
         register(NotificationModule.class);
+        register(SpotifyHudModule.class);
+        register(TargetHudModule.class);
 
         modules.sort(Comparator.comparing(m -> m.name));
     }

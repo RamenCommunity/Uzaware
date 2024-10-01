@@ -1,13 +1,12 @@
 package net.minearchive.util.notification;
 
 import net.minearchive.AccessMC;
-import net.minearchive.Uzaware;
 import net.minearchive.util.NanoVGUtils;
 import net.minearchive.util.SimpleColor;
 import net.minearchive.util.easing.Animation;
 import net.minearchive.util.easing.EnumEasing;
 import net.minearchive.util.timer.TimeUnit;
-import net.minearchive.util.timer.TimerUtils;
+import net.minearchive.util.timer.Timer;
 import org.lwjgl.nanovg.NanoVG;
 
 import java.awt.*;
@@ -18,7 +17,7 @@ public class Notification implements AccessMC {
     private final Animation xAnim = new Animation(0, EnumEasing.BACK.getEasing());
     private Animation yAnim;
     private Stage stage = Stage.In;
-    private final TimerUtils timer = new TimerUtils(TimeUnit.MILLISECONDS);
+    private final Timer timer = new Timer(TimeUnit.MILLISECONDS);
     public Notification(NotificationData data) {
         this.data = data;
     }
