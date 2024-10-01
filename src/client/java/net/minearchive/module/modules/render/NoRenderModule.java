@@ -27,7 +27,7 @@ public class NoRenderModule extends Module {
     public void onParticle(ParticleEvent event) {
         if (nullCheck()) return;
         if (explosion.getValue() && event.getParticle() instanceof ExplosionLargeParticle) {
-            event.setCancelled(true);
+            event.cancel();
         }
     }
 }
