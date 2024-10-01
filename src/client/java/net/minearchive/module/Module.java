@@ -73,10 +73,6 @@ public class Module implements AccessMC {
 
     public void onDisable() { }
 
-    public boolean nullCheck() {
-        return client.world == null || client.player == null;
-    }
-
     public <T extends Setting<?>> T add(T t) {
         settings.add(t);
         return t;
