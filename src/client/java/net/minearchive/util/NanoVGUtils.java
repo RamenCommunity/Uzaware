@@ -197,6 +197,8 @@ public class NanoVGUtils {
             case HORIZONTAL -> NanoVG.nvgLinearGradient(context, startX, startY, endX, startY, startColor, endColor, calloc);
             case VERTICAL -> NanoVG.nvgLinearGradient(context, startX, startY, startX, endY, startColor, endColor, calloc);
         }
+        startColor.free();
+        endColor.free();
         return calloc;
     }
 
