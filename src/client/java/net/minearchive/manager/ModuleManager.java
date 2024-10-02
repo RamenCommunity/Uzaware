@@ -33,6 +33,7 @@ public class ModuleManager {
 
         //Movement
         register(FlightModule.class);
+        register(SprintModule.class);
         register(MovementTweaksModule.class);
 
         //Render
