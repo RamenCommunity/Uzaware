@@ -11,9 +11,10 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @ModuleInfo(name = "NoRender", category = Category.RENDER, enable = true)
 public class NoRenderModule extends Module {
+    public static NoRenderModule INSTANCE;
     public final BooleanSetting weather = add(new BooleanSetting("Weather", true));
     public final BooleanSetting explosion = add(new BooleanSetting("Explosion", true));
-    public static NoRenderModule INSTANCE;
+    public final BooleanSetting fog = add(new BooleanSetting("Fog", true));
 
     public NoRenderModule() {
         INSTANCE = this;
@@ -21,6 +22,10 @@ public class NoRenderModule extends Module {
 
     public void noWeather(CallbackInfo ci) {
         if (enabled && weather.getValue()) ci.cancel();
+    }
+
+    public void noFog(CallbackInfo ci) {
+        if (enabled && fog.getValue()) ci.cancel();
     }
 
     @Subscribe
