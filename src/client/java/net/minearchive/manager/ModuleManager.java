@@ -27,31 +27,32 @@ public class ModuleManager {
 
         //Misc
         register(ChatSuffixModule.class);
-        register(SuperIQMathModule.class);
         register(FakePlayerModule.class);
         register(DeathEffectModule.class);
+        register(SuperIQMathModule.class);
 
         //Movement
         register(FlightModule.class);
         register(MovementTweaksModule.class);
 
         //Render
-        register(FullBrightModule.class);
         register(NoRenderModule.class);
+        register(FullBrightModule.class);
+        register(CameraTweaksModule.class);
 
         //Player
         register(InstantMineModule.class);
 
         //Client
-        register(ClickGuiModule.class);
         register(ElementSample.class);
+        register(ClickGuiModule.class);
         register(ClientDebuggerModule.class);
 
         //Hud
-        register(WaterMarkModule.class);
-        register(NotificationModule.class);
-        register(SpotifyHudModule.class);
         register(TargetHudModule.class);
+        register(WaterMarkModule.class);
+        register(SpotifyHudModule.class);
+        register(NotificationModule.class);
 
         modules.sort(Comparator.comparing(m -> m.name));
     }

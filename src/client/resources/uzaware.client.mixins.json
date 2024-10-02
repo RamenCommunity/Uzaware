@@ -5,6 +5,7 @@
   "client": [
     "AccessorMinecraftClient",
     "MixinBackgroundRenderer",
+    "MixinCamera",
     "MixinChatHud",
     "MixinChatScreen",
     "MixinClientPlayerInteractionManager",
