@@ -10,10 +10,10 @@ public class MovementTweaksModule extends Module {
     public static MovementTweaksModule INSTANCE;
 
     public final BooleanSetting noSwim = add(new BooleanSetting("No Block Swim", false));
+    public final BooleanSetting noJumpDelay = add(new BooleanSetting("No Jump Delay", false));
     public final BooleanSetting noRiptide = add(new BooleanSetting("No Riptide", false));
 
     public MovementTweaksModule() {
         INSTANCE = this;
     }
-
 }

@@ -8,6 +8,7 @@
     "MixinCamera",
     "MixinChatHud",
     "MixinChatScreen",
+    "MixinClientPlayerEntity",
     "MixinClientPlayerInteractionManager",
     "MixinClientPlayNetworkHandler",
     "MixinFramebuffer",
@@ -27,6 +28,7 @@
   "mixins": [
     "MixinClientConnection",
     "MixinEntity",
+    "MixinLivingEntity",
     "MixinStatusEffectInstance"
   ]
 }
