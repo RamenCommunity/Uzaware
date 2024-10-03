@@ -26,7 +26,7 @@
     "defaultRequire": 1
   },
   "mixins": [
-    "IPlayerMoveC2SPacket",
+    "AccessorPlayerMoveC2SPacket",
     "MixinClientConnection",
     "MixinEntity",
     "MixinLivingEntity",

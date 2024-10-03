@@ -2,7 +2,7 @@ package net.minearchive.module.modules.movement;
 
 import com.google.common.eventbus.Subscribe;
 import net.minearchive.event.events.PacketSendEvent;
-import net.minearchive.mixin.mixins.IPlayerMoveC2SPacket;
+import net.minearchive.mixin.mixins.AccessorPlayerMoveC2SPacket;
 import net.minearchive.module.Category;
 import net.minearchive.module.Module;
 import net.minearchive.module.ModuleInfo;
@@ -25,7 +25,7 @@ public class MovementTweaksModule extends Module {
     @Subscribe
     public void onPacketSend(PacketSendEvent event) {
         if (noFall.getValue() && event.getPacket() instanceof PlayerMoveC2SPacket packet) {
-            ((IPlayerMoveC2SPacket) packet).setOnGround(false);
+            ((AccessorPlayerMoveC2SPacket) packet).setOnGround(false);
         }
     }
 }
