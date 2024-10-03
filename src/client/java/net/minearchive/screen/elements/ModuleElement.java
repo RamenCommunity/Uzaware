@@ -3,8 +3,8 @@ package net.minearchive.screen.elements;
 import com.google.common.util.concurrent.AtomicDouble;
 import net.minearchive.module.Module;
 import net.minearchive.screen.AbstractElement;
-import net.minearchive.screen.IElement;
 import net.minearchive.screen.elements.setting.*;
+import net.minearchive.setting.Setting;
 import net.minearchive.setting.settings.*;
 import net.minearchive.util.MouseUtils;
 import net.minearchive.util.NanoVGUtils;
@@ -21,7 +21,7 @@ import java.util.List;
 
 public class ModuleElement extends AbstractElement<Module> {
     private final Module module;
-    private final List<IElement> settingComponents = new ArrayList<>();
+    private final List<AbstractElement<? extends Setting<?>>> settingComponents = new ArrayList<>();
     private final ColorAnimation setting, backgroundL, backgroundR;
     private final Animation h = new Animation(- 10, EnumEasing.QUART.getEasing()), a;
     private boolean opened;
@@ -79,7 +79,7 @@ public class ModuleElement extends AbstractElement<Module> {
         NanoVGUtils.rounded(x + 20, y + 45 + offset, width - 40, h.getValue(), 6, SimpleColor.of(setting.getColor()), NanoVGUtils.Pattern.FILL);
         NanoVG.nvgSave(NanoVGUtils.context);
         NanoVG.nvgGlobalAlpha(NanoVGUtils.context, a.getValue());
-        settingComponents.forEach(c -> c.render(context, mouseX, mouseY, delta, (float) off.getAndAdd(c.height()) + offset));
+        settingComponents.stream().filter(c -> c.t().getVisible().get()).forEach(c -> c.render(context, mouseX, mouseY, delta, (float) off.getAndAdd(c.height()) + offset));
         NanoVG.nvgRestore(NanoVGUtils.context);
         NanoVGUtils.endScissor();
         if (cache != off.floatValue() && opened) h.setValue(off.floatValue() - 60);
@@ -98,37 +98,37 @@ public class ModuleElement extends AbstractElement<Module> {
         }
         if (!opened) return false;
 
-        return !settingComponents.stream().filter(c -> c.mouseClicked(mouseX, mouseY, button)).toList().isEmpty();
+        return !settingComponents.stream().filter(c -> c.t().getVisible().get()).filter(c -> c.mouseClicked(mouseX, mouseY, button)).toList().isEmpty();
     }
 
     @Override
     public boolean mouseReleased(double mouseX, double mouseY, int button) {
-        return false;
+        return !settingComponents.stream().filter(c -> c.t().getVisible().get()).filter(c -> c.mouseReleased(mouseX, mouseY, button)).toList().isEmpty();
     }
 
     @Override
     public boolean mouseDragged(double mouseX, double mouseY, int button, double deltaX, double deltaY) {
-        return false;
+        return !settingComponents.stream().filter(c -> c.t().getVisible().get()).filter(c -> c.mouseDragged(mouseX, mouseY, button, deltaX, deltaY)).toList().isEmpty();
     }
 
     @Override
     public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
-        return !settingComponents.stream().filter(c -> c.keyPressed(keyCode, scanCode, modifiers)).toList().isEmpty();
+        return !settingComponents.stream().filter(c -> c.t().getVisible().get()).filter(c -> c.keyPressed(keyCode, scanCode, modifiers)).toList().isEmpty();
     }
 
     @Override
     public boolean keyReleased(int keyCode, int scanCode, int modifiers) {
-        return false;
+        return !settingComponents.stream().filter(c -> c.t().getVisible().get()).filter(c -> c.keyReleased(keyCode, scanCode, modifiers)).toList().isEmpty();
     }
 
     @Override
     public boolean mouseScrolled(double mouseX, double mouseY, double amount) {
-        return false;
+        return !settingComponents.stream().filter(c -> c.t().getVisible().get()).filter(c -> c.mouseScrolled(mouseX, mouseY, amount)).toList().isEmpty();
     }
 
     @Override
     public boolean charTyped(char chr, int modifiers) {
-        return false;
+        return !settingComponents.stream().filter(c -> c.t().getVisible().get()).filter(c -> c.charTyped(chr, modifiers)).toList().isEmpty();
     }
 
     @Override

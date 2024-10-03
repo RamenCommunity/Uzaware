@@ -22,4 +22,8 @@ public abstract class AbstractElement<T> implements IElement {
     public void render(DrawContext context, double mouseX, double mouseY, float delta, float offset) {
         this.offset = offset;
     }
+
+    public T t() {
+        return t;
+    }
 }
