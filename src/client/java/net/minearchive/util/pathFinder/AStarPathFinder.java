@@ -89,10 +89,7 @@ public abstract class AStarPathFinder {
             if (Math.abs(node.getX()) + Math.abs(node.getZ()) == 2) continue;
             Node next = current.add(node);
             next.setParent(current);
-            boolean a = map.getOrDefault(next, true);
-            boolean b = isPassable(next);
-            boolean c = closed.contains(next);
-            if (a && b && !c) {
+            if (map.getOrDefault(next, true) && isPassable(next) && !closed.contains(next)) {
                 next.setG(current, 1);
                 adjacent.add(next);
             }

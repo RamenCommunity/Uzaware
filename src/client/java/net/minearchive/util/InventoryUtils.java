@@ -37,7 +37,7 @@ public class InventoryUtils implements AccessMC {
                 .filter(i -> client.player.getInventory().getStack(i).getItem() instanceof ToolItem)
                 .sorted(Comparator.comparing(i -> calcScore(client.player.getInventory().getStack(i), blockState)))
                 .max(Comparator.naturalOrder())
-                .orElse(-1);
+                .orElse(1);
     }
 
     public static void pick(int i) {
