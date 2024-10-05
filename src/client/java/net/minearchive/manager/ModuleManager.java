@@ -24,6 +24,7 @@ public class ModuleManager {
         INSTANCE = this;
         //Combat
         register(AutoPhaseModule.class);
+        register(HoleSnapModule.class);
 
         //Misc
         register(ChatSuffixModule.class);

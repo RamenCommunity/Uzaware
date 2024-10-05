@@ -1,6 +1,6 @@
 package net.minearchive.util;
 
-import net.minearchive.manager.Font;
+import net.minearchive.manager.NanoVGManager;
 import org.lwjgl.nanovg.NVGColor;
 import org.lwjgl.nanovg.NVGPaint;
 import org.lwjgl.nanovg.NanoVG;
@@ -11,8 +11,8 @@ import java.util.List;
 
 public class NanoVGUtils {
     public static long context = -1;
-    public static Font ntr = new Font("/assets/uzaware/font/NTR-Regular.ttf", "NTR-Regular");
-    public static Font symbols = new Font("/assets/uzaware/font/MaterialSymbolsRounded.ttf", "MaterialSymbolsRounded");
+    public static NanoVGManager.Font ntr = new NanoVGManager.Font("/assets/uzaware/font/NTR-Regular.ttf", "NTR-Regular");
+    public static NanoVGManager.Font symbols = new NanoVGManager.Font("/assets/uzaware/font/MaterialSymbolsRounded.ttf", "MaterialSymbolsRounded");
 
     public static List<box> stencilBoxes = new ArrayList<>();
     public static boolean usingStencil = false;

@@ -6,8 +6,13 @@ import net.minearchive.setting.settings.ColorSetting;
 import net.minearchive.util.NanoVGUtils;
 import net.minearchive.util.SimpleColor;
 import net.minecraft.client.gui.DrawContext;
+import org.lwjgl.nanovg.NVGPaint;
+import org.lwjgl.nanovg.NanoVG;
+
+import java.awt.*;
 
 public class ColorElement extends AbstractElement<ColorSetting> {
+    private float slider, cursorX, cursorY;
 
     public ColorElement(ColorSetting setting, float x, float y, float width, float height) {
         super(setting, x, y, width, height);
@@ -15,9 +20,38 @@ public class ColorElement extends AbstractElement<ColorSetting> {
 
     @Override
     public void render(DrawContext context, double mouseX, double mouseY, float delta, float offset) {
-
+        this.offset = offset;
+        renderHSB(x, offset, width, width, 10, getRGBMax(t.getValue(), true));
+        float[] hsb = Color.RGBtoHSB(t.getValue().getRed(), t.getValue().getGreen(), t.getValue().getBlue(), null);
 
         if (ClientDebuggerModule.INSTANCE.componentDebug.getValue()) NanoVGUtils.rect(x, offset, width, height(), SimpleColor.of(0xffff0000), NanoVGUtils.Pattern.STROKE);
+    }
+
+    /**
+     * <a href="https://github.com/Polyfrost/OneConfig/blob/f4a128250f2a26b262b64c22c4d03ecdfd8ec20d/src/main/java/cc/polyfrost/oneconfig/internal/renderer/NanoVGHelperImpl.java#L311">i love</a>
+     * @param x x
+     * @param y y
+     * @param width width
+     * @param height height
+     * @param cornerRadius cornerRadius
+     * @param target target
+     */
+    private void renderHSB(float x, float y, float width, float height, float cornerRadius, int target) {
+        NanoVGUtils.rounded(x, y, width, height, cornerRadius, SimpleColor.of(target), NanoVGUtils.Pattern.FILL);
+
+        NVGPaint lt2rt = NanoVGUtils.linearGradient(x, y, x + width, y, SimpleColor.of(new Color(255, 255, 255)), SimpleColor.of(new Color(255, 255, 255, 0)), NanoVGUtils.Orientation.HORIZONTAL);
+        NanoVGUtils.rounded(x, y, width, height, cornerRadius, lt2rt, NanoVGUtils.Pattern.FILL);
+
+        NVGPaint lt2rb = NanoVGUtils.linearGradient(x, y, x, y + height, SimpleColor.of(new Color(0, 0, 0, 0)), SimpleColor.of(new Color(0, 0, 0, 255)), NanoVGUtils.Orientation.VERTICAL);
+        NanoVGUtils.rounded(x, y, width, height, cornerRadius, lt2rb, NanoVGUtils.Pattern.FILL);
+    }
+
+    private int getRGBMax(Color color, boolean maxBrightness) {
+        float[] hsbValues = Color.RGBtoHSB(color.getRed(), color.getGreen(), color.getBlue(), null);
+        float brightness = maxBrightness ? 1.0f : 0.0f;
+
+        Color resultColor = Color.getHSBColor(hsbValues[0], hsbValues[1], brightness);
+        return (resultColor.getRGB() & 0x00ffffff) | (color.getAlpha() << 24);
     }
 
     @Override
@@ -57,6 +91,6 @@ public class ColorElement extends AbstractElement<ColorSetting> {
 
     @Override
     public float height() {
-        return 0;
+        return width;
     }
 }

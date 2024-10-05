@@ -6,12 +6,19 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.RunArgs;
 import org.objectweb.asm.Opcodes;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
 @Mixin(MinecraftClient.class)
 public class MixinMinecraftClient {
+    @Unique
+    ExecutorService executor = Executors.newSingleThreadExecutor();
+
     @Inject(method = "<init>", at = @At(value = "FIELD", target = "Lnet/minecraft/client/MinecraftClient;framebuffer:Lnet/minecraft/client/gl/Framebuffer;", opcode = Opcodes.PUTFIELD, shift = At.Shift.AFTER))
     public void initOnSetFramebuffer(RunArgs args, CallbackInfo ci) {
         Uzaware.nanoVGManager.create();
@@ -19,6 +26,6 @@ public class MixinMinecraftClient {
 
     @Inject(method = "render", at = @At("TAIL"))
     public void onUpdate(boolean tick, CallbackInfo ci) {
-        new Thread(() -> Uzaware.EVENT_BUS.post(new UpdateEvent())).start();
+        executor.submit(() -> Uzaware.EVENT_BUS.post(new UpdateEvent()));
     }
 }

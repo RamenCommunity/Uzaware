@@ -46,7 +46,9 @@ public class ClickGuiScreen extends Screen {
     public void render(DrawContext context, int mouseX, int mouseY, float delta) {
         super.render(context, mouseX, mouseY, delta);
         xAnim.animateTo(deltaX, 150);
+        xAnim.setEasing(EnumEasing.QUAD.getEasing());
         yAnim.animateTo(deltaY, 150);
+        yAnim.setEasing(EnumEasing.QUAD.getEasing());
         double x = client.mouse.getX() - deltaX;
         double y = client.mouse.getY() - deltaY;
         Uzaware.nanoVGManager.begin(false);

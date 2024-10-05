@@ -25,6 +25,7 @@ public class PanelElement implements IElement {
         this.x = x;
         this.y = y;
         this.width = width;
+        System.out.println(x);
         elements.addAll(Uzaware.moduleManager.modules.stream().filter(m -> m.category == c).map(m -> new ModuleElement(m, x, y, width, 40)).toList());
         this.height = elements.size() * 55 + 80;
     }

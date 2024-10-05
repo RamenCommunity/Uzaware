@@ -21,7 +21,7 @@ public class IntegerElement extends AbstractElement<IntegerSetting> {
 
     @Override
     public void render(DrawContext context, double mouseX, double mouseY, float delta, float offset) {
-        NVGPaint paint = NanoVGUtils.linearGradient(x + 30, offset + 26, width - 60, 14, SimpleColor.of(0xFFFAC0FF), SimpleColor.of(0xFFB3A5FF), NanoVGUtils.Orientation.HORIZONTAL);
+        NVGPaint paint = NanoVGUtils.linearGradient(x + 30, offset + 26, x + width - 30, offset + 45, SimpleColor.of(0xFFFAC0FF), SimpleColor.of(0xFFB3A5FF), NanoVGUtils.Orientation.HORIZONTAL);
         NanoVGUtils.ntr.draw(t.getName()+ " : " + t.getValue(), x + 30, offset + 5, 22, 0xffffffff);
         NanoVGUtils.stroke(2F);
         NanoVGUtils.rounded(x + 29, offset + 25, width - 58, 16, 8, SimpleColor.of(0x59000000), NanoVGUtils.Pattern.STROKE);

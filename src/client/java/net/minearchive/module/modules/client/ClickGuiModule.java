@@ -14,7 +14,7 @@ public class ClickGuiModule extends Module {
             disable();
             return;
         }
-        client.setScreen(new ClickGuiScreen(this));
+        client.setScreen(ClickGuiScreen.INSTANCE == null ? new ClickGuiScreen(this) : ClickGuiScreen.INSTANCE);
     }
 
     @Override

@@ -1,6 +1,5 @@
 package net.minearchive.module.modules.combat;
 
-import net.minearchive.Uzaware;
 import net.minearchive.event.events.UpdateEvent;
 import net.minearchive.module.Category;
 import net.minearchive.module.Module;
@@ -27,6 +26,6 @@ public class CombatManagerModule extends Module {
 
     @Override
     public void onUpdate(UpdateEvent event) {
-        Uzaware.entityManager.update();
+
     }
 }

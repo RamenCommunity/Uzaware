@@ -6,7 +6,7 @@ import net.minearchive.module.HudInfo;
 import net.minearchive.module.HudModule;
 import net.minearchive.module.ModuleInfo;
 import net.minearchive.setting.settings.BooleanSetting;
-import net.minearchive.setting.settings.FloatSetting;
+import net.minearchive.setting.settings.IntegerSetting;
 import net.minearchive.util.NotificationUtils;
 import net.minearchive.util.notification.Notification;
 
@@ -18,8 +18,8 @@ public class NotificationModule extends HudModule {
     public static NotificationModule INSTANCE;
 
     public final BooleanSetting chatNotify = add(new BooleanSetting("ChatNotify", true));
-    public final FloatSetting duration = add(new FloatSetting("InOut Duration", 600f, 100f, 1000));
-    public final FloatSetting keep = add(new FloatSetting("Keep Duration", 3500f, 10f, 5000));
+    public final IntegerSetting duration = add(new IntegerSetting("InOut Duration", 600, 100, 1000));
+    public final IntegerSetting keep = add(new IntegerSetting("Keep Duration", 3500, 10, 5000));
 
     public NotificationModule() {
         INSTANCE = this;
@@ -28,7 +28,7 @@ public class NotificationModule extends HudModule {
     @Override
     public void onRender(Render2DStartEvent event) {
         AtomicInteger i = new AtomicInteger();
-        NotificationUtils.notifications.forEach(notification -> notification.draw(i.getAndIncrement(), Math.round(duration.getValue()), Math.round(keep.getValue())));
+        NotificationUtils.notifications.forEach(notification -> notification.draw(i.getAndIncrement(), duration.getValue(), keep.getValue()));
         NotificationUtils.notifications.removeIf(Notification::shouldDestroy);
     }
 

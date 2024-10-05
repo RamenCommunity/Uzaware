@@ -15,7 +15,7 @@ public class ElementSample extends Module {
     public DoubleSetting doubleSetting = add(new DoubleSetting("Double", 5.0, 0.0, 10.0));
     public EnumSetting<Sample> enumSetting = add(new EnumSetting<>("Enum", Sample.One));
     public StringSetting stringSetting = add(new StringSetting("String", "default"));
-    public ColorSetting colorSetting = add(new ColorSetting("Color", Color.black));
+    public ColorSetting colorSetting = add(new ColorSetting("Color", Color.RED));
 
     public enum Sample { One, Two, Three }
 }

@@ -9,10 +9,9 @@ import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
 
-import static net.minearchive.manager.Font.byteBuffer;
+import static net.minearchive.manager.NanoVGManager.Font.byteBuffer;
 
 public class TextureManager {
-
     private final NanoVGManager nanoVGManager;
 
     private final Map<String, Integer> textureMap = new HashMap<>();

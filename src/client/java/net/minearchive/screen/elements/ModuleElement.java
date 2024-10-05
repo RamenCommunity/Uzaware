@@ -23,7 +23,7 @@ public class ModuleElement extends AbstractElement<Module> {
     private final Module module;
     private final List<AbstractElement<? extends Setting<?>>> settingComponents = new ArrayList<>();
     private final ColorAnimation setting, backgroundL, backgroundR;
-    private final Animation h = new Animation(- 10, EnumEasing.QUART.getEasing()), a;
+    private final Animation h = new Animation(0, EnumEasing.QUART.getEasing()), a;
     private boolean opened;
     private float cache = 0;
 
@@ -31,12 +31,13 @@ public class ModuleElement extends AbstractElement<Module> {
         super(module, x, y, width, height);
         module.settings.forEach(s -> {
             if (s instanceof BooleanSetting) settingComponents.add(new BooleanElement((BooleanSetting) s, x, y ,width ,height));
-            if (s instanceof IntegerSetting) settingComponents.add(new IntegerElement((IntegerSetting) s, x, y ,width ,height));
-            if (s instanceof FloatSetting) settingComponents.add(new FloatElement((FloatSetting) s, x, y ,width ,height));
+            if (s instanceof ColorSetting) settingComponents.add(new ColorElement((ColorSetting) s, x, y ,width, height));
             if (s instanceof DoubleSetting) settingComponents.add(new DoubleElement((DoubleSetting) s, x, y ,width ,height));
-            if (s instanceof StringSetting) settingComponents.add(new StringElement((StringSetting) s, x, y ,width ,height));
             if (s instanceof EnumSetting) settingComponents.add(new EnumElement((EnumSetting<? extends Enum<?>>) s, x, y ,width ,height));
+            if (s instanceof FloatSetting) settingComponents.add(new FloatElement((FloatSetting) s, x, y ,width ,height));
+            if (s instanceof IntegerSetting) settingComponents.add(new IntegerElement((IntegerSetting) s, x, y ,width ,height));
             if (s instanceof KeyBindSetting) settingComponents.add(new KeyBindElement((KeyBindSetting) s, x, y, width, height));
+            if (s instanceof StringSetting) settingComponents.add(new StringElement((StringSetting) s, x, y ,width ,height));
         });
         this.module = module;
         this.setting = new ColorAnimation(opened ? settingComponents.isEmpty() ? SimpleColor.of(0, 0, 0, 0) : SimpleColor.of(0, 0, 0, 94) : SimpleColor.of(0, 0, 0, 0), EnumEasing.QUART.getEasing());
