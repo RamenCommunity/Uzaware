@@ -67,7 +67,7 @@ public class ConfigManager implements AccessMC {
 
     public void load() {
         JsonObject client = loadFile(new File(CLIENT_PATH, "client.json"));
-        if (client.isEmpty() || client.isJsonNull()) return;
+        if (client.isJsonNull() || client.asMap().isEmpty()) return;
         currentConfig = client.get("CHOSE_MODULE_CONFIG").getAsString();
         currentBind = client.get("CHOSE_BIND_CONFIG").getAsString();
         currentHud = client.get("CHOSE_HUD_CONFIG").getAsString();
