@@ -1,8 +1,8 @@
 package net.minearchive.screen.elements.setting;
 
 import net.minearchive.module.modules.client.ClientDebuggerModule;
-import net.minearchive.screen.AbstractElement;
 import net.minearchive.screen.ClickGuiScreen;
+import net.minearchive.screen.elements.AbstractSettingElement;
 import net.minearchive.setting.settings.DoubleSetting;
 import net.minearchive.util.MouseUtils;
 import net.minearchive.util.NanoVGUtils;
@@ -12,7 +12,7 @@ import org.joml.Math;
 import org.lwjgl.glfw.GLFW;
 import org.lwjgl.nanovg.NVGPaint;
 
-public class DoubleElement extends AbstractElement<DoubleSetting> {
+public class DoubleElement extends AbstractSettingElement<DoubleSetting> {
     private boolean dragging = false;
 
     public DoubleElement(DoubleSetting setting, float x, float y, float width, float height){

@@ -27,7 +27,7 @@ import java.util.concurrent.TimeUnit;
 import static net.minearchive.util.ParallelRunner.runParallel;
 
 public class SpotifyAPIManager {
-    public static SpotifyAPIManager INSTANCE = new SpotifyAPIManager();
+    public static final SpotifyAPIManager INSTANCE = new SpotifyAPIManager();
 
     private final String CODE_CHALLENGE = "w6iZIj99vHGtEx_NVl9u3sthTN646vvkiP8OMCGfPmo";
     private final String CODE_VERIFIER = "NlJx4kD4opk4HY7zBM6WfUHxX7HoF8A2TUhOIPGA74w";

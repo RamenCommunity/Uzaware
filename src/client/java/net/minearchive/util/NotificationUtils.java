@@ -9,7 +9,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 public class NotificationUtils {
 
-    public static List<Notification> notifications = new CopyOnWriteArrayList<>();
+    public static final List<Notification> notifications = new CopyOnWriteArrayList<>();
 
     public static void add(Notification notification) {
         AtomicBoolean added = new AtomicBoolean(false);

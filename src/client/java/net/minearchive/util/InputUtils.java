@@ -1,7 +1,6 @@
 package net.minearchive.util;
 
 import net.minearchive.AccessMC;
-import org.lwjgl.glfw.GLFW;
 
 import java.util.HashMap;
 import java.util.Map;

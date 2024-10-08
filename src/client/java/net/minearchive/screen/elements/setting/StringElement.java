@@ -1,13 +1,13 @@
 package net.minearchive.screen.elements.setting;
 
 import net.minearchive.module.modules.client.ClientDebuggerModule;
-import net.minearchive.screen.AbstractElement;
+import net.minearchive.screen.elements.AbstractSettingElement;
 import net.minearchive.setting.settings.StringSetting;
 import net.minearchive.util.NanoVGUtils;
 import net.minearchive.util.SimpleColor;
 import net.minecraft.client.gui.DrawContext;
 
-public class StringElement extends AbstractElement<StringSetting> {
+public class StringElement extends AbstractSettingElement<StringSetting> {
 
     public StringElement(StringSetting setting, float x, float y, float width, float height) {
         super(setting, x, y, width, height);

@@ -1,8 +1,8 @@
 package net.minearchive.screen.elements.setting;
 
 import net.minearchive.module.modules.client.ClientDebuggerModule;
-import net.minearchive.screen.AbstractElement;
 import net.minearchive.screen.ClickGuiScreen;
+import net.minearchive.screen.elements.AbstractSettingElement;
 import net.minearchive.setting.settings.KeyBindSetting;
 import net.minearchive.util.MouseUtils;
 import net.minearchive.util.NanoVGUtils;
@@ -11,7 +11,7 @@ import net.minecraft.client.gui.DrawContext;
 import org.lwjgl.glfw.GLFW;
 import org.lwjgl.nanovg.NanoVG;
 
-public class KeyBindElement extends AbstractElement<KeyBindSetting> {
+public class KeyBindElement extends AbstractSettingElement<KeyBindSetting> {
     private boolean listening;
 
     public KeyBindElement(KeyBindSetting setting, float x, float y, float width, float height) {

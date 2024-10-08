@@ -29,14 +29,6 @@ public abstract class MixinChatScreen extends Screen {
         float x = (float) client.mouse.getX();
         float y = (float) client.mouse.getY();
 
-        if (client.getWindow().getWidth() < x || client.getWindow().getHeight() < y) {
-            ModuleManager.INSTANCE.dragging = null;
-            ModuleManager.INSTANCE.modules.stream().filter(m -> m instanceof HudModule).map(m -> (HudModule) m).forEach(m -> {
-                m.x = Math.clamp(0, MinecraftClient.getInstance().getWindow().getWidth() - m.width, m.x);
-                m.y = Math.clamp(0, MinecraftClient.getInstance().getWindow().getHeight() - m.height, m.y);
-            });
-        }
-
         ModuleManager.INSTANCE.modules.stream().filter(m -> m instanceof HudModule).map(m -> ((HudModule) m)).filter(m -> m.enabled).toList().forEach(m -> {
             if (MouseUtils.hover(x, y, m.x, m.y, m.width, m.height)) {
                 if (GLFW.glfwGetMouseButton(client.getWindow().getHandle(), GLFW.GLFW_MOUSE_BUTTON_LEFT) == GLFW.GLFW_PRESS
@@ -52,6 +44,9 @@ public abstract class MixinChatScreen extends Screen {
             if (ModuleManager.INSTANCE.dragging == m) {
                 m.x += x - m.oldMouseX;
                 m.y += y - m.oldMouseY;
+
+                m.x = Math.clamp(0, MinecraftClient.getInstance().getWindow().getWidth() - m.width, m.x);
+                m.y = Math.clamp(0, MinecraftClient.getInstance().getWindow().getHeight() - m.height, m.y);
 
                 m.oldMouseX = x;
                 m.oldMouseY = y;

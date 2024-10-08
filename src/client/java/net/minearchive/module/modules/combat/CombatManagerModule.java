@@ -16,7 +16,7 @@ public class CombatManagerModule extends Module {
     public final BooleanSetting villagerSafe = add(new BooleanSetting("No Villager", true, passive::getValue));
     public final BooleanSetting enemy = add(new BooleanSetting("Enemy", true));
 
-    public EnumSetting<Priority> priority = add(new EnumSetting<>("Priority", Priority.Health));
+    public final EnumSetting<Priority> priority = add(new EnumSetting<>("Priority", Priority.Health));
 
     public enum Priority { Range, Health }
 

@@ -1,7 +1,7 @@
 package net.minearchive.screen.elements.setting;
 
 import net.minearchive.module.modules.client.ClientDebuggerModule;
-import net.minearchive.screen.AbstractElement;
+import net.minearchive.screen.elements.AbstractSettingElement;
 import net.minearchive.setting.settings.EnumSetting;
 import net.minearchive.util.MouseUtils;
 import net.minearchive.util.NanoVGUtils;
@@ -13,15 +13,14 @@ import org.lwjgl.glfw.GLFW;
 import org.lwjgl.nanovg.NVGPaint;
 import org.lwjgl.nanovg.NanoVG;
 
-public class EnumElement extends AbstractElement<EnumSetting<? extends Enum<?>>> {
+public class EnumElement extends AbstractSettingElement<EnumSetting<? extends Enum<?>>> {
     private boolean opened = false;
     private int v = 0;
-    private final Animation
-            boxHeight = new Animation(0, EnumEasing.QUART.getEasing()),
-            a = new Animation(0, EnumEasing.QUART.getEasing()),
-            selecting = new Animation(0, EnumEasing.QUART.getEasing()),
-            yAnim = new Animation(0, EnumEasing.QUART.getEasing()),
-            selectAlpha = new Animation(0, EnumEasing.QUART.getEasing());
+    private final Animation boxHeight = new Animation(0, EnumEasing.QUART.getEasing());
+    private final Animation a = new Animation(0, EnumEasing.QUART.getEasing());
+    private final Animation selecting = new Animation(0, EnumEasing.QUART.getEasing());
+    private final Animation yAnim = new Animation(0, EnumEasing.QUART.getEasing());
+    private final Animation selectAlpha = new Animation(0, EnumEasing.QUART.getEasing());
 
     public EnumElement(EnumSetting<? extends Enum<?>> setting, float x, float y, float width, float height) {
         super(setting, x, y ,width, height);

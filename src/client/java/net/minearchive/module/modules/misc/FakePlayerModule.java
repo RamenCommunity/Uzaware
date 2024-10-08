@@ -11,6 +11,7 @@ import net.minecraft.entity.effect.StatusEffectInstance;
 import java.util.Random;
 import java.util.UUID;
 
+@SuppressWarnings("DataFlowIssue")
 @ModuleInfo(name = "FakePlayer", category = Category.MISC)
 public class FakePlayerModule extends Module {
     private OtherClientPlayerEntity fakePlayer;

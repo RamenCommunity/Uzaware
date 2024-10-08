@@ -5,8 +5,6 @@ import net.minecraft.block.Blocks;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 
-import java.util.Objects;
-
 public class Node {
     private final int x, y, z;
     private Node parent;

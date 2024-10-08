@@ -7,12 +7,11 @@ import java.util.stream.IntStream;
 
 public class AnimateValue {
 
-    private SingleValue[] values;
+    private final SingleValue[] values;
     private final int maxLength;
-    private IEasing easing;
 
     public AnimateValue(EnumEasing easing, int maxLength) {
-        this.easing = easing.getEasing();
+        IEasing easing1 = easing.getEasing();
         this.maxLength = maxLength;
         values = new SingleValue[maxLength];
         for (int i = 0; i < maxLength; i++) {

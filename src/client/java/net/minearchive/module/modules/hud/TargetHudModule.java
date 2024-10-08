@@ -3,7 +3,6 @@ package net.minearchive.module.modules.hud;
 import net.minearchive.Uzaware;
 import net.minearchive.event.events.Render2DStartEvent;
 import net.minearchive.event.events.UpdateEvent;
-import net.minearchive.manager.EntityManager;
 import net.minearchive.module.Category;
 import net.minearchive.module.HudInfo;
 import net.minearchive.module.HudModule;

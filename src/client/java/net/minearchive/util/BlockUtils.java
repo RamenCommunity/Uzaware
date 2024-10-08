@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BlockUtils implements AccessMC {
-    public static List<Block> unbreakable = new ArrayList<>();
+    public static final List<Block> unbreakable = new ArrayList<>();
 
     static {
         unbreakable.addAll(List.of(

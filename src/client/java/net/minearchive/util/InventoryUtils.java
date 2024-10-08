@@ -1,23 +1,13 @@
 package net.minearchive.util;
 
-import it.unimi.dsi.fastutil.objects.Object2IntArrayMap;
-import it.unimi.dsi.fastutil.objects.Object2IntMap;
-import it.unimi.dsi.fastutil.objects.Object2IntMaps;
 import net.minearchive.AccessMC;
 import net.minearchive.mixin.ducks.ClientPlayerInteractionManagerDuck;
-import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
-import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.enchantment.Enchantments;
 import net.minecraft.item.*;
-import net.minecraft.nbt.NbtElement;
-import net.minecraft.nbt.NbtType;
-import net.minecraft.registry.RegistryKey;
-import net.minecraft.registry.entry.RegistryEntry;
 
 import java.util.Comparator;
-import java.util.Set;
 import java.util.stream.IntStream;
 
 @SuppressWarnings("DataFlowIssue")

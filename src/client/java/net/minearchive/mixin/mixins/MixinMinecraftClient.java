@@ -17,6 +17,7 @@ import java.util.concurrent.Executors;
 @Mixin(MinecraftClient.class)
 public class MixinMinecraftClient {
     @Unique
+    final
     ExecutorService executor = Executors.newSingleThreadExecutor();
 
     @Inject(method = "<init>", at = @At(value = "FIELD", target = "Lnet/minecraft/client/MinecraftClient;framebuffer:Lnet/minecraft/client/gl/Framebuffer;", opcode = Opcodes.PUTFIELD, shift = At.Shift.AFTER))

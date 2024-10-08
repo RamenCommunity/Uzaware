@@ -11,10 +11,10 @@ import java.util.List;
 
 public class NanoVGUtils {
     public static long context = -1;
-    public static NanoVGManager.Font ntr = new NanoVGManager.Font("/assets/uzaware/font/NTR-Regular.ttf", "NTR-Regular");
-    public static NanoVGManager.Font symbols = new NanoVGManager.Font("/assets/uzaware/font/MaterialSymbolsRounded.ttf", "MaterialSymbolsRounded");
+    public static final NanoVGManager.Font ntr = new NanoVGManager.Font("/assets/uzaware/font/NTR-Regular.ttf", "NTR-Regular");
+    public static final NanoVGManager.Font symbols = new NanoVGManager.Font("/assets/uzaware/font/MaterialSymbolsRounded.ttf", "MaterialSymbolsRounded");
 
-    public static List<box> stencilBoxes = new ArrayList<>();
+    public static final List<box> stencilBoxes = new ArrayList<>();
     public static boolean usingStencil = false;
 
     public static void create(long context) {

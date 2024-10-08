@@ -1,7 +1,7 @@
 package net.minearchive.screen.elements.setting;
 
 import net.minearchive.module.modules.client.ClientDebuggerModule;
-import net.minearchive.screen.AbstractElement;
+import net.minearchive.screen.elements.AbstractSettingElement;
 import net.minearchive.setting.settings.BooleanSetting;
 import net.minearchive.util.MouseUtils;
 import net.minearchive.util.NanoVGUtils;
@@ -14,7 +14,7 @@ import org.lwjgl.glfw.GLFW;
 
 import java.awt.*;
 
-public class BooleanElement extends AbstractElement<BooleanSetting> {
+public class BooleanElement extends AbstractSettingElement<BooleanSetting> {
     private final ColorAnimation colorT, colorB;
     private final Animation circleAnim;
 

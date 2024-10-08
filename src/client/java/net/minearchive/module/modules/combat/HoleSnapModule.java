@@ -35,7 +35,7 @@ import java.util.concurrent.atomic.AtomicReference;
 public class HoleSnapModule extends Module {
     public static HoleSnapModule INSTANCE;
 
-    public FloatSetting searchRange = add(new FloatSetting("Detect Range", 10, 5, 20));
+    public final FloatSetting searchRange = add(new FloatSetting("Detect Range", 10, 5, 20));
     public BooleanSetting isEcBedrock = add(new BooleanSetting("EnderChest as obsidian", true));
     public BooleanSetting bedrock = add(new BooleanSetting("Bedrock Hole", true));
     public BooleanSetting b1x1 = add(new BooleanSetting("Bedrock 1x1", true));
@@ -53,7 +53,6 @@ public class HoleSnapModule extends Module {
     private final HolePathFinder pathFinder = new HolePathFinder();
     private final List<Node> path = new CopyOnWriteArrayList<>();
     private final Timer timer = new Timer();
-    private boolean pathFound = false;
     int index = 0;
 
     public HoleSnapModule() {
@@ -65,8 +64,8 @@ public class HoleSnapModule extends Module {
         if (nullCheck()) return;
         Node start = Node.from(client.player.getPos());
         path.clear();
-        pathFound = false;
         index = 0;
+        boolean pathFound = false;
 
         List<BlockPos> blocks = WorldUtils.cube(client.player.getBlockPos(), searchRange.getValue());
         List<BlockPos> holes = blocks.stream()
@@ -144,9 +143,7 @@ public class HoleSnapModule extends Module {
         AtomicReference<Node> old = new AtomicReference<>();
 //        Renderer3d.renderLine(event.matrices(), SimpleColor.of(new Color(0xB800FF8C, true)), new Vec3d(old.get().getX() + 0.5, old.get().getY() + 0.1, old.get().getZ() + 0.5), new Vec3d(p.getX() + 0.5, p.getY() + 0.1, p.getZ() + 0.5));
 
-        path.forEach(p -> {
-            Renderer3d.renderFilled(event.matrices(), SimpleColor.of(new Color(0xB800FF8C, true)), new Vec3d(p.getX(), p.getY(), p.getZ()), new Vec3d(1, 1, 1));
-        });
+        path.forEach(p -> Renderer3d.renderFilled(event.matrices(), SimpleColor.of(new Color(0xB800FF8C, true)), new Vec3d(p.getX(), p.getY(), p.getZ()), new Vec3d(1, 1, 1)));
     }
 
     private static boolean isPassable(BlockPos pos) {

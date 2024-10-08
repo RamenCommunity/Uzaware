@@ -25,6 +25,10 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.Vec3d;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.IntStream;
+
 import static org.lwjgl.glfw.GLFW.GLFW_KEY_UNKNOWN;
 
 @ModuleInfo(name = "AutoPhase", category = Category.COMBAT)
@@ -34,7 +38,7 @@ public class AutoPhaseModule extends Module {
     public final IntegerSetting delay = add(new IntegerSetting("delay", 100, 100, 1000));
     public final BooleanSetting silent = add(new BooleanSetting("Silent", true));
 
-    private Timer timerUtils = new Timer();
+    private final Timer timerUtils = new Timer();
 
     @Override
     public void onUpdate(UpdateEvent event) {
@@ -120,6 +124,10 @@ public class AutoPhaseModule extends Module {
         }
     }
 
+    private Vec3d calc() {
+        return null;
+    }
+
     private boolean checkEntity(BlockPos pos) {
         return client.player.getBoundingBox().intersects(
                 pos.getX() - 1,
@@ -130,4 +138,6 @@ public class AutoPhaseModule extends Module {
                 pos.getZ()
         );
     }
+
+    private record Spot(double x, double y, double z, float score) { }
 }

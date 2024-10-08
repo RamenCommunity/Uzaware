@@ -73,44 +73,45 @@ public class NanoVGManager implements AccessMC {
             float height = height(size);
             float offsetX = 0f, offsetY = 0f;
 
-            switch (align) {
-                case NanoVG.NVG_ALIGN_LEFT | NanoVG.NVG_ALIGN_TOP:
+            offsetY = switch (align) {
+                case NanoVG.NVG_ALIGN_LEFT | NanoVG.NVG_ALIGN_TOP -> {
                     offsetX = 0f;
-                    offsetY = 0f;
-                    break;
-                case NanoVG.NVG_ALIGN_LEFT | NanoVG.NVG_ALIGN_MIDDLE:
+                    yield 0f;
+                }
+                case NanoVG.NVG_ALIGN_LEFT | NanoVG.NVG_ALIGN_MIDDLE -> {
                     offsetX = 0f;
-                    offsetY = -(height / 2f);
-                    break;
-                case NanoVG.NVG_ALIGN_LEFT | NanoVG.NVG_ALIGN_BOTTOM:
+                    yield -(height / 2f);
+                }
+                case NanoVG.NVG_ALIGN_LEFT | NanoVG.NVG_ALIGN_BOTTOM -> {
                     offsetX = 0f;
-                    offsetY = -height;
-                    break;
-                case NanoVG.NVG_ALIGN_CENTER | NanoVG.NVG_ALIGN_TOP:
+                    yield -height;
+                }
+                case NanoVG.NVG_ALIGN_CENTER | NanoVG.NVG_ALIGN_TOP -> {
                     offsetX = -(width / 2f);
-                    offsetY = 0f;
-                    break;
-                case NanoVG.NVG_ALIGN_CENTER | NanoVG.NVG_ALIGN_MIDDLE:
+                    yield 0f;
+                }
+                case NanoVG.NVG_ALIGN_CENTER | NanoVG.NVG_ALIGN_MIDDLE -> {
                     offsetX = -(width / 2f);
-                    offsetY = -(height / 2f);
-                    break;
-                case NanoVG.NVG_ALIGN_CENTER | NanoVG.NVG_ALIGN_BOTTOM:
+                    yield -(height / 2f);
+                }
+                case NanoVG.NVG_ALIGN_CENTER | NanoVG.NVG_ALIGN_BOTTOM -> {
                     offsetX = -(width / 2f);
-                    offsetY = -height;
-                    break;
-                case NanoVG.NVG_ALIGN_RIGHT | NanoVG.NVG_ALIGN_TOP:
+                    yield -height;
+                }
+                case NanoVG.NVG_ALIGN_RIGHT | NanoVG.NVG_ALIGN_TOP -> {
                     offsetX = -width;
-                    offsetY = 0f;
-                    break;
-                case NanoVG.NVG_ALIGN_RIGHT | NanoVG.NVG_ALIGN_MIDDLE:
+                    yield 0f;
+                }
+                case NanoVG.NVG_ALIGN_RIGHT | NanoVG.NVG_ALIGN_MIDDLE -> {
                     offsetX = -width;
-                    offsetY = -(height / 2f);
-                    break;
-                case NanoVG.NVG_ALIGN_RIGHT | NanoVG.NVG_ALIGN_BOTTOM:
+                    yield -(height / 2f);
+                }
+                case NanoVG.NVG_ALIGN_RIGHT | NanoVG.NVG_ALIGN_BOTTOM -> {
                     offsetX = -width;
-                    offsetY = -height;
-                    break;
-            }
+                    yield -height;
+                }
+                default -> offsetY;
+            };
 
             if (NanoVGUtils.stencilUnContain(x + offsetX, y + offsetY, width, height)) return;
             NanoVG.nvgBeginPath(nvg);

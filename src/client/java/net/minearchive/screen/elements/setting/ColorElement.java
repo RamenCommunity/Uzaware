@@ -1,17 +1,16 @@
 package net.minearchive.screen.elements.setting;
 
 import net.minearchive.module.modules.client.ClientDebuggerModule;
-import net.minearchive.screen.AbstractElement;
+import net.minearchive.screen.elements.AbstractSettingElement;
 import net.minearchive.setting.settings.ColorSetting;
 import net.minearchive.util.NanoVGUtils;
 import net.minearchive.util.SimpleColor;
 import net.minecraft.client.gui.DrawContext;
 import org.lwjgl.nanovg.NVGPaint;
-import org.lwjgl.nanovg.NanoVG;
 
 import java.awt.*;
 
-public class ColorElement extends AbstractElement<ColorSetting> {
+public class ColorElement extends AbstractSettingElement<ColorSetting> {
     private float slider, cursorX, cursorY;
 
     public ColorElement(ColorSetting setting, float x, float y, float width, float height) {
@@ -21,7 +20,14 @@ public class ColorElement extends AbstractElement<ColorSetting> {
     @Override
     public void render(DrawContext context, double mouseX, double mouseY, float delta, float offset) {
         this.offset = offset;
-        renderHSB(x, offset, width, width, 10, getRGBMax(t.getValue(), true));
+        float h = NanoVGUtils.ntr.height(22);
+        NanoVGUtils.rounded(x, offset, width, height(), 5, SimpleColor.of(0xD13C3C3C), NanoVGUtils.Pattern.FILL);
+        NanoVGUtils.ntr.draw(t.getName(), x + 30, offset + 10, 22, 0xffffffff);
+        NanoVGUtils.rounded(x + width - 100f, offset - (h / 2), 70f, 20f, 5f, SimpleColor.of(t.getValue()), NanoVGUtils.Pattern.FILL);
+        renderHSB(x + 30, offset + 30, width - 60, width - 60, 10, getRGBMax(t.getValue(), true));
+        NanoVGUtils.stroke(3);
+        NanoVGUtils.rounded(x + 39, offset + 39, width - 78, width - 78, 10, SimpleColor.of(0xffffffff), NanoVGUtils.Pattern.STROKE);
+
         float[] hsb = Color.RGBtoHSB(t.getValue().getRed(), t.getValue().getGreen(), t.getValue().getBlue(), null);
 
         if (ClientDebuggerModule.INSTANCE.componentDebug.getValue()) NanoVGUtils.rect(x, offset, width, height(), SimpleColor.of(0xffff0000), NanoVGUtils.Pattern.STROKE);

@@ -12,13 +12,7 @@ import java.util.Map;
 import static net.minearchive.manager.NanoVGManager.Font.byteBuffer;
 
 public class TextureManager {
-    private final NanoVGManager nanoVGManager;
-
     private final Map<String, Integer> textureMap = new HashMap<>();
-
-    public TextureManager() {
-        nanoVGManager = Uzaware.nanoVGManager;
-    }
 
     public NVGPaint getTextures(String identifier, float width, float height) {
         return getTextures(identifier, 0, 0, width, height);

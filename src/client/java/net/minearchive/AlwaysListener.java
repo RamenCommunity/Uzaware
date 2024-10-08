@@ -3,7 +3,6 @@ package net.minearchive;
 import com.google.common.eventbus.Subscribe;
 import net.minearchive.event.events.KeyPressEvent;
 import net.minearchive.module.Module;
-import net.minearchive.util.InputUtils;
 
 public class AlwaysListener {
     @Subscribe

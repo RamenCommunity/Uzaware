@@ -17,6 +17,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
+@SuppressWarnings("DataFlowIssue")
 public class ClickGuiScreen extends Screen {
     public static ClickGuiScreen INSTANCE;
 
@@ -87,8 +88,8 @@ public class ClickGuiScreen extends Screen {
         double x = client.mouse.getX() - deltaX;
         double y = client.mouse.getY() - deltaY;
         System.out.println(amount);
-        elements.stream().noneMatch(e -> e.mouseScrolled(x, y, amount));
-        if (shiftPressing) deltaX += (float) (-amount * 50f);
+        boolean scrolled = elements.stream().noneMatch(e -> e.mouseScrolled(x, y, amount));
+        if (shiftPressing && !scrolled) deltaX += (float) (-amount * 50f);
         else deltaY += (float) (amount * 50f);
         return super.mouseScrolled(mouseX, mouseY, amount);
     }

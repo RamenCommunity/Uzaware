@@ -106,10 +106,11 @@ public class Notification implements AccessMC {
     }
 
     public static class NotificationData {
-        public String title, message;
+        public final String title;
+        public final String message;
         public Color titleColor, messageColor;
-        public NotificationType type;
-        public int id;
+        public final NotificationType type;
+        public final int id;
 
         public NotificationData(String title, String message, NotificationType type, int id) {
             this.title = title;

@@ -9,6 +9,7 @@ public class SuperIQMathModule extends Module {
     @Override
     public void onEnable() {
         if (nullCheck()) return;
+        //noinspection DataFlowIssue
         client.player.networkHandler.sendChatMessage("superuzawa");
         toggle();
     }
