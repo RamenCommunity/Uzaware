@@ -22,7 +22,7 @@ public class IntegerElement extends AbstractSettingElement<IntegerSetting> {
     @Override
     public void render(DrawContext context, double mouseX, double mouseY, float delta, float offset) {
         NVGPaint paint = NanoVGUtils.linearGradient(x + 30, offset + 26, x + width - 30, offset + 45, SimpleColor.of(0xFFFAC0FF), SimpleColor.of(0xFFB3A5FF), NanoVGUtils.Orientation.HORIZONTAL);
-        NanoVGUtils.ntr.draw(t.getName()+ " : " + t.getValue(), x + 30, offset + 5, 22, 0xffffffff);
+        NanoVGUtils.ntr.draw(t.getName() + " : " + t.getValue(), x + 30, offset + 5, 22, 0xffffffff);
         NanoVGUtils.stroke(2F);
         NanoVGUtils.rounded(x + 29, offset + 25, width - 58, 16, 8, SimpleColor.of(0x59000000), NanoVGUtils.Pattern.STROKE);
         NanoVGUtils.stroke(1F);
@@ -32,7 +32,9 @@ public class IntegerElement extends AbstractSettingElement<IntegerSetting> {
         if ((GLFW.glfwGetMouseButton(client.getWindow().getHandle(), GLFW.GLFW_MOUSE_BUTTON_LEFT) == GLFW.GLFW_PRESS)) {
             if ((MouseUtils.hover(mouseX, mouseY, x + 30, offset + 26, width - 60, 14) && !ClickGuiScreen.INSTANCE.isDragging) || dragging) {
                 float p = (float) ((mouseX - (x + 30)) / (width - 60));
-                t.setValue(Math.clamp(t.getMin(), t.getMax(), Math.round(t.getMin() + (t.getMax() - t.getMin()) * p)));
+                int value = Math.clamp(t.getMin(), t.getMax(), Math.round(t.getMin() + (t.getMax() - t.getMin()) * p));
+                int rounded = Math.max(t.getMin(), Math.min(t.getMax(), Math.round((float) value / t.getStep()) * t.getStep()));
+                t.setValue(rounded);
                 dragging = true;
                 ClickGuiScreen.INSTANCE.isDragging = true;
             }
