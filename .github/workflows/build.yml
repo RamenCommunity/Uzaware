@@ -30,15 +30,24 @@ jobs:
           archivesBaseName=$(grep 'archives_base_name' gradle.properties | sed 's/archives_base_name=//' | sed 's/ /_/g')
           version=$(grep 'mod_version' gradle.properties | sed 's/mod_version=//' | sed 's/ /_/g')
           commitHash=$(git rev-parse --short HEAD)
+          fileName=$archivesBaseName-$version
           name=$archives_base_name-$version-$commitHash
-          echo modName=$modName >> $GITHUB_ENV
-          echo fileName=$fileName >> $GITHUB_ENV
 
       - name: change file name
         run: |
-          mv ./build/libs/*.jar ${{ env.fileName }}.jar
+          mv ./build/libs/${{ env.fileName }}.jar ${{ env.name }}.jar
 
-      - name: Get checksum
+      - name: get checksum
         run: |
-          checksum=$(sha256sum ${{ env.fileName }}.jar | sed 's/${{ env.fileName }}.jar//g')
+          checksum=$(sha256sum ${{ env.name }}.jar | sed 's/${{ env.name }}.jar//g')
           echo checksum=$checksum >> $GITHUB_ENV
+
+      - name: send to discord
+        env:
+          runID: ${{ github.run_id }}
+          webhookUrl: ${{ secrets.NIGHTLY_DISCORD_WEBHOOK }}
+        run: |
+          commitMessage=$(git log --pretty=format:"[%h](https://github.com/$GITHUB_REPOSITORY/commit/%H) %s" -1 --reverse)
+          json='{"embeds":[{"title":"'${{ env.modName }}-BETA'","url":"https://github.com/'$GITHUB_REPOSITORY'/actions/runs/'$runID'","description":"**sha256sum**\n`${{ env.checksum }}`\n\n**Commit**\n '$commitMessage'","color":65416}]}'
+          curl "$webhookUrl" -H "Content-Type:application/json" -X POST -d "$json"
+          curl "$webhookUrl" -H "Content-Type:multipart/form-data" -X POST -F "files[0]=@${{ env.name }}.jar"
