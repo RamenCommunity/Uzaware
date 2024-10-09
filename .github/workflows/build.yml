@@ -1,23 +1,15 @@
-# Automatically build the project and run any configured tests for every push
-# and submitted pull request. This can help catch issues that only occur on
-# certain platforms or Java versions, and provides a first line of defence
-# against bad commits.
-
 name: build
 on:
   push:
-
-
+    paths:
+      - "src/client/**"
+      - "build.gradle"
 
 jobs:
   build:
-    if: contains(github.event.head_commit.message, 'build')
     strategy:
       matrix:
-        # Use these Java versions
-        java: [
-          21,    # Current Java LTS
-        ]
+        java: [ 21, ]
     runs-on: ubuntu-22.04
     steps:
       - name: checkout repository
@@ -33,9 +25,20 @@ jobs:
         run: chmod +x ./gradlew
       - name: build
         run: ./gradlew build
-      - name: capture build artifacts
-        if: ${{ matrix.java == '21' }} # Only upload artifacts built from latest java
-        uses: actions/upload-artifact@v4
-        with:
-          name: Artifacts
-          path: build/libs/
+      - name: gen name
+        run: |
+          archivesBaseName=$(grep 'archives_base_name' gradle.properties | sed 's/archives_base_name=//' | sed 's/ /_/g')
+          version=$(grep 'mod_version' gradle.properties | sed 's/mod_version=//' | sed 's/ /_/g')
+          commitHash=$(git rev-parse --short HEAD)
+          name=$archives_base_name-$version-$commitHash
+          echo modName=$modName >> $GITHUB_ENV
+          echo fileName=$fileName >> $GITHUB_ENV
+
+      - name: change file name
+        run: |
+          mv ./build/libs/*.jar ${{ env.fileName }}.jar
+
+      - name: Get checksum
+        run: |
+          checksum=$(sha256sum ${{ env.fileName }}.jar | sed 's/${{ env.fileName }}.jar//g')
+          echo checksum=$checksum >> $GITHUB_ENV
