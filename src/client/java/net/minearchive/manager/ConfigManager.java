@@ -115,7 +115,7 @@ public class ConfigManager implements AccessMC {
         }
     }
 
-    private void apply(Map. Entry<String, JsonElement> entry, Module module) {
+    private void apply(Map.Entry<String, JsonElement> entry, Module module) {
         entry.getValue().getAsJsonArray().forEach(jsonElement -> jsonElement.getAsJsonObject().entrySet().forEach(setting -> module.settings.stream().filter(s -> setting.getKey().equals(s.getName())).forEach(s -> {
             if (s instanceof BooleanSetting) ((BooleanSetting) s).setValue(setting.getValue().getAsBoolean());
             // if (setting instanceof ColorSetting) ((ColorSetting) s).setValue(setting.getValue().getAsColor());
