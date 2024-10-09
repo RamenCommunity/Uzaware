@@ -32,6 +32,7 @@ jobs:
           commitHash=$(git rev-parse --short HEAD)
           fileName=$archivesBaseName-$version
           name=$archivesBaseName-$version-$commitHash
+          echo "modName"=${archivesBaseName}" >> $GITHUB_ENV 
           echo "fileName=${fileName}" >> $GITHUB_ENV
           echo "name=${name}" >> $GITHUB_ENV
 
