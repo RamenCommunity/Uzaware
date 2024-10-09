@@ -47,10 +47,6 @@ public class Animation {
         return this;
     }
 
-    public void setOnFinished(Runnable runnable) {
-        this.onFinished = runnable;
-    }
-
     public float getValue() {
         return value;
     }

@@ -36,7 +36,6 @@ import static org.lwjgl.glfw.GLFW.GLFW_KEY_UNKNOWN;
 public class AutoPhaseModule extends Module {
     public final KeyBindSetting hook = add(new KeyBindSetting("Trap Bind", new KeyBind(GLFW_KEY_UNKNOWN)));
     public final IntegerSetting delay = add(new IntegerSetting("delay", 100, 100, 1000));
-    public final BooleanSetting silent = add(new BooleanSetting("Silent", true));
 
     private final Timer timerUtils = new Timer();
 
