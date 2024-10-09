@@ -45,7 +45,7 @@ public class Uzaware implements ClientModInitializer {
 		fuckRam();
 		LOGGER.info("Uzaware Initialized!");
 
-		Runtime.getRuntime().addShutdownHook(new Thread(() -> configManager.saveAll(), "Shutdown_hook"));
+		Runtime.getRuntime().addShutdownHook(new Thread(configManager::saveAll, "Shutdown_hook"));
 	}
 
 	public static void registerEventBus(Object o) {
