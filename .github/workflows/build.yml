@@ -31,7 +31,7 @@ jobs:
           version=$(grep 'mod_version' gradle.properties | sed 's/mod_version=//' | sed 's/ /_/g')
           commitHash=$(git rev-parse --short HEAD)
           fileName=$archivesBaseName-$version
-          name=$archives_base_name-$version-$commitHash
+          name=$archivesBaseName-$version-$commitHash
           echo "fileName=${fileName}" >> $GITHUB_ENV
           echo "name=${name}" >> $GITHUB_ENV
 
