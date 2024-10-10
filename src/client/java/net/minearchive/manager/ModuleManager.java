@@ -55,6 +55,7 @@ public class ModuleManager {
         register(WaterMarkModule.class);
         register(SpotifyHudModule.class);
         register(NotificationModule.class);
+        register(Hud.class);
 
         modules.sort(Comparator.comparing(m -> m.name));
     }
