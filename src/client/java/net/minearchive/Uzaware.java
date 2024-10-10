@@ -6,16 +6,18 @@ import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.minearchive.event.events.TickEndEvent;
 import net.minearchive.event.events.TickStartEvent;
 import net.minearchive.manager.*;
+import net.minearchive.util.FPSCalculator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.List;
+import java.util.Locale;
 import java.util.Random;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 public class Uzaware implements ClientModInitializer {
-	public static final String modID 					= "uzaware";
 	public static final String modName 					= "Uzaware";
+	public static final String modID 					= modName.toLowerCase(Locale.ROOT);
 	public static final String version 					= "1.0";
 
     public static final Logger LOGGER 					= LoggerFactory.getLogger(modName);
@@ -26,6 +28,7 @@ public class Uzaware implements ClientModInitializer {
 	public static final EntityManager entityManager 	= new EntityManager();
 	public static final EventBus EVENT_BUS 				= new EventBus();
 	public static final List<Object> registeredObject 	= new CopyOnWriteArrayList<>();
+	public static final FPSCalculator FPS = new FPSCalculator();
 	private final String[] serif 						= new String[] {
 			"呼ばれて飛び出て！参りました！ みんなのスーパースター、宇沢レイサ、登場です！",
 			"おかえりなさい、先生！ 宇沢レイサ、待機していました！",

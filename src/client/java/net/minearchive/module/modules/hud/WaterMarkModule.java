@@ -8,7 +8,6 @@ import net.minearchive.module.HudInfo;
 import net.minearchive.module.HudModule;
 import net.minearchive.module.ModuleInfo;
 import net.minearchive.setting.settings.EnumSetting;
-import net.minearchive.util.FPSCalculator;
 import net.minearchive.util.NanoVGUtils;
 import net.minearchive.util.SimpleColor;
 import net.minearchive.util.easing.AnimateValue;
@@ -37,7 +36,7 @@ public class WaterMarkModule extends HudModule {
 
                 animateValue.draw(x + 130, y + 40, 32, timeStamp, 300, SimpleColor.of(0xffffffff));
 
-                NanoVGUtils.ntr.draw("FPS: " + FPSCalculator.INSTANCE.getCurrentFPS(), x + 130, y + 70, 32, 0xffffffff);
+                NanoVGUtils.ntr.draw("FPS: " + Uzaware.FPS.getCurrentFPS(), x + 130, y + 70, 32, 0xffffffff);
             }
             case Uzawa2 -> NanoVGUtils.ntr.draw("UzaWere v" + Uzaware.version, x + 5, y + 5, 32, 0xffffffff);
         }

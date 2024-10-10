@@ -1,9 +1,6 @@
 package net.minearchive.util;
 
-import net.minearchive.event.events.Render2DStartEvent;
-
 public class FPSCalculator {
-    public static FPSCalculator INSTANCE = new FPSCalculator();
     int currentFPS;
     private final FPS[] timers;
 
@@ -17,7 +14,7 @@ public class FPSCalculator {
         }
     }
 
-    public void render(Render2DStartEvent event) {
+    public void update() {
         for (FPS fps : timers) {
             fps.updateFPSCount();
             if (fps.isOver()) {

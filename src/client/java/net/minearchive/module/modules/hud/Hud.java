@@ -7,7 +7,6 @@ import net.minearchive.module.HudInfo;
 import net.minearchive.module.HudModule;
 import net.minearchive.module.ModuleInfo;
 import net.minearchive.setting.settings.BooleanSetting;
-import net.minearchive.util.FPSCalculator;
 import net.minearchive.util.NanoVGUtils;
 import net.minearchive.util.PlayerUtils;
 
@@ -25,15 +24,13 @@ public class Hud extends HudModule {
 
     public Hud() {INSTANCE = this;}
 
-
     @Override
-    public void onRender(Render2DStartEvent event){
+    public void onRender(Render2DStartEvent event) {
         if (watermark.getValue())
-            NanoVGUtils.ntr.draw("UzaWere v"  + Uzaware.version, x + 5, y + 5, 32, 0xffffffff);
+            NanoVGUtils.ntr.draw(Uzaware.modName + Uzaware.version, x + 5, y + 5, 32, 0xffffffff);
         if (fps.getValue())
-            NanoVGUtils.ntr.draw("Fps " + FPSCalculator.INSTANCE.getCurrentFPS(), x + 5, y + 70, 28, 0xffffffff);
-        if (ping.getValue()) {
-            NanoVGUtils.ntr.draw("ping " + PlayerUtils.getPing(client.player), x + 5, + y + 95, 28, 0xffffffff);
-        }
+            NanoVGUtils.ntr.draw("Fps " + Uzaware.FPS.getCurrentFPS(), x + 5, y + 70, 28, 0xffffffff);
+        if (ping.getValue())
+            NanoVGUtils.ntr.draw("ping " + PlayerUtils.getPing(client.player), x + 5, y + 95, 28, 0xffffffff);
     }
 }

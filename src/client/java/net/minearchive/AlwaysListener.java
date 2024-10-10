@@ -4,7 +4,6 @@ import com.google.common.eventbus.Subscribe;
 import net.minearchive.event.events.KeyPressEvent;
 import net.minearchive.event.events.Render2DStartEvent;
 import net.minearchive.module.Module;
-import net.minearchive.util.FPSCalculator;
 
 public class AlwaysListener {
     @Subscribe
@@ -14,6 +13,6 @@ public class AlwaysListener {
 
     @Subscribe
     public void onRender2D(Render2DStartEvent event) {
-        FPSCalculator.INSTANCE.render(event);
+        Uzaware.FPS.update();
     }
 }
