@@ -28,7 +28,7 @@ public class Uzaware implements ClientModInitializer {
 	public static final EntityManager entityManager 	= new EntityManager();
 	public static final EventBus EVENT_BUS 				= new EventBus();
 	public static final List<Object> registeredObject 	= new CopyOnWriteArrayList<>();
-	public static final FPSCalculator FPS = new FPSCalculator();
+	public static final FPSCalculator FPS 				= new FPSCalculator();
 	private final String[] serif 						= new String[] {
 			"呼ばれて飛び出て！参りました！ みんなのスーパースター、宇沢レイサ、登場です！",
 			"おかえりなさい、先生！ 宇沢レイサ、待機していました！",
