@@ -1,9 +1,9 @@
-package net.minearchive.screen;
+package net.minearchive.screen.clickgui;
 
 import com.google.common.util.concurrent.AtomicDouble;
 import net.minearchive.Uzaware;
 import net.minearchive.module.Category;
-import net.minearchive.screen.elements.ModuleElement;
+import net.minearchive.screen.clickgui.elements.ModuleElement;
 import net.minearchive.util.NanoVGUtils;
 import net.minearchive.util.SimpleColor;
 import net.minecraft.client.gui.DrawContext;

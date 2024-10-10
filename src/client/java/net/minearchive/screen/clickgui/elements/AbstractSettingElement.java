@@ -1,6 +1,6 @@
-package net.minearchive.screen.elements;
+package net.minearchive.screen.clickgui.elements;
 
-import net.minearchive.screen.AbstractElement;
+import net.minearchive.screen.clickgui.AbstractElement;
 import net.minearchive.util.easing.Animation;
 import net.minearchive.util.easing.EnumEasing;
 

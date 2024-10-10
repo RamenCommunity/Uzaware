@@ -1,4 +1,4 @@
-package net.minearchive.screen;
+package net.minearchive.screen.clickgui;
 
 import net.minearchive.Uzaware;
 import net.minearchive.module.Category;

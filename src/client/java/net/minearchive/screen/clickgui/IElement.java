@@ -1,4 +1,4 @@
-package net.minearchive.screen;
+package net.minearchive.screen.clickgui;
 
 import net.minearchive.AccessMC;
 import net.minecraft.client.gui.DrawContext;

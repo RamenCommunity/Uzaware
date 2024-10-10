@@ -3,7 +3,7 @@ package net.minearchive.module.modules.client;
 import net.minearchive.module.Category;
 import net.minearchive.module.Module;
 import net.minearchive.module.ModuleInfo;
-import net.minearchive.screen.ClickGuiScreen;
+import net.minearchive.screen.clickgui.ClickGuiScreen;
 import org.lwjgl.glfw.GLFW;
 
 @ModuleInfo(name = "ClickGui", category = Category.CLIENT, keybind = GLFW.GLFW_KEY_RIGHT_SHIFT)

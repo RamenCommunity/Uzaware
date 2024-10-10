@@ -1,9 +1,9 @@
-package net.minearchive.screen.elements;
+package net.minearchive.screen.clickgui.elements;
 
 import com.google.common.util.concurrent.AtomicDouble;
 import net.minearchive.module.Module;
-import net.minearchive.screen.AbstractElement;
-import net.minearchive.screen.elements.setting.*;
+import net.minearchive.screen.clickgui.AbstractElement;
+import net.minearchive.screen.clickgui.elements.setting.*;
 import net.minearchive.setting.Setting;
 import net.minearchive.setting.settings.*;
 import net.minearchive.util.MouseUtils;

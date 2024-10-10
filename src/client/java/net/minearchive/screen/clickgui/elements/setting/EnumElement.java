@@ -1,7 +1,7 @@
-package net.minearchive.screen.elements.setting;
+package net.minearchive.screen.clickgui.elements.setting;
 
 import net.minearchive.module.modules.client.ClientDebuggerModule;
-import net.minearchive.screen.elements.AbstractSettingElement;
+import net.minearchive.screen.clickgui.elements.AbstractSettingElement;
 import net.minearchive.setting.settings.EnumSetting;
 import net.minearchive.util.MouseUtils;
 import net.minearchive.util.NanoVGUtils;
