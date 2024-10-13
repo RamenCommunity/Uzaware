@@ -1,16 +1,22 @@
 package net.minearchive.module.modules.misc;
 
 import com.google.common.eventbus.Subscribe;
+import net.fabricmc.loader.FabricLoader;
+import net.fabricmc.loader.api.ModContainer;
+import net.fabricmc.loader.impl.FabricLoaderImpl;
 import net.minearchive.event.events.MessageSendEvent;
 import net.minearchive.module.Category;
 import net.minearchive.module.Module;
 import net.minearchive.module.ModuleInfo;
+import net.minearchive.setting.settings.EnumSetting;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 @ModuleInfo(name = "ChatSuffix", category = Category.MISC)
 public class ChatSuffixModule extends Module {
+    public EnumSetting<Mode> mode = add(new EnumSetting<>("Mode", Mode.Normal));
+
+    public enum Mode { Normal, IQ }
 
     private static final Map<String, String> smallCapsMap = new HashMap<>();
 
@@ -45,8 +51,31 @@ public class ChatSuffixModule extends Module {
 
     @Subscribe
     public void onMessageSend(MessageSendEvent event) {
-        String message = event.getMessage() + convert(" | Uzaware");
+        String message = event.getMessage() + convert(get(event));
         event.setMessage(message);
+    }
+
+    private String get(MessageSendEvent event) {
+        switch (mode.getValue()) {
+            case Normal -> {
+                return " | Uzaware";
+            }
+
+            case IQ -> {
+                List<ModContainer> modContainers = FabricLoaderImpl.INSTANCE.getAllMods().stream().toList();
+                int size = modContainers.size();
+                StringBuilder suffix = new StringBuilder();
+                Random rand = new Random();
+                while (suffix.length() + size < 256) {
+                    suffix.append(" | ").append(modContainers.get(rand.nextInt(size)).getMetadata().getName());
+                }
+                return suffix.toString();
+            }
+
+            default -> {
+                return "";
+            }
+        }
     }
 
     private String convert(String string) {
