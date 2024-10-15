@@ -62,13 +62,23 @@ public class ChatSuffixModule extends Module {
             }
 
             case IQ -> {
-                List<ModContainer> modContainers = FabricLoaderImpl.INSTANCE.getAllMods().stream().toList();
-                int size = modContainers.size();
+                List<ModContainer> modContainers = new ArrayList<>(FabricLoaderImpl.INSTANCE.getAllMods().stream()
+                        .filter(mod -> mod.getMetadata().getAuthors().stream()
+                                .anyMatch(author -> !author.getName().equals("FabricMC")))
+                        .filter(mod -> !mod.getMetadata().getName().toLowerCase().contains("renderer"))
+                        .filter(mod -> !mod.getMetadata().getName().toLowerCase().contains("mixinextras"))
+                        .toList());
+
                 StringBuilder suffix = new StringBuilder();
                 Random rand = new Random();
-                while (suffix.length() + size < 256) {
-                    suffix.append(" | ").append(modContainers.get(rand.nextInt(size)).getMetadata().getName());
+
+                while (suffix.length() + event.getMessage().length() < 256 && !modContainers.isEmpty()) {
+                    int i = rand.nextInt(modContainers.size());
+                    ModContainer container = modContainers.remove(i);
+                    System.out.println("added " + container.getMetadata().getName());
+                    suffix.append(" | ").append(container.getMetadata().getName());
                 }
+
                 return suffix.toString();
             }
 
