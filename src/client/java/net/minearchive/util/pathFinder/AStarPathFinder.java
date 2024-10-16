@@ -24,7 +24,7 @@ public abstract class AStarPathFinder {
 
     private final Map<Node, Boolean> map = new ConcurrentHashMap<>();
 
-    public List<Node> find(Node start, Node end) {
+    public List<Node> find(Node start, Node end, int timeout) {
         if (start.equals(end)) {
             return List.of();
         }
@@ -36,8 +36,12 @@ public abstract class AStarPathFinder {
         List<Node> close = new LinkedList<>();
         open.add(start);
         Node current;
+        long s = System.currentTimeMillis();
 
         while (true) {
+            if (System.currentTimeMillis() - s > timeout)
+                return new ArrayList<>();
+
             current = fLowest(open);
             open.remove(current);
             close.add(current);
