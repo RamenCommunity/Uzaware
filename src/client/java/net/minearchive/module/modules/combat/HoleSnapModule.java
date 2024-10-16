@@ -9,6 +9,7 @@ import net.minearchive.module.Module;
 import net.minearchive.module.ModuleInfo;
 import net.minearchive.setting.settings.BooleanSetting;
 import net.minearchive.setting.settings.FloatSetting;
+import net.minearchive.setting.settings.IntegerSetting;
 import net.minearchive.util.BlockUtils;
 import net.minearchive.util.NotificationUtils;
 import net.minearchive.util.SimpleColor;
@@ -36,6 +37,7 @@ public class HoleSnapModule extends Module {
     public static HoleSnapModule INSTANCE;
 
     public final FloatSetting searchRange = add(new FloatSetting("Detect Range", 10, 5, 20));
+    public final IntegerSetting timeout = add(new IntegerSetting("Timeout", 500, -1, 1000));
     public BooleanSetting isEcBedrock = add(new BooleanSetting("EnderChest as obsidian", true));
     public BooleanSetting bedrock = add(new BooleanSetting("Bedrock Hole", true));
     public BooleanSetting b1x1 = add(new BooleanSetting("Bedrock 1x1", true));
@@ -97,9 +99,8 @@ public class HoleSnapModule extends Module {
 
             Node goal = Node.from(hole).up();
 
-            path.addAll(pathFinder.find(start, goal));
+            path.addAll(pathFinder.find(start, goal, timeout.getValue()));
 
-            System.out.println(path);
             if (path.isEmpty()) {
                 holes = holes.stream().filter(h -> !h.equals(hole)).toList();
 
@@ -122,8 +123,8 @@ public class HoleSnapModule extends Module {
     @Override
     public void onUpdate(UpdateEvent event) {
         if (nullCheck()) return;
+        client.player.setVelocity(0, 0, 0);
         if (timer.passed(25)) {
-            client.player.setVelocity(0, 0, 0);
             if (index >= path.size()) {
                 disable();
                 return;
