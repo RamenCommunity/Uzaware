@@ -52,7 +52,7 @@ public class ChatSuffixModule extends Module {
     @Subscribe
     public void onMessageSend(MessageSendEvent event) {
         String message = event.getMessage() + convert(get(event));
-        event.setMessage(message);
+        event.setMessage(message.substring(0, 254));
     }
 
     private String get(MessageSendEvent event) {
@@ -75,7 +75,6 @@ public class ChatSuffixModule extends Module {
                 while (suffix.length() + event.getMessage().length() < 256 && !modContainers.isEmpty()) {
                     int i = rand.nextInt(modContainers.size());
                     ModContainer container = modContainers.remove(i);
-                    System.out.println("added " + container.getMetadata().getName());
                     suffix.append(" | ").append(container.getMetadata().getName());
                 }
 
