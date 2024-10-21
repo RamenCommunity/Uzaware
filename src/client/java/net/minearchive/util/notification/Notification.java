@@ -1,7 +1,7 @@
 package net.minearchive.util.notification;
 
 import net.minearchive.AccessMC;
-import net.minearchive.util.NanoVGUtils;
+import net.minearchive.util.render.NanoVGUtils;
 import net.minearchive.util.SimpleColor;
 import net.minearchive.util.easing.Animation;
 import net.minearchive.util.easing.EnumEasing;

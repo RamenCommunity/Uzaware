@@ -19,7 +19,6 @@ public class SoundUtils implements AccessMC {
             FloatControl floatControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
             floatControl.setValue((floatControl.getMaximum() - floatControl.getMinimum() * ((float) volume / 100f)) + floatControl.getMinimum());
             clip.start();
-        } catch (Exception ignored) {
-        }
+        } catch (Exception ignored) { }
     }
 }

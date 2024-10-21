@@ -4,7 +4,7 @@ import com.google.common.util.concurrent.AtomicDouble;
 import net.minearchive.Uzaware;
 import net.minearchive.module.Category;
 import net.minearchive.screen.clickgui.elements.ModuleElement;
-import net.minearchive.util.NanoVGUtils;
+import net.minearchive.util.render.NanoVGUtils;
 import net.minearchive.util.SimpleColor;
 import net.minecraft.client.gui.DrawContext;
 import org.lwjgl.nanovg.NanoVG;
@@ -25,7 +25,6 @@ public class PanelElement implements IElement {
         this.x = x;
         this.y = y;
         this.width = width;
-        System.out.println(x);
         elements.addAll(Uzaware.moduleManager.modules.stream().filter(m -> m.category == c).map(m -> new ModuleElement(m, x, y, width, 40)).toList());
         this.height = elements.size() * 55 + 80;
     }

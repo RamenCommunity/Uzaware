@@ -1,6 +1,6 @@
 package net.minearchive.util.easing;
 
-import net.minearchive.util.NanoVGUtils;
+import net.minearchive.util.render.NanoVGUtils;
 import net.minearchive.util.SimpleColor;
 
 import java.util.stream.IntStream;

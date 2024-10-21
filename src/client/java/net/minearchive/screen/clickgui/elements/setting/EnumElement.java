@@ -4,7 +4,7 @@ import net.minearchive.module.modules.client.ClientDebuggerModule;
 import net.minearchive.screen.clickgui.elements.AbstractSettingElement;
 import net.minearchive.setting.settings.EnumSetting;
 import net.minearchive.util.MouseUtils;
-import net.minearchive.util.NanoVGUtils;
+import net.minearchive.util.render.NanoVGUtils;
 import net.minearchive.util.SimpleColor;
 import net.minearchive.util.easing.Animation;
 import net.minearchive.util.easing.EnumEasing;

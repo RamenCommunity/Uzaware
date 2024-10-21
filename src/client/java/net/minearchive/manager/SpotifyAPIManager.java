@@ -27,7 +27,7 @@ import java.util.concurrent.TimeUnit;
 import static net.minearchive.util.ParallelRunner.runParallel;
 
 public class SpotifyAPIManager {
-    public static final SpotifyAPIManager INSTANCE = new SpotifyAPIManager();
+    public static SpotifyAPIManager INSTANCE;
 
     private final String CODE_CHALLENGE = "w6iZIj99vHGtEx_NVl9u3sthTN646vvkiP8OMCGfPmo";
     private final String CODE_VERIFIER = "NlJx4kD4opk4HY7zBM6WfUHxX7HoF8A2TUhOIPGA74w";
@@ -38,14 +38,6 @@ public class SpotifyAPIManager {
     private boolean authed = false;
     private final SpotifyStateManager spotifyStateManager = new SpotifyStateManager();
 
-    private final String input = "<!DOCTYPE html><html lang=\"ja\"><meta charset=\"UTF-8\"><meta name=\"viewport\" content=\"width=device-width," +
-            " initial-scale=1.0\"><title>Uzaware Spotify Setting</title><style>body{display:flex;justify-content:center;align-items:center;heigh" +
-            "t:100vh;margin:0}.form-container{display:flex;flex-direction:column;align-items:center}input[type=\"text\"]{width:300px;padding:10p" +
-            "x;margin:10px 0;font-size:16px}button{padding:10px 20px;font-size:16px}</style><script></script><div class=\"form-container\"><form" +
-            " id=\"myForm\"><label><input type=\"text\" id=\"textbox1\" placeholder=\"Your API Key\"></label> <button type=\"submit\">Open</butt" +
-            "on></form></div><script>document.getElementById(\"myForm\").addEventListener(\"submit\",function(n){n.preventDefault();const t=docu" +
-            "ment.getElementById(\"textbox1\").value,i=`http://localhost:4001/receive?textbox1=${encodeURIComponent(t)}`;fetch(i).then(n=>{if(!n.ok)throw" +
-            " new Error(\"ネットワークエラー\");return n.text()})})</script>";
     public final String close = "<!DOCTYPE html><html lang=\"en\"><meta charset=\"UTF-8\"><meta name=\"viewport\"content=\"width=device-width, i" +
             "nitial-scale=1.0\"><script src=\"https://cdn.tailwindcss.com\"></script><title>Modal with Close Button</title><script>tailwind.confi" +
             "g={theme:{extend:{colors:{spotify:\"#1ed760\",spotifyHv:\"#1db954\",back:\"#1e2022\",panel:\"#181a1b\"}}}}</script><body class=\"fle" +
@@ -99,6 +91,10 @@ public class SpotifyAPIManager {
             LogManager.getLogger("Uzaware Spotify Client").error("Error caused while creating access token", e);
         }
     };
+
+    public SpotifyAPIManager() {
+         INSTANCE = this;
+    }
 
     public void start() {
         if (authed) return;

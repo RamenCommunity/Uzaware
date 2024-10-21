@@ -7,7 +7,7 @@ import net.minearchive.screen.clickgui.elements.setting.*;
 import net.minearchive.setting.Setting;
 import net.minearchive.setting.settings.*;
 import net.minearchive.util.MouseUtils;
-import net.minearchive.util.NanoVGUtils;
+import net.minearchive.util.render.NanoVGUtils;
 import net.minearchive.util.SimpleColor;
 import net.minearchive.util.easing.Animation;
 import net.minearchive.util.easing.ColorAnimation;

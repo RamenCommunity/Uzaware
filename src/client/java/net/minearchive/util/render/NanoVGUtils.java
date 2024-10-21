@@ -1,21 +1,34 @@
-package net.minearchive.util;
+package net.minearchive.util.render;
 
-import net.minearchive.manager.NanoVGManager;
-import org.lwjgl.nanovg.NVGColor;
-import org.lwjgl.nanovg.NVGPaint;
-import org.lwjgl.nanovg.NanoVG;
+import com.mojang.blaze3d.platform.GlStateManager;
+import net.minearchive.Uzaware;
+import net.minearchive.util.SimpleColor;
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.gui.DrawContext;
+import org.lwjgl.BufferUtils;
+import org.lwjgl.nanovg.*;
 import org.lwjgl.system.Struct;
 
+import java.nio.FloatBuffer;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.lwjgl.nanovg.NanoVG.NVG_IMAGE_GENERATE_MIPMAPS;
+import static org.lwjgl.nanovg.NanoVG.NVG_IMAGE_NEAREST;
+import static org.lwjgl.opengl.GL11.GL_COLOR_BUFFER_BIT;
+
 public class NanoVGUtils {
     public static long context = -1;
-    public static final NanoVGManager.Font ntr = new NanoVGManager.Font("/assets/uzaware/font/NTR-Regular.ttf", "NTR-Regular");
-    public static final NanoVGManager.Font symbols = new NanoVGManager.Font("/assets/uzaware/font/MaterialSymbolsRounded.ttf", "MaterialSymbolsRounded");
+    public static final Font ntr = new Font("/assets/uzaware/font/NTR-Regular.ttf", "NTR-Regular");
+    public static final Font symbols = new Font("/assets/uzaware/font/MaterialSymbolsRounded.ttf", "MaterialSymbolsRounded");
 
+    public static FloatBuffer MATRIX = BufferUtils.createFloatBuffer(4 * 4);
     public static final List<box> stencilBoxes = new ArrayList<>();
     public static boolean usingStencil = false;
+
+    private static NVGLUFramebuffer nvgluFramebuffer;
+    private static final MinecraftClient client = MinecraftClient.getInstance();
+    private static boolean drawingOnFramebuffer;
 
     public static void create(long context) {
         if (NanoVGUtils.context == -1) {
@@ -25,6 +38,35 @@ public class NanoVGUtils {
         } else {
             throw new IllegalStateException("already created nanovg");
         }
+    }
+
+    public static void begin(boolean drawOnFrameBuffer, boolean scale) {
+//        if (drawOnFrameBuffer) beginWrite();
+        Uzaware.nanoVGManager.begin(scale);
+    }
+
+    public static void end() {
+        boolean draw = drawingOnFramebuffer;
+        finishWrite();
+
+        if (draw) {
+            rect(
+                    0,
+                    0,
+                    client.getWindow().getFramebufferWidth(),
+                    client.getWindow().getFramebufferHeight(),
+                    Uzaware.textureManager.getTexture(
+                            nvgluFramebuffer.image(),
+                            0,
+                            0,
+                            client.getWindow().getFramebufferWidth(),
+                            client.getWindow().getFramebufferHeight()
+                    ),
+                    Pattern.FILL
+            );
+        }
+
+        Uzaware.nanoVGManager.end();
     }
 
     public static void rect(float x, float y, float width, float height, SimpleColor color, Pattern pattern) {
@@ -236,12 +278,50 @@ public class NanoVGUtils {
             throw new IllegalStateException("Uzaware NanoVG isn't initialized");
     }
 
+    public static void beginWrite() {
+        drawingOnFramebuffer = true;
+        if (nvgluFramebuffer != null) {
+            NanoVGGL3.nvgluDeleteFramebuffer(context, nvgluFramebuffer);
+        }
+
+        nvgluFramebuffer = NanoVGGL3.nvgluCreateFramebuffer(
+                context,
+                client.getWindow().getFramebufferWidth(),
+                client.getWindow().getFramebufferHeight(),
+                NVG_IMAGE_GENERATE_MIPMAPS | NVG_IMAGE_NEAREST
+        );
+
+        if (nvgluFramebuffer == null) {
+            Uzaware.LOGGER.error("Couldn't make nanovg framebuffer... Running client without 2D shader...");
+            drawingOnFramebuffer = false;
+            return;
+        }
+
+        NanoVGGL3.nvgluBindFramebuffer(context, nvgluFramebuffer);
+        GlStateManager._viewport(0, 0, client.getWindow().getFramebufferWidth(), client.getWindow().getFramebufferHeight());
+        GlStateManager._clearColor(0, 0, 0, 0);
+        GlStateManager._clear(GL_COLOR_BUFFER_BIT, true);
+    }
+
+    public static void finishWrite() {
+        drawingOnFramebuffer = false;
+        NanoVGGL3.nvgluBindFramebuffer(context, null);
+    }
+
+    public static NVGLUFramebuffer getFrameBuffer() {
+        return nvgluFramebuffer;
+    }
+
     public enum Pattern {
         STROKE, FILL
     }
 
     public enum Orientation {
         LINE, HORIZONTAL, VERTICAL
+    }
+
+    private enum FrameBufferType {
+        MINECRAFT, NANO_VG
     }
 
     public record box(float x, float y, float width, float height) {  }

@@ -4,7 +4,7 @@ import net.minearchive.Uzaware;
 import net.minearchive.manager.ModuleManager;
 import net.minearchive.module.HudModule;
 import net.minearchive.util.MouseUtils;
-import net.minearchive.util.NanoVGUtils;
+import net.minearchive.util.render.NanoVGUtils;
 import net.minearchive.util.SimpleColor;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
@@ -56,11 +56,11 @@ public abstract class MixinChatScreen extends Screen {
                 ModuleManager.INSTANCE.dragging = null;
             }
 
-            Uzaware.nanoVGManager.begin(false);
+            NanoVGUtils.begin(false, false);
             NanoVGUtils.rounded(m.x, m.y, m.width, m.height, m.round, SimpleColor.of(0x00000000).floatAlpha(m.alpha.getValue()), NanoVGUtils.Pattern.FILL);
             NanoVGUtils.ntr.draw(m.name, m.x, m.y, 32, SimpleColor.of(0x00ffffffff).floatAlpha(m.alpha.getValue() * 2f).color());
             NanoVGUtils.symbols.draw("\uf71e", m.x + m.width / 2f, m.y + m.height / 2f, 38, SimpleColor.of(0x00ffffffff).floatAlpha(m.alpha.getValue() * 2f).color(), NanoVG.NVG_ALIGN_CENTER | NanoVG.NVG_ALIGN_MIDDLE);
-            Uzaware.nanoVGManager.end();
+            NanoVGUtils.end();
         });
     }
 }

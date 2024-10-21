@@ -3,7 +3,7 @@ package net.minearchive.screen.clickgui;
 import net.minearchive.Uzaware;
 import net.minearchive.module.Category;
 import net.minearchive.module.modules.client.ClickGuiModule;
-import net.minearchive.util.NanoVGUtils;
+import net.minearchive.util.render.NanoVGUtils;
 import net.minearchive.util.easing.Animation;
 import net.minearchive.util.easing.EnumEasing;
 import net.minecraft.client.gui.DrawContext;
@@ -52,11 +52,11 @@ public class ClickGuiScreen extends Screen {
         yAnim.setEasing(EnumEasing.QUAD.getEasing());
         double x = client.mouse.getX() - deltaX;
         double y = client.mouse.getY() - deltaY;
-        Uzaware.nanoVGManager.begin(false);
+        NanoVGUtils.begin(true, false);
         NanoVG.nvgTranslate(NanoVGUtils.context, xAnim.getValue(), yAnim.getValue());
         elements.forEach(e -> e.render(context, x, y, delta, 0));
         NanoVG.nvgTranslate(NanoVGUtils.context, -xAnim.getValue(), -yAnim.getValue());
-        Uzaware.nanoVGManager.end();
+        NanoVGUtils.end();
     }
 
     @Override
@@ -87,7 +87,6 @@ public class ClickGuiScreen extends Screen {
     public boolean mouseScrolled(double mouseX, double mouseY, double amount) {
         double x = client.mouse.getX() - deltaX;
         double y = client.mouse.getY() - deltaY;
-        System.out.println(amount);
         boolean scrolled = elements.stream().noneMatch(e -> e.mouseScrolled(x, y, amount));
         if (shiftPressing && !scrolled) deltaX += (float) (-amount * 50f);
         else deltaY += (float) (amount * 50f);

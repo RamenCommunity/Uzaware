@@ -7,9 +7,9 @@ import net.minearchive.module.Module;
 import net.minearchive.module.ModuleInfo;
 import net.minearchive.module.modules.movement.MovementTweaksModule;
 import net.minearchive.setting.KeyBind;
-import net.minearchive.setting.settings.BooleanSetting;
 import net.minearchive.setting.settings.IntegerSetting;
 import net.minearchive.setting.settings.KeyBindSetting;
+import net.minearchive.util.BlockUtils;
 import net.minearchive.util.InventoryUtils;
 import net.minearchive.util.NotificationUtils;
 import net.minearchive.util.notification.Notification;
@@ -25,9 +25,8 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.Vec3d;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.IntStream;
+import java.util.Arrays;
+import java.util.Comparator;
 
 import static org.lwjgl.glfw.GLFW.GLFW_KEY_UNKNOWN;
 
@@ -89,7 +88,7 @@ public class AutoPhaseModule extends Module {
                 return;
             }
 
-            Hand hand = Hand.MAIN_HAND;
+            Hand hand = client.player.getActiveHand();
 
             int old = client.player.getInventory().selectedSlot;
 
@@ -124,7 +123,76 @@ public class AutoPhaseModule extends Module {
     }
 
     private Vec3d calc() {
+        final BlockPos playerPos = new BlockPos((int) Math.floor(client.player.getPos().getX()), (int) Math.floor(client.player.getPos().getY()), (int) Math.floor(client.player.getPos().getZ()));
+        Arrays.stream(Direction.values())
+                .filter(direction -> direction != Direction.DOWN && direction != Direction.UP)
+                .sorted(Comparator.comparing(direction -> {
+                    float score = 0;
+                    BlockPos l = playerPos.add(direction.getVector());
+                    BlockPos r = playerPos.add(rotateR(direction).getVector());
+                    BlockPos c = playerPos.add(direction.getVector()).add(rotateR(direction).getVector());
+                    if (!BlockUtils.equal(l, Blocks.AIR)) {
+                        if (BlockUtils.equal(l, Blocks.BEDROCK)) {
+                            if (BlockUtils.equal(r, Blocks.BEDROCK)) {
+                                if (BlockUtils.equal(c, Blocks.BEDROCK)) {
+                                    score = 10;
+                                } else if (BlockUtils.equal(c, Blocks.OBSIDIAN)) {
+                                    score = 9;
+                                } else score = 8;
+                            } else if (BlockUtils.equal(r, Blocks.OBSIDIAN)) {
+                                if (BlockUtils.equal(c, Blocks.BEDROCK)) {
+                                    score = 7;
+                                } else if (BlockUtils.equal(c, Blocks.OBSIDIAN)) {
+                                    score = 6;
+                                } else score = 5;
+                            }
+                        } else if (BlockUtils.equal(l, Blocks.OBSIDIAN)) {
+                            if (BlockUtils.equal(r, Blocks.BEDROCK)) {
+                                if (BlockUtils.equal(c, Blocks.BEDROCK)) {
+                                    score = 4;
+                                } else if (BlockUtils.equal(c, Blocks.OBSIDIAN)) {
+                                    score = 9;
+                                } else score = 8;
+                            } else if (BlockUtils.equal(r, Blocks.OBSIDIAN)) {
+                                if (BlockUtils.equal(c, Blocks.BEDROCK)) {
+                                    score = 7;
+                                } else if (BlockUtils.equal(c, Blocks.OBSIDIAN)) {
+                                    score = 6;
+                                } else score = 5;
+                            }
+                        }
+
+                        if (BlockUtils.equal(l, Blocks.OBSIDIAN)) {
+
+                        }
+                    }
+                    return score;
+                }));
         return null;
+    }
+
+    private Direction rotateR(Direction direction) {
+        switch (direction) {
+            case NORTH -> {
+                return Direction.EAST;
+            }
+
+            case EAST -> {
+                return Direction.SOUTH;
+            }
+
+            case SOUTH -> {
+                return Direction.WEST;
+            }
+
+            case WEST -> {
+                return Direction.NORTH;
+            }
+
+            default -> {
+                return direction;
+            }
+        }
     }
 
     private boolean checkEntity(BlockPos pos) {

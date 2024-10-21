@@ -16,20 +16,23 @@ import java.util.Random;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 public class Uzaware implements ClientModInitializer {
-	public static final String modName 					= "Uzaware";
-	public static final String modID 					= modName.toLowerCase(Locale.ROOT);
-	public static final String version 					= "1.0";
+	public static final String modName 						= "Uzaware";
+	public static final String modID 						= modName.toLowerCase(Locale.ROOT);
+	public static final String version 						= "1.0";
+	public static final String prefix 						= "$";
 
-    public static final Logger LOGGER 					= LoggerFactory.getLogger(modName);
-	public static final ModuleManager moduleManager 	= new ModuleManager();
-	public static final NanoVGManager nanoVGManager 	= new NanoVGManager();
-	public static final TextureManager textureManager 	= new TextureManager();
-	public static final ConfigManager configManager 	= new ConfigManager();
-	public static final EntityManager entityManager 	= new EntityManager();
-	public static final EventBus EVENT_BUS 				= new EventBus();
-	public static final List<Object> registeredObject 	= new CopyOnWriteArrayList<>();
-	public static final FPSCalculator FPS 				= new FPSCalculator();
-	private final String[] serif 						= new String[] {
+    public static final Logger LOGGER 						= LoggerFactory.getLogger(modName);
+	public static final CommandManager commandManager 		= new CommandManager();
+	public static final ModuleManager moduleManager 		= new ModuleManager();
+	public static final ConfigManager configManager 		= new ConfigManager();
+	public static final EntityManager entityManager 		= new EntityManager();
+	public static final NanoVGManager nanoVGManager 		= new NanoVGManager();
+	public static final SpotifyAPIManager spotifyAPIManager = new SpotifyAPIManager();
+	public static final TextureManager textureManager 		= new TextureManager();
+	public static final EventBus EVENT_BUS 					= new EventBus();
+	public static final List<Object> registeredObject 		= new CopyOnWriteArrayList<>();
+	public static final FPSCalculator FPS 					= new FPSCalculator();
+	private final String[] serif 							= new String[] {
 			"呼ばれて飛び出て！参りました！ みんなのスーパースター、宇沢レイサ、登場です！",
 			"おかえりなさい、先生！ 宇沢レイサ、待機していました！",
 			"先生の「登場」ですね！！ それでは、今日は何をしましょうか！",

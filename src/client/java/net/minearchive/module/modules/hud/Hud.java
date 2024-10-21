@@ -7,7 +7,7 @@ import net.minearchive.module.HudInfo;
 import net.minearchive.module.HudModule;
 import net.minearchive.module.ModuleInfo;
 import net.minearchive.setting.settings.BooleanSetting;
-import net.minearchive.util.NanoVGUtils;
+import net.minearchive.util.render.NanoVGUtils;
 import net.minearchive.util.PlayerUtils;
 
 @HudInfo(width = 340f, height = 120f, round = 10)
@@ -22,7 +22,7 @@ public class Hud extends HudModule {
     public final BooleanSetting speed = add(new BooleanSetting("Speed", true));
     public final BooleanSetting coord = add(new BooleanSetting("Coord", true));
 
-    public Hud() {INSTANCE = this;}
+    public Hud() { INSTANCE = this; }
 
     @Override
     public void onRender(Render2DStartEvent event) {

@@ -1,4 +1,4 @@
-package net.minearchive.util;
+package net.minearchive.util.render;
 
 import java.util.Arrays;
 import java.util.HashMap;

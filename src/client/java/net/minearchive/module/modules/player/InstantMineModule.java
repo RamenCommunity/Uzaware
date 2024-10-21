@@ -87,7 +87,7 @@ public class InstantMineModule extends Module {
 
             if (switchMode.getValue() == SwitchMode.Auto || switchMode.getValue() == SwitchMode.Silent) {
                 InventoryUtils.swapInv(pick);
-//                InventoryUtils.updateHotBar();
+                InventoryUtils.updateHotBar();
             }
 
             client.player.networkHandler.sendPacket(new PlayerActionC2SPacket(PlayerActionC2SPacket.Action.STOP_DESTROY_BLOCK, pos, direction));
@@ -105,8 +105,7 @@ public class InstantMineModule extends Module {
             crystalTimer.reset();
         }
 
-        if (breakCrystal.getValue()) {
-
+        if (breakCrystal.getValue() && crystalBind.pressed() && crystalTimer.passed(crystalDelay.getValue())) {
         }
     }
 
