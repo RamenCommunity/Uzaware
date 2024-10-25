@@ -7,6 +7,7 @@ import net.minearchive.util.render.NanoVGUtils;
 import net.minearchive.util.SimpleColor;
 import net.minecraft.client.gui.DrawContext;
 import org.lwjgl.nanovg.NVGPaint;
+import org.lwjgl.nanovg.NanoVG;
 
 import java.awt.*;
 
@@ -21,14 +22,12 @@ public class ColorElement extends AbstractSettingElement<ColorSetting> {
     public void render(DrawContext context, double mouseX, double mouseY, float delta, float offset) {
         this.offset = offset;
         float h = NanoVGUtils.ntr.height(22);
-        NanoVGUtils.rounded(x, offset, width, height(), 5, SimpleColor.of(0xD13C3C3C), NanoVGUtils.Pattern.FILL);
-        NanoVGUtils.ntr.draw(t.getName(), x + 30, offset + 10, 22, 0xffffffff);
-        NanoVGUtils.rounded(x + width - 100f, offset - (h / 2), 70f, 20f, 5f, SimpleColor.of(t.getValue()), NanoVGUtils.Pattern.FILL);
-        renderHSB(x + 30, offset + 30, width - 60, width - 60, 10, getRGBMax(t.getValue(), true));
-        NanoVGUtils.stroke(3);
-        NanoVGUtils.rounded(x + 39, offset + 39, width - 78, width - 78, 10, SimpleColor.of(0xffffffff), NanoVGUtils.Pattern.STROKE);
-
-        float[] hsb = Color.RGBtoHSB(t.getValue().getRed(), t.getValue().getGreen(), t.getValue().getBlue(), null);
+        NanoVGUtils.rounded(x + 30, offset + 10, width - 60, height() - 10 , 5, SimpleColor.of(0xD13C3C3C), NanoVGUtils.Pattern.FILL);
+        NanoVGUtils.ntr.draw(t.getName(), x + 40, offset + 20 + (h / 2), 22, 0xffffffff, NanoVG.NVG_ALIGN_LEFT | NanoVG.NVG_ALIGN_MIDDLE);
+        NanoVGUtils.rounded(x + width - 100f, offset + 10 + (h / 2), 70f, 20f, 5f, SimpleColor.of(t.getValue()), NanoVGUtils.Pattern.FILL);
+        renderHSB(x + 40, offset + 45, width - 80, width - 80, 10, getRGBMax(t.getValue(), true));
+//        NanoVGUtils.stroke(3);
+//        NanoVGUtils.rounded(x + 39, offset + 39, width - 78, width - 78, 10, SimpleColor.of(0xffffffff), NanoVGUtils.Pattern.STROKE);
 
         if (ClientDebuggerModule.INSTANCE.componentDebug.getValue()) NanoVGUtils.rect(x, offset, width, height(), SimpleColor.of(0xffff0000), NanoVGUtils.Pattern.STROKE);
     }
