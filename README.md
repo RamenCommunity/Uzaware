@@ -1,5 +1,8 @@
 <h1 style="text-align: center;">Uzawa Client</h1>
 
+> [!WARNING]
+> Code is shit.
+
 <p style="text-align: center;">
     Do you no Uzawa Reisa?<br>
     Uza Reisa from “Blue Archive” is adored for her charming and endearing personality. Her design features a cute and cheerful expression, often highlighted by her bright eyes and playful smile. She has a distinctive style with her school uniform and accessories, which adds to her overall appeal. Her energetic and positive demeanor makes her a favorite among fans, bringing a sense of joy and warmth to the game.
